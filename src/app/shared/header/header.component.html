@@ -1,0 +1,82 @@
+<!-- Navbar STart -->
+<header id="topnav" class="defaultscroll sticky" (window:scroll)="windowScroll()" [class]="navClass">
+  <div class="container">
+    <!-- Logo container-->
+    <div>
+      <a class="logo" routerLink="/" *ngIf="navClass !== 'nav-light'">
+
+        <img src="assets/images/beefmaster blanco.png" class="l-dark" height="60"  alt="">
+        <img src="assets/images/beefmaster blanco.png" class="l-light" height="60" alt="">
+      </a>
+      <a class="logo" routerLink="/index" *ngIf="navClass === 'nav-light'">
+        <img src="http://www.beefmaster.org.mx/Logotipo%202021%20C3.png" class="l-dark" height="58" alt="">
+        <img src="http://www.beefmaster.org.mx/Logotipo%202021%20C3.png" class="l-light" height="58" alt="">
+      </a>
+    </div>
+    <div class="buy-button">
+      <ng-template [ngIf]="navClass === 'nav-light'">
+        <a href="javascript: void(0);" *ngIf="!user" [routerLink]="['/auth-login']" class="btn btn-primary login-btn-primary">Inicia Sesión Aquí</a>
+        <a href="javascript: void(0);" *ngIf="!user" [routerLink]="['/auth-login']" class="btn btn-light login-btn-light">Inicia Sesión Aquí</a>
+		<a href="javascript: void(0);" *ngIf="user" (click)="cerrarSesion()" class="btn btn-primary">Cerrar Sesión</a>
+      </ng-template>
+      <ng-template [ngIf]="navClass !== 'nav-light'">
+          <a href="javascript: void(0);" *ngIf="!user" [routerLink]="['/auth-login']" class="btn btn-primary">Inicia Sesión Aquí</a>
+          <a href="javascript: void(0);" *ngIf="user" (click)="cerrarSesion()" class="btn btn-primary">Cerrar Sesión</a>
+      </ng-template>
+
+    </div>
+
+    <!--end login button-->
+    <!-- End Logo container-->
+    <div class="menu-extras">
+      <div class="menu-item">
+        <!-- Mobile menu toggle-->
+        <a class="navbar-toggle" (click)="toggleMenu()" [ngClass]="{'open': isCondensed === true}">
+          <div class="lines">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </a>
+        <!-- End mobile menu toggle-->
+      </div>
+    </div>
+
+    <div id="navigation">
+      <!-- Navigation Menu-->
+      <ul class="navigation-menu" [class]="navClass">
+        <!--BARRA DE BÚSQUEDA!-->
+        <li>
+          
+          <form class="form-inline navbar-light my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Búsqueda" aria-label="Search" style="width: 150px;">
+            <button class="btn btn-primary" type="submit">Buscar</button>
+          </form>
+
+
+        </li>
+		  <li><a routerLink="/" class="nav-link-ref">Inicio</a></li>
+			<li class="has-submenu">
+			<a href="javascript:void(0)" (click)="onMenuClick($event)">TUTORIALES</a><span class="menu-arrow"></span>
+			</li>
+        
+          <li><a target="_blank" href="/assets/catalogo.pdf">Catálogo</a></li>
+		<!-- <li><a routerLink="/tablero" *ngIf="user">Mis Pujas</a></li> -->
+        
+          <li><a routerLink="/auth-signup-three" *ngIf="!user" [routerLink]="['/auth-signup']">Regístrate</a></li>
+      </ul>
+      <!--end navigation menu-->
+      <div class="buy-menu-btn d-none">
+        <a href="javascript: void(0);" *ngIf="!user" [routerLink]="['/auth-login']" target="" class="btn btn-primary">Inicia Sesión Aquí</a>
+        <a href="javascript: void(0);" *ngIf="user" (click)="cerrarSesion()" target="" class="btn btn-primary">Cerrar Sesión</a>
+
+      </div>
+      <!--end login button-->
+      <!--end login button-->
+    </div>
+    <!--end navigation-->
+  </div>
+  <!--end container-->
+</header>
+<!--end header-->
+<!-- Navbar End -->

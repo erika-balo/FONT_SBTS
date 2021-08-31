@@ -1,0 +1,56 @@
+<section class="bg-home d-flex align-items-center">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-12 col-md-12">
+                <div class="card login_page shadow rounded border-0">
+                    <div class="card-body">
+                        <h4 class="card-title text-center">Nuevo Evento</h4>
+                        <form class="login-form mt-4" (ngSubmit)="onSubmit()" *ngIf="eventoForm" [formGroup]="eventoForm">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Nombre <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" formControlName="nombre" placeholder="Nombre" name="nombre" required="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Descripción <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" formControlName="descripcion" placeholder="Descripción" name="descripcion" required="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Prefijo <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" formControlName="prefijo" placeholder="Prefijo" name="prefijo" required="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label>Fecha Inicio <span class="text-danger">*</span></label>
+                                    <div class="input-group mb-3">
+                                        <input type="text" ngbDatepicker #dInicio="ngbDatepicker" class="form-control" formControlName="fechaInicio" placeholder="Fecha Inicio" name="fechaInicio" required="">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary calendar" (click)="dInicio.toggle()" type="button"></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label>Fecha Fin <span class="text-danger">*</span></label>
+                                    <div class="input-group mb-3">
+                                        <input type="text" ngbDatepicker #dFin="ngbDatepicker" class="form-control" formControlName="fechaFin" placeholder="Fecha Fin" name="fechaFin" required="">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary calendar" (click)="dFin.toggle()" type="button"></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 mt-2">
+                                <button class="btn btn-primary btn-block">Aceptar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

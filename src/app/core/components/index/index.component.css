@@ -1,0 +1,65 @@
+.bg-half-170 {
+   padding:100px 0 20px 0;
+}
+.section {
+   padding:10px;
+}
+.mb-4, .my-4 {
+   margin-bottom: 0rem !important;
+}
+
+#crono {
+  
+	font-family: Calibri,Arial;
+	font-weight:600;
+	font-size:20px;
+	width:330px;
+	height:50px;
+	color: gray;
+	letter-spacing:3px;
+}
+
+#texto1 {
+   text-align:center;
+}
+
+#botones {
+   margin-top: -66px;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+   overflow: hidden;
+
+}
+
+.btn .btn-primary {
+color:#403e31;
+
+}
+
+
+
+
+.catalogo {
+   margin-top:24px;
+}
+
+
+.back-to-top {
+   margin-right: 92%;
+}
+
+/* Formato de la tabla de imágenes*/
+td {
+   padding: 5px;
+   text-align: center;    
+ }
+
+ .avatares {
+   max-width: 60%;
+}
+
+.patrocinio1{
+   display:block;
+margin:auto;
+}
+

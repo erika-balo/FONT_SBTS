@@ -1,0 +1,89 @@
+ <section class="bg-half-170 d-table w-100">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-12 col-md-12">
+                <div class="card login_page shadow rounded border-0">
+                    <div class="card-body">
+                        <h4 class="card-title text-center">Nuevo Rancho</h4>
+                        <form class="login-form mt-4" (ngSubmit)="onSubmit()" *ngIf="ranchoForm" [formGroup]="ranchoForm">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Nombre <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" formControlName="nombre" placeholder="Nombre" name="nombre" required="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Numero Hato <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" formControlName="numeroHato" placeholder="Numero Hato" name="numerohato" required="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Antenombre <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" formControlName="antenombre" placeholder="Antenombre" name="antenombre" required="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Titular <span class="text-danger">*</span></label>
+                                        <select class="form-control" formControlName="titular" placeholder="Titular" name="titular" required="">
+                                            <option value="FISICA">FISICA</option>
+                                            <option value="MORAL">MORAL</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Telefono Contacto <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" formControlName="telefonoContacto" placeholder="Telefono Contacto" name="telefonoContacto" required="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Email <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" formControlName="email" placeholder="Email" name="email" required="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Facebook <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" formControlName="facebook" placeholder="Facebook" name="facebook" required="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Instagram <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" formControlName="instagram" placeholder="Instagram" name="instagram" required="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12" *ngIf="isAdmin">
+                                    <div class="form-group position-relative">
+                                        <label>Usuario <span class="text-danger">*</span></label>
+                                        <select class="form-control" formControlName="user" placeholder="Usuario" name="instagram" required="">
+                                            <option [value]="user.id" *ngFor="let user of users">{{ user.username }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Direccion <span class="text-danger">*</span></label>
+                                        <input formControlName="direccion" name="direccion" class="form-control" placeholder="Busqueda de direccion" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" autocomplete="off" #domicilioInput required>
+                                        <br />
+                                        <agm-map [latitude]="latitud" [longitude]="longitud" [scrollwheel]="false" [zoom]="zoom">
+                                            <agm-marker [latitude]="latitud" [longitude]="longitud"></agm-marker>
+                                        </agm-map>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 mb-0">
+                                <button class="btn btn-primary btn-block">Aceptar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

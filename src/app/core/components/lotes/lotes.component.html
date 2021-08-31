@@ -1,0 +1,86 @@
+ <section class="bg-half-170  d-table w-100" id="ranchos">
+    <div class="container">
+        <a href="#" [routerLink]="['/page/lotes/crear']" class="btn btn-primary">Crear</a>
+        <form class="login-form mt-4" *ngIf="busquedaForm" [formGroup]="busquedaForm">
+            <div class="form-group form-inline">
+                Buscar: <input class="form-control ml-2" type="text" formControlName="busqueda"/>
+            </div>
+        </form>
+        <div class="table-responsive bg-white shadow rounded mt-4">
+            <table class="table mb-0 table-center">
+                <thead class="bg-light">
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col" class="pointer" (click)="sorted('lote.id')">
+                            <span>
+                                <i-feather *ngIf="sortedField === 'lote.id' && sortedType === 'ASC'" name="arrow-up" class="fea icon-sm icons"></i-feather>
+                                <i-feather *ngIf="sortedField === 'lote.id' && sortedType === 'DESC'" name="arrow-down" class="fea icon-sm icons"></i-feather>
+                                ID
+                            </span>
+                        </th>
+                        <th scope="col">Activo</th>
+                        <th scope="col" class="pointer" (click)="sorted('numero')">
+                            <span>
+                                <i-feather *ngIf="sortedField === 'numero' && sortedType === 'ASC'" name="arrow-up" class="fea icon-sm icons"></i-feather>
+                                <i-feather *ngIf="sortedField === 'numero' && sortedType === 'DESC'" name="arrow-down" class="fea icon-sm icons"></i-feather>
+                                Número
+                            </span>
+                        </th>
+                        <th scope="col" class="pointer" (click)="sorted('nombre')">
+                            <span>
+                                <i-feather *ngIf="sortedField === 'nombre' && sortedType === 'ASC'" name="arrow-up" class="fea icon-sm icons"></i-feather>
+                                <i-feather *ngIf="sortedField === 'nombre' && sortedType === 'DESC'" name="arrow-down" class="fea icon-sm icons"></i-feather>
+                                Nombre
+                            </span>
+                        </th>
+                        <th scope="col">Liga a Video</th>
+                        <th scope="col">Liga a PDF</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let lote of lotesFiltered | slice: (page-1) * pageSize : page * pageSize">
+                        <td>
+                            <img [src]="lote.archivoPortada.Location" id="expandedImg" width="120" class="img-fluid rounded" alt="">
+                        </td>
+                        <td>{{ lote.id }}</td>
+                        <td *ngIf="isAdmin">
+                            <span (click)="inactivar(lote)" *ngIf="lote.activo" class="badge badge-success text-white pointer">Activo</span>
+                            <span (click)="activar(lote)" *ngIf="!lote.activo" class="badge badge-danger text-white pointer">Inactivo</span>
+                        </td>
+                        <td *ngIf="!isAdmin">
+                            <span *ngIf="lote.activo" class="badge badge-success text-white">Activo</span>
+                            <span *ngIf="!lote.activo" class="badge badge-danger text-white">Inactivo</span>
+                        </td>
+                        <td>{{ lote.numero }}</td>
+                        <td>{{ lote.nombre }}</td>
+                        <td>
+                            {{ lote.youtube !== null ? 'Si' : 'No' }}
+                        </td>
+                        <td>
+                            {{ lote.fichaTecnica !== null ? 'Si' : 'No' }}
+                        </td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Acciones">
+                                <button type="button" *ngIf="lote.activo" class="btn btn-danger" (click)="inactivar(lote)">Inactivar</button>
+                                <button type="button" *ngIf="!lote.activo" class="btn btn-success" (click)="activar(lote)">Activar</button>
+                                <button type="button" class="btn btn-info" [routerLink]="['/page/lotes/ver', lote.id]">Ver</button>
+                                <button type="button" class="btn btn-secondary" [routerLink]="['/page/lotes/editar', lote.id]">Editar</button>
+                                <!-- <a href="#" target="_blank" class="btn btn-warning" [routerLink]="['/lotes/page-contact-detail', lote.id]">Contact Detail</a> -->
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <br />
+        <ngb-pagination *ngIf="lotesFiltered" [(page)]="page" [pageSize]="pageSize" [collectionSize]="lotesFiltered.length"></ngb-pagination>
+    </div>
+ </section>
+
+ <!-- Back to top -->
+ <a href="javascript: void(0);" class="btn btn-icon btn-soft-primary back-to-top" id="back-to-top"
+    [ngxScrollTo]="'#home'">
+    <i-feather name="arrow-up" class="icons"></i-feather>
+ </a>
+ <!-- Back to top -->

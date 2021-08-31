@@ -1,0 +1,126 @@
+ <section class="bg-half-170  d-table w-100" id="ranchos">
+    <div class="container">
+        <a href="#" [routerLink]="['/page/subastas/crear']" class="btn btn-primary">Crear</a>
+        <form class="login-form mt-4" *ngIf="busquedaForm" [formGroup]="busquedaForm">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="form-group form-inline">
+						Número de Lote: <input class="form-control ml-2" type="text" formControlName="numeroLote"/>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group form-inline">
+						Nombre del Lote: <input class="form-control ml-2" type="text" formControlName="nombreLote"/>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3">
+					<div class="form-group form-inline">
+						Estatus: 
+						<select class="form-control ml-2" formControlName="estatus">
+							<option value="null"></option>
+							<option value="CREADA">Creada</option>
+							<option value="ABIERTO">Abierto</option>
+							<option value="VENDIDA">Vendida</option>
+							<option value="RETENIDA">Retenida</option>
+							<option value="EN_PISTA">En Pista</option>
+						</select>
+					</div>
+				</div>
+			</div>
+        </form>
+        <div class="table-responsive bg-white shadow rounded mt-4">
+            <table class="table mb-0 table-center">
+                <thead class="bg-light">
+                    <tr>
+                        <th scope="col" class="pointer" (click)="sorted('subastas.id')">
+                            <span>
+                                <i-feather *ngIf="sortedField === 'subastas.id' && sortedType === 'ASC'" name="arrow-up" class="fea icon-sm icons"></i-feather>
+								<i-feather *ngIf="sortedField === 'subastas.id' && sortedType === 'DESC'" name="arrow-down" class="fea icon-sm icons"></i-feather>
+								Id Subasta
+                            </span>
+						</th>
+                        <th scope="col" class="pointer" (click)="sorted('lote.numero')">
+                            <span>
+                                <i-feather *ngIf="sortedField === 'lote.numero' && sortedType === 'ASC'" name="arrow-up" class="fea icon-sm icons"></i-feather>
+								<i-feather *ngIf="sortedField === 'lote.numero' && sortedType === 'DESC'" name="arrow-down" class="fea icon-sm icons"></i-feather>
+								Número de Lote
+                            </span>
+						</th>
+                        <th scope="col" class="pointer" (click)="sorted('lote.nombre')">
+                            <span>
+                                <i-feather *ngIf="sortedField === 'lote.nombre' && sortedType === 'ASC'" name="arrow-up" class="fea icon-sm icons"></i-feather>
+								<i-feather *ngIf="sortedField === 'lote.nombre' && sortedType === 'DESC'" name="arrow-down" class="fea icon-sm icons"></i-feather>
+								Nombre del Lote
+                            </span>
+						</th>
+                        <th scope="col">
+							Estatus
+						</th>
+                        <th scope="col">
+							Precio de Salida
+						</th>
+                        <th scope="col">
+							Puja más alta
+						</th>
+                        <th scope="col">
+							Nombre del Cliente de Puja más alta
+						</th>
+                        <th scope="col">
+							Umbral
+						</th>
+                        <th scope="col">
+							Fecha Inicio
+						</th>
+                        <th scope="col">
+							Fecha Fin
+						</th>
+						<th>
+							Activo
+						</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let subasta of subastas | slice: (page-1) * pageSize : page * pageSize">
+                        <td>{{ subasta.id }}</td>
+                        <td>{{ subasta.lote.numero }}</td>
+                        <td>{{ subasta.lote.nombre }}</td>
+                        <td>{{ subasta.estatus }}</td>
+                        <td>{{ subasta.precioSalida | currency }}</td>
+                        <td>{{ subasta.ultimaPuja ? (subasta.ultimaPuja.monto | currency) : 'NA' }}</td>
+                        <td>{{ subasta.ultimaPuja ? subasta.ultimaPuja.user.info.nombre : 'NA' }}</td>
+                        <td>{{ subasta.diferenciaMinimaOferta | currency }}</td>
+                        <td>{{ subasta.fechaInicio | date: 'dd/MM/yyyy' }}</td>
+                        <td>{{ subasta.fechaFin | date: 'dd/MM/yyyy' }}</td>
+                        <td>
+                            <span (click)="inactivar(subasta)" *ngIf="subasta.activo" class="badge badge-success text-white pointer">Activa</span>
+                            <span (click)="activar(subasta)" *ngIf="!subasta.activo" class="badge badge-danger text-white pointer">Inactiva</span>
+                        </td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Acciones">
+                                <button type="button" class="btn btn-secondary" [routerLink]="['/page/subastas/editar', subasta.id]">Editar</button>
+                                <button type="button" class="btn btn-info" [routerLink]="['/page/subastas/ver', subasta.id]">Ver</button>
+                                <button type="button" class="btn btn-warning" [routerLink]="['/page/subastas/ver/pujas', subasta.id]">Pujas</button>
+                                <button *ngIf="subasta.estatus === 'ABIERTO'" type="button" class="btn btn-success" (click)="enPista(subasta)">En Pista</button>
+                                <button *ngIf="subasta.estatus === 'EN_PISTA'" [routerLink]="['/subastador/subastas/en-pista-subastador', subasta.id]" type="button" class="btn btn-success">Ver En Pista</button>
+                                <button *ngIf="subasta.activo" type="button" class="btn btn-danger" (click)="inactivar(subasta)">Inactivar</button>
+                                <button *ngIf="!subasta.activo" type="button" class="btn btn-success" (click)="activar(subasta)">Activar</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <br />
+        <ngb-pagination *ngIf="subastas" [(page)]="page" [pageSize]="pageSize" [collectionSize]="subastas.length"></ngb-pagination>
+    </div>
+ </section>
+
+ <!-- Back to top -->
+ <a href="javascript: void(0);" class="btn btn-icon btn-soft-primary back-to-top" id="back-to-top"
+    [ngxScrollTo]="'#home'">
+    <i-feather name="arrow-up" class="icons"></i-feather>
+ </a>
+ <!-- Back to top -->

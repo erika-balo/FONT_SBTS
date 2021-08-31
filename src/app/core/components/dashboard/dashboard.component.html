@@ -1,0 +1,26 @@
+<section class="bg-half-170  d-table w-100" id="dashboard">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-gl-6" *ngFor="let subasta of subastas">
+                <div class="card">
+                    <img [src]="subasta.lote.archivoPortada.Location" class="img-fluid" />
+                </div>
+                <div class="card-body">
+                    <h5 *ngIf="subasta.estatus !== 'EN_PISTA'" class="card-title">{{ subasta.estatus }}</h5>
+                    <br />
+                    <button *ngIf="(subasta.estatus === 'EN_PISTA' || subasta.estatus === 'ABIERTO') && !isSubasta" [routerLink]="['/user/subastas/en-pista', subasta.id]" class="btn btn-primary btn-block">Abrir En Pista</button>
+                    <button *ngIf="(subasta.estatus === 'EN_PISTA' || subasta.estatus === 'ABIERTO') && isSubasta" (click)="changeToSubastador(subasta)" class="btn btn-primary btn-block">Abrir En Pista</button>
+                    <br />
+                    <h6 *ngIf="subasta.estatus === 'EN_PISTA' || subasta.estatus === 'ABIERTO'" class="text-center">Se termina en: {{ subasta.tiempoFormat }}</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+ <!-- Back to top -->
+ <a href="javascript: void(0);" class="btn btn-icon btn-soft-primary back-to-top" id="back-to-top"
+   [ngxScrollTo]="'#home'">
+   <i-feather name="arrow-up" class="icons"></i-feather>
+ </a>
+ <!-- Back to top -->

@@ -1,0 +1,4 @@
+!_TAG_FILE_SORTED	2	/0=unsorted, 1=sorted, 2=foldcase/
+authReducer	/home/jorsh/code/nubby_web/src/app/store/reducers/auth.reducer.ts	/^export function authReducer(state = initialAuthState, action: AuthActions): AuthState {$/;"	f	language:typescript
+AuthState	/home/jorsh/code/nubby_web/src/app/store/reducers/auth.reducer.ts	/^export interface AuthState {$/;"	i	language:typescript
+initialAuthState	/home/jorsh/code/nubby_web/src/app/store/reducers/auth.reducer.ts	/^export const initialAuthState: AuthState = {$/;"	v	language:typescript

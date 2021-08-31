@@ -1,0 +1,44 @@
+ <section class="bg-half-170 d-table w-100" id="documentos">
+    <div class="container">
+        <a href="#" [routerLink]="['/page/configuraciones-documentos/crear']" class="btn btn-primary">Crear</a>
+        <div class="table-responsive bg-white shadow rounded mt-4">
+            <table class="table mb-0 table-center">
+                <thead class="bg-light">
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Requerido</th>
+                        <th scope="col">Activo</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let documento of documentos | slice: (page-1) * pageSize : page * pageSize">
+                        <td>{{ documento.nombre }}</td>
+                        <td>
+							<span *ngIf="documento.requerido" class="badge badge-success">Si</span>
+							<span *ngIf="!documento.requerido" class="badge badge-warning">No</span>
+						</td>
+                        <td>
+							<span *ngIf="documento.activo" class="badge badge-success">Si</span>
+							<span *ngIf="!documento.activo" class="badge badge-warning">No</span>
+						</td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Acciones">
+                                <button type="button" class="btn btn-secondary" [routerLink]="['/page/configuraciones-documentos/editar', documento.id]">Editar</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <br />
+        <ngb-pagination *ngIf="documentos" [(page)]="page" [pageSize]="pageSize" [collectionSize]="documentos.length"></ngb-pagination>
+    </div>
+ </section>
+
+ <!-- Back to top -->
+ <a href="javascript: void(0);" class="btn btn-icon btn-soft-primary back-to-top" id="back-to-top"
+    [ngxScrollTo]="'#home'">
+    <i-feather name="arrow-up" class="icons"></i-feather>
+ </a>
+ <!-- Back to top -->

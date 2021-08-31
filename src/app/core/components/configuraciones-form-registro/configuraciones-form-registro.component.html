@@ -1,0 +1,41 @@
+ <section class="bg-half-170 d-table w-100" id="documentos">
+    <div class="container">
+        <div class="table-responsive bg-white shadow rounded mt-4">
+            <table class="table mb-0 table-center">
+                <thead class="bg-light">
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Requerido</th>
+                        <th scope="col">Se Muestra</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let form of forms">
+                        <td>{{ form.label }}</td>
+                        <td>
+                            <a href="#" class="btn btn-success" (click)="requerido($event, form, false)" *ngIf="form.requerido">Si</a>
+                            <a href="#" class="btn btn-warning" (click)="requerido($event, form, true)" *ngIf="!form.requerido">No</a>
+                        </td>
+                        <td>
+                            <a href="#" class="btn btn-success" (click)="seMuestra($event, form, false)" *ngIf="form.seMuestra">Si</a>
+                            <a href="#" class="btn btn-warning" (click)="seMuestra($event, form, true)" *ngIf="!form.seMuestra">No</a>
+                        </td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Acciones">
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <br />
+    </div>
+ </section>
+
+ <!-- Back to top -->
+ <a href="javascript: void(0);" class="btn btn-icon btn-soft-primary back-to-top" id="back-to-top"
+    [ngxScrollTo]="'#home'">
+    <i-feather name="arrow-up" class="icons"></i-feather>
+ </a>
+ <!-- Back to top -->

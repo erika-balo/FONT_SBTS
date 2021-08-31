@@ -1,0 +1,254 @@
+.bg-half {
+    padding:150px 0 10px 0;
+    padding-top:80px;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 2rem;
+}
+.section {
+    padding:20px;
+}
+
+.align-items-center {
+    align-items: flex-start;
+}
+
+.ml-md-4, .mx-md-4 {
+     padding-left: -30px;
+}
+
+.arbol {
+    width:750px;
+    height:300px;
+    display:block;
+    margin: 50px auto;
+    margin-top: 1px;
+    font-family:"Nunito", sans-serif;
+    overflow-x: scroll;
+    overflow-y: hidden;
+  }
+  
+  .arbol .arbol-nodo {
+    float:left;
+    width: 25%;
+    height: 220px;
+    position:relative;
+    
+  }
+
+  .arbol .arbol-nodo1{
+    float:left;
+    width: 12%;
+    height: 20px;
+    position:relative;
+    margin-left: 90px;
+  }
+  
+  .arbol .arbol-ejemplar {
+    width: 100%;
+    height:100%;
+    display: block;
+    position:relative;
+    border-right:2px solid rgb(199, 199, 199);
+    margin:20px 0;
+  }
+  
+  .arbol .arbol-padres {
+    width: 100%;
+    height:52%;
+    display: block;
+    position:relative;
+    margin:10px 0;
+  
+    
+  }
+  .arbol .arbol-abuelos {
+    width: 100%;
+    height:25%;
+    display: block;
+    position:relative;
+    margin:.5rem -60px;
+  }
+
+  .arbol .arbol-bisaabuelos {
+    font-size: 16.6px;
+    width: 100%;
+    height:32.2px;
+    display: block;
+    position:relative;
+    margin-left:-40px;
+  }
+
+  .arbol p {
+    line-height: normal;
+    padding: 0 15px;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+   }
+
+   .crono {
+  
+    font-family: Calibri,Arial;
+    font-weight:400;
+    font-size:55px;
+    width:330px;
+    height:50px;
+    color: gray;
+    letter-spacing:3px;
+    justify-content: center;
+  }
+
+  .justify-content-center{
+    justify-content: center;
+    align-items: center;
+  }
+
+  /*CRONOMETRO NUEVO*/
+
+ .tick{
+   font-size: 30px;
+ }
+
+/*TABLA*/
+
+.datagrid table {
+border-collapse: collapse;
+text-align: left; 
+width:100%;
+} 
+   
+.datagrid {
+
+background: #fff;
+height: 200px;
+overflow-y: scroll;
+overflow-x: hidden;
+margin-bottom: 20px;
+  }
+  
+.datagrid table td, .datagrid table th { 
+padding: 3px 10px; 
+  }
+  
+.datagrid table thead th {
+  font-family:"Nunito", sans-serif;
+background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #A65B1A), color-stop(1, #7F4614) );
+background:-moz-linear-gradient( center top, #A65B1A 5%, #7F4614 100% );
+filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#A65B1A', endColorstr='#7F4614');
+color:#3f3f3f; 
+font-size: 18px;
+font-weight: bold; 
+border-left: 0px solid #BF691E;
+
+ } 
+
+.datagrid table thead th:first-child {
+  border: none; 
+}
+
+.datagrid table tbody td {
+color: #212529;
+border-left: 1px solid #FFFFFF;
+font-size: 16px;
+font-weight: normal; 
+}
+        
+.datagrid table tbody .alt td { 
+background: #FFFFFF;
+color: #000000; 
+}
+
+.datagrid table tbody td:first-child {
+border-left: none;
+}
+ 
+.datagrid table tbody tr:last-child td {
+border-bottom: none; 
+}
+
+.pujaactual{
+  margin-top: 20px;
+}
+
+/*CRONOMETRO*/
+.cronos1 {
+  text-align: center;
+  width: 250px;
+  height: 40px;
+  font-size: 22px;
+  overflow: hidden;
+  color:#FFFFFF;
+  background-color:#856a47;
+  font-weight:400;
+  border-radius: 50px 50px 50px 50px;
+  -moz-border-radius: 50px 50px 50px 50px;
+  -webkit-border-radius: 50px 50px 50px 50px;
+  border: 2px solid #856a47;
+}
+
+#textohist {
+  margin-top: 20px;
+  margin-bottom: 10px;
+
+}
+
+#imagenesch {
+margin-left: 15px;
+justify-content:center;
+line-height: 100px;
+}
+
+.badge0 {
+    color: rgb(255, 255, 255);
+    background: rgb(173, 155, 121);
+}
+
+.badge {
+color: rgb(255, 255, 255);
+background: rgb(119, 108, 85);
+}
+
+.badge1 {
+  color: rgb(255, 255, 255);
+  background: rgb(71, 63, 48);
+  }
+
+.badge22{
+  color: rgb(255, 255, 255);
+  background: rgb(34, 29, 20);
+}
+  .pt-2, .py-2{
+    padding-top:0rem !important;
+  }
+
+  .mt-4, .my-4{
+    margin-top:0rem !important;
+  }
+
+
+  #imagenesch{
+    display: flex; 
+    align-items: self-start;
+}
+
+.h2, h2{
+
+  margin-bottom:2px;
+}
+
+.card {
+  font-family:"Nunito", sans-serif;
+  
+  
+}
+
+.text1{
+  font-family:"Nunito", sans-serif;
+}
+
+.tabla1{
+  margin-bottom: 10px;
+}

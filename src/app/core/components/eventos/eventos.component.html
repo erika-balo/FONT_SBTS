@@ -1,0 +1,97 @@
+ <section class="bg-half-170  d-table w-100" id="ranchos">
+    <div class="container">
+        <form class="login-form mt-4" *ngIf="busquedaForm" [formGroup]="busquedaForm">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="form-group form-inline">
+						Nombre: <input class="form-control ml-2" type="text" formControlName="nombre"/>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="input-group mb-3 form-inline">
+						Desde: 
+						<input type="text" ngbDatepicker #dDesde="ngbDatepicker" class="form-control" formControlName="desde" placeholder="Desde" name="desde" required="">
+						<div class="input-group-append">
+							<button class="btn btn-outline-secondary calendar" (click)="dDesde.toggle()" type="button"></button>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="input-group mb-3 form-inline">
+						Hasta: 
+						<input type="text" ngbDatepicker #dHasta="ngbDatepicker" class="form-control" formControlName="hasta" placeholder="Hasta" name="hasta" required="">
+						<div class="input-group-append">
+							<button class="btn btn-outline-secondary calendar" (click)="dHasta.toggle()" type="button"></button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+
+		<a href="#" [routerLink]="['/page/eventos/crear']" class="btn btn-primary">Crear</a>
+
+        <div class="table-responsive bg-white shadow rounded mt-4">
+            <table class="table mb-0 table-center">
+                <thead class="bg-light">
+                    <tr>
+                        <th scope="col" (click)="sorted('nombre')">
+							<i-feather *ngIf="sortedField === 'nombre' && sortedType === 'ASC'" name="arrow-up" class="fea icon-sm icons"></i-feather>
+							<i-feather *ngIf="sortedField === 'nombre' && sortedType === 'DESC'" name="arrow-down" class="fea icon-sm icons"></i-feather>
+							Nombre
+						</th>
+                        <th scope="col">Activo</th>
+                        <th scope="col">Descripción</th>
+                        <th scope="col">Prefijo</th>
+                        <th scope="col">
+							<i-feather *ngIf="sortedField === 'fechaInicio' && sortedType === 'ASC'" name="arrow-up" class="fea icon-sm icons"></i-feather>
+							<i-feather *ngIf="sortedField === 'fechaInicio' && sortedType === 'DESC'" name="arrow-down" class="fea icon-sm icons"></i-feather>
+							Fecha Inicio
+						</th>
+                        <th scope="col">
+							<i-feather *ngIf="sortedField === 'fechaFin' && sortedType === 'ASC'" name="arrow-up" class="fea icon-sm icons"></i-feather>
+							<i-feather *ngIf="sortedField === 'fechaFin' && sortedType === 'DESC'" name="arrow-down" class="fea icon-sm icons"></i-feather>
+							Fecha Fin
+						</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let evento of eventosFiltered">
+                        <td>{{ evento.nombre }}</td>
+                        <td *ngIf="isAdmin">
+                            <span (click)="confirmInactivar(evento)" *ngIf="evento.activo" class="badge badge-success text-white pointer">Activo</span>
+                            <span (click)="confirmActivar(evento)" *ngIf="!evento.activo" class="badge badge-danger text-white pointer">Inactivo</span>
+                        </td>
+                        <td *ngIf="!isAdmin">
+                            <span *ngIf="evento.activo" class="badge badge-success text-white">Activo</span>
+                            <span *ngIf="!evento.activo" class="badge badge-danger text-white">Inactivo</span>
+                        </td>
+                        <td>{{ evento.descripcion }}</td>
+                        <td>{{ evento.prefijo }}</td>
+                        <td>{{ evento.fechaInicio | date: 'MM/dd/yyyy' }}</td>
+                        <td>{{ evento.fechaFin | date: 'MM/dd/yyyy' }}</td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Acciones">
+                                <button type="button" *ngIf="evento.activo" class="btn btn-danger" (click)="confirmInactivar(evento)">Inactivar</button>
+                                <button type="button" *ngIf="!evento.activo" class="btn btn-success" (click)="confirmActivar(evento)">Activar</button>
+                                <button type="button" class="btn btn-info" [routerLink]="['/page/eventos/ver', evento.id]">Ver</button>
+                                <button type="button" class="btn btn-secondary" [routerLink]="['/page/eventos/editar', evento.id]">Editar</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <br />
+        <ngb-pagination *ngIf="eventos" [(page)]="page" [pageSize]="pageSize" [collectionSize]="eventos.meta.totalItems"></ngb-pagination>
+    </div>
+ </section>
+
+ <!-- Back to top -->
+ <a href="javascript: void(0);" class="btn btn-icon btn-soft-primary back-to-top" id="back-to-top"
+    [ngxScrollTo]="'#home'">
+    <i-feather name="arrow-up" class="icons"></i-feather>
+ </a>
+ <!-- Back to top -->

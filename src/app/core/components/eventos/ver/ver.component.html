@@ -1,0 +1,36 @@
+<section class="bg-half d-table w-100" id="rancho" style="max-width:100%;">
+	<div class="container" *ngIf="evento">
+		<dl class="row">
+			<dt class="col-sm-3">
+				Nombre
+			</dt>
+			<dd class="col-sm-9">
+				{{ evento.nombre }}
+			</dd>
+			<dt class="col-sm-3">
+				Descripción
+			</dt>
+			<dd class="col-sm-9">
+				{{ evento.descripcion }}
+			</dd>
+			<dt class="col-sm-3">
+				Prefijo
+			</dt>
+			<dd class="col-sm-9">
+				{{ evento.prefijo }}
+			</dd>
+			<dt class="col-sm-3">
+				Fecha Inicio
+			</dt>
+			<dd class="col-sm-9">
+				{{ evento.fechaInicio | date: 'dd/MM/yyyy HH:mm' }}
+			</dd>
+			<dt class="col-sm-3">
+				Fecha Fin
+			</dt>
+			<dd class="col-sm-9">
+				{{ evento.fechaFin | date: 'dd/MM/yyyy HH:mm' }}
+			</dd>
+		</dl>
+	</div>
+</section>

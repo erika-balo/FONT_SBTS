@@ -1,0 +1,262 @@
+ <section class="bg-half-170 d-table w-100">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-12 col-md-12">
+                <div class="card login_page shadow rounded border-0">
+                    <div class="card-body">
+                        <h4 class="card-title text-center">Nuevo Lote</h4>
+                        <form class="login-form mt-4" (ngSubmit)="onSubmit()" *ngIf="loteForm" [formGroup]="loteForm">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Numero</label>
+                                        <input type="text" class="form-control" formControlName="numero" placeholder="Numero" name="numero" required="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Nombre</label>
+                                        <input type="text" class="form-control" formControlName="nombre" placeholder="Nombre" name="nombre" required="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Descripción</label>
+                                        <angular-editor formControlName="descripcion" [config]="editorConfig"></angular-editor>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Informacion del Animal</label>
+                                        <input type="text" class="form-control" formControlName="informacionAnimal" placeholder="Informacion del Animal" name="informacionAnimal" required="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Link Youtube</label>
+                                        <input type="text" class="form-control" formControlName="linkYoutube" placeholder="Link de Youtube" name="linkYoutube" required="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Link PDF</label>
+                                        <input type="text" class="form-control" formControlName="linkPdf" placeholder="Link PDF" name="linkPdf" required="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Padre</label>
+                                        <input type="text" class="form-control" formControlName="padre" placeholder="Padre" name="padre" required="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Madre</label>
+                                        <input type="text" class="form-control" formControlName="madre" placeholder="Madre" name="madre" required="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Abuela Paterna</label>
+                                        <input type="text" class="form-control" formControlName="abuelaPaterna" placeholder="Abuela Paterna" name="abuelaPaterna" required="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Bisabuelo Abuela Paterna</label>
+                                        <input type="text" class="form-control" formControlName="bisabueloAbuelaPaterna" placeholder="Abuela Paterna" name="abuelaPaterna" required="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Bisabuela Abuela Paterna</label>
+                                        <input type="text" class="form-control" formControlName="bisabuelaAbuelaPaterna" placeholder="Abuela Paterna" name="abuelaPaterna" required="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Abuela Materna</label>
+                                        <input type="text" class="form-control" formControlName="abuelaMaterna" placeholder="Abuela Materna" name="abuelaMaterna" required="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Bisabuelo Abuela Materna</label>
+                                        <input type="text" class="form-control" formControlName="bisabueloAbuelaMaterna" placeholder="Abuela Materna" name="abuelaMaterna" required="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Bisabuela Abuela Materna</label>
+                                        <input type="text" class="form-control" formControlName="bisabuelaAbuelaMaterna" placeholder="Abuela Materna" name="abuelaMaterna" required="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Abuelo Paterno</label>
+                                        <input type="text" class="form-control" formControlName="abueloPaterno" placeholder="Abuelo Paterno" name="abueloPaterno" required="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Bisabuelo Abuelo Paterno</label>
+                                        <input type="text" class="form-control" formControlName="bisabueloAbueloPaterno" placeholder="Abuelo Paterno" name="abueloPaterno" required="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Bisabuela Abuelo Paterno</label>
+                                        <input type="text" class="form-control" formControlName="bisabuelaAbueloPaterno" placeholder="Abuelo Paterno" name="abueloPaterno" required="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Abuelo Materno</label>
+                                        <input type="text" class="form-control" formControlName="abueloMaterno" placeholder="Abuelo Materno" name="abueloMaterno" required="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Bisabuelo Abuelo Materno</label>
+                                        <input type="text" class="form-control" formControlName="bisabueloAbueloMaterno" placeholder="Abuelo Materno" name="abueloMaterno" required="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Bisabuela Abuelo Materno</label>
+                                        <input type="text" class="form-control" formControlName="bisabuelaAbueloMaterno" placeholder="Abuelo Materno" name="abueloMaterno" required="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+									<div class="row">
+										<div class="col-md-8">
+											<label>Fecha Nacimiento</label>
+											<div class="input-group mb-3">
+												<input type="text" ngbDatepicker #dFechaNacimiento="ngbDatepicker" class="form-control" formControlName="fechaNacimiento" placeholder="Fecha de Nacimiento" name="fechaNacimiento" required="">
+												<div class="input-group-append">
+													<button class="btn btn-outline-secondary calendar" (click)="dFechaNacimiento.toggle()" type="button"></button>
+												</div>
+											</div>
+										</div>
+									</div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Color</label>
+                                        <input type="text" class="form-control" formControlName="color" placeholder="Color" name="color" required="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Sexo</label>
+                                        <select class="form-control" formControlName="sexo" placeholder="Sexo" name="sexo" required="">
+                                            <option></option>
+                                            <option value="MACHO">Macho</option>
+                                            <option value="HEMBRA">Hembra</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Registro</label>
+                                        <input type="text" class="form-control" formControlName="registro" placeholder="Registro" name="registro" required="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Peso al Nacer</label>
+                                        <input type="text" class="form-control" formControlName="pesoNacer" placeholder="Peso al Nacer" name="pesoNacer" required="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Peso Destete</label>
+                                        <input type="text" class="form-control" formControlName="pesoDestete" placeholder="Peso al Destete" name="pesoDestete" required="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Rancho</label>
+                                        <select class="form-control" formControlName="rancho" placeholder="Rancho" name="rancho" required="">
+                                            <option [value]="rancho.id" *ngFor="let rancho of ranchos">{{ rancho.nombre }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group position-relative">
+                                                <label>Foto Portada</label>
+                                                <input type="file" (change)="handleFile($event, i)" class="form-control-file" id="fotoPortada">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3" *ngIf="lote.archivoPortada && !fotoPortada">
+                                            <img [src]="lote.archivoPortada.Location" class="img-fluid" />
+										</div>
+										<div class="col-md-3" *ngIf="fotoPortada">
+                                            <img [src]="sanitizeImagen(fotoPortada)" class="img-fluid" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group position-relative">
+                                                <label>Ficha Tecnica</label>
+                                                <input type="file" (change)="handleFileFicha($event, i)" class="form-control-file" id="fotoFichaTecnica">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3" *ngIf="fichaTecnica">
+											
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Informacion PDF</label>
+                                        <input type="file" (change)="handleFileInformacion($event, i)" class="form-control-file" id="fotoInformacion">
+                                    </div>
+                                </div> -->
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" 
+                                        (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+                                        <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                                            Optional custom content that replaces the the entire default content.
+                                            <button type="button" (click)="openFileSelector()">Browse Files</button>
+                                        </ng-template>
+                                    </ngx-file-drop>
+                                </div>
+                            </div>
+                            <br />
+                            <table class="table table-stripped">
+                                <thead>                                    
+                                    <tr>
+                                        <th></th>
+                                        <th>Nombre</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let file of files; let i = index">
+                                        <td style="width: 200px">
+                                            <img [src]="file.archivoFoto.Location" class="img-fluid" />
+                                        </td>
+                                        <td>{{ file.archivoFoto.Key }}</td>
+                                        <td>
+                                            <a class="btn btn-danger" (click)="eliminarFoto(i)">Eliminar</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="col-lg-12 mb-0">
+                                <button class="btn btn-primary btn-block">Aceptar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

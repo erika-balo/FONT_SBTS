@@ -1,0 +1,4 @@
+!_TAG_FILE_SORTED	2	/0=unsorted, 1=sorted, 2=foldcase/
+currentUser	/home/jorsh/code/nubby_web/src/app/store/selectors/auth.selector.ts	/^export const currentUser = createSelector($/;"	v	language:typescript
+isUserLoaded	/home/jorsh/code/nubby_web/src/app/store/selectors/auth.selector.ts	/^export const isUserLoaded = createSelector($/;"	v	language:typescript
+selectAuthState	/home/jorsh/code/nubby_web/src/app/store/selectors/auth.selector.ts	/^export const selectAuthState = state => state.auth;$/;"	v	language:typescript

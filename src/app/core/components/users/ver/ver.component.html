@@ -1,0 +1,134 @@
+<section class="bg-home d-flex align-items-center">
+    <div class="container" *ngIf="user">
+		<button *ngIf="!user.validado && isValidar" (click)="validar()" class="btn btn-success btn-block">Validar</button>
+		<button *ngIf="user.validado" (click)="invalidar()" class="btn btn-danger btn-block">Invalidar</button>
+		<hr />
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+				<dl class="row">
+					<dt class="col-md-3">
+						ID
+					</dt>
+					<dd class="col-md-9">
+						{{ user.id }}
+					</dd>
+					<dt class="col-md-3">
+						Nombre
+					</dt>
+					<dd class="col-md-9">
+						{{ user.info.nombre }}
+					</dd>
+					<dt class="col-md-3">
+						Correo Electrónico
+					</dt>
+					<dd class="col-md-9">
+						{{ user.email }}
+					</dd>
+					<dt class="col-md-3">
+						Teléfono
+					</dt>
+					<dd class="col-md-9">
+						{{ user.info.telefono }}
+					</dd>
+					<dt class="col-md-3">
+						País
+					</dt>
+					<dd class="col-md-9">
+						{{ user.info.estado.pais.nombre }}
+					</dd>
+					<dt class="col-md-3">
+						Estado
+					</dt>
+					<dd class="col-md-9">
+						{{ user.info.estado.nombre }}
+					</dd>
+					<dt class="col-md-3">
+						Ciudad
+					</dt>
+					<dd class="col-md-9">
+						{{ user.info.ciudad }}
+					</dd>
+					<dt class="col-md-3">
+						Fecha de Registro
+					</dt>
+					<dd class="col-md-9">
+						{{ user.fecha | date: 'dd-MM-yyyy' }}
+					</dd>
+					<dt class="col-md-3">
+						Validado
+					</dt>
+					<dd class="col-md-9">
+						{{ user.validado }}
+					</dd>
+				</dl>
+				<hr />
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6 col-lg-6">
+				<h6>Pagos</h6>
+				<button *ngIf="isTransferencia" type="button" class="btn btn-info" [routerLink]="['/page/users-pagos/crear', user.id]">Crear</button>
+				<br />
+				<br />
+				<table class="table table-stripped">
+					<thead>
+						<tr>
+							<th>Monto</th>
+							<th>Creado Por</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let pago of user.usersPagos">
+							<td>{{ pago.monto | currency }}</td>
+							<td>{{ pago.creadoPor.username }}</td>
+							<td>
+                                <button type="button" class="btn btn-info" [routerLink]="['/page/users-pagos/editar', user.id, pago.id]">Editar</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="col-md-6 col-lg-6">
+				<h6>Devoluciones</h6>
+				<button *ngIf="isTransferencia" type="button" class="btn btn-info" [routerLink]="['/page/users-devoluciones/crear', user.id]">Crear</button>
+				<br />
+				<br />
+				<table class="table table-stripped">
+					<thead>
+						<tr>
+							<th>Monto</th>
+							<th>Creado Por</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let devolucion of user.usersDevoluciones">
+							<td>{{ devolucion.monto | currency }}</td>
+							<td>{{ devolucion.creadoPor.username }}</td>
+							<td>
+                                <button type="button" class="btn btn-info" [routerLink]="['/page/users-devoluciones/editar', user.id, devolucion.id]">Editar</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<table class="table table-stripped">
+			<thead>
+				<tr>
+					<th></th>
+					<th>Nombre</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let file of user.usersDocumentos; let i = index">
+					<td style="width: 200px">
+						<img [src]="sanitizeImagen(file)" class="img-fluid" />
+					</td>
+					<td>{{ file.nombre }}</td>
+				</tr>
+			</tbody>
+		</table>
+    </div>
+</section>

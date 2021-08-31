@@ -1,0 +1,137 @@
+ <section class="bg-half-170  d-table w-100" id="ranchos">
+    <div class="container">
+		<a href="#" (click)="exportCsv($event)" class="btn btn-primary">Export CSV</a>
+        <form class="login-form mt-4" *ngIf="busquedaForm" [formGroup]="busquedaForm">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="form-group form-inline">
+						Cliente: <input class="form-control ml-2" type="text" formControlName="cliente"/>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group form-inline">
+						Monto Desde: <input class="form-control ml-2" type="text" formControlName="montoDesde"/>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group form-inline">
+						Monto Hasta: <input class="form-control ml-2" type="text" formControlName="montoHasta"/>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3">
+					<div class="form-group form-inline">
+						Estatus: 
+						<select class="form-control ml-2" formControlName="estatus">
+							<option value=""></option>
+							<option value="GANADORA">Ganadora</option>
+							<option value="NO_GANADORA">No Ganadora</option>
+							<option value="INVALIDA">Invalida</option>
+						</select>
+					</div>
+				</div>
+			</div>
+        </form>
+        <div class="table-responsive bg-white shadow rounded mt-4">
+            <table class="table mb-0 table-center">
+                <thead class="bg-light">
+                    <tr>
+                        <th scope="col" class="pointer" (click)="sorted('detalles.id')">
+                            <span>
+                                <i-feather *ngIf="sortedField === 'detalles.id' && sortedType === 'ASC'" name="arrow-up" class="fea icon-sm icons"></i-feather>
+								<i-feather *ngIf="sortedField === 'detalles.id' && sortedType === 'DESC'" name="arrow-down" class="fea icon-sm icons"></i-feather>
+								Id Puja
+                            </span>
+						</th>
+                        <th scope="col">
+							Número de Lote
+						</th>
+                        <th scope="col">
+							Nombre del Lote
+						</th>
+                        <th scope="col" class="pointer" (click)="sorted('user.id')">
+                            <span>
+                                <i-feather *ngIf="sortedField === 'user.id' && sortedType === 'ASC'" name="arrow-up" class="fea icon-sm icons"></i-feather>
+								<i-feather *ngIf="sortedField === 'user.id' && sortedType === 'DESC'" name="arrow-down" class="fea icon-sm icons"></i-feather>
+								Id del Cliente
+                            </span>
+						</th>
+                        <th scope="col" class="pointer" (click)="sorted('info.nombre')">
+                            <span>
+                                <i-feather *ngIf="sortedField === 'info.nombre' && sortedType === 'ASC'" name="arrow-up" class="fea icon-sm icons"></i-feather>
+								<i-feather *ngIf="sortedField === 'info.nombre' && sortedType === 'DESC'" name="arrow-down" class="fea icon-sm icons"></i-feather>
+								Nombre del Cliente
+                            </span>
+						</th>
+                        <th scope="col" class="pointer" (click)="sorted('info.apellidoMaterno')">
+                            <span>
+                                <i-feather *ngIf="sortedField === 'info.apellidoMaterno' && sortedType === 'ASC'" name="arrow-up" class="fea icon-sm icons"></i-feather>
+								<i-feather *ngIf="sortedField === 'info.apellidoMaterno' && sortedType === 'DESC'" name="arrow-down" class="fea icon-sm icons"></i-feather>
+								Apellido Materno del Cliente
+                            </span>
+						</th>
+                        <th scope="col" class="pointer" (click)="sorted('info.apellidoPaterno')">
+                            <span>
+                                <i-feather *ngIf="sortedField === 'info.apellidoPaterno' && sortedType === 'ASC'" name="arrow-up" class="fea icon-sm icons"></i-feather>
+								<i-feather *ngIf="sortedField === 'info.apellidoPaterno' && sortedType === 'DESC'" name="arrow-down" class="fea icon-sm icons"></i-feather>
+								Apellido Paterno del Cliente
+                            </span>
+						</th>
+                        <th scope="col" class="pointer" (click)="sorted('monto')">
+                            <span>
+                                <i-feather *ngIf="sortedField === 'monto' && sortedType === 'ASC'" name="arrow-up" class="fea icon-sm icons"></i-feather>
+								<i-feather *ngIf="sortedField === 'monto' && sortedType === 'DESC'" name="arrow-down" class="fea icon-sm icons"></i-feather>
+								Precio de Puja
+                            </span>
+						</th>
+                        <th scope="col" class="pointer" (click)="sorted('creado')">
+                            <span>
+                                <i-feather *ngIf="sortedField === 'creado' && sortedType === 'ASC'" name="arrow-up" class="fea icon-sm icons"></i-feather>
+								<i-feather *ngIf="sortedField === 'creado' && sortedType === 'DESC'" name="arrow-down" class="fea icon-sm icons"></i-feather>
+								Fecha y Hora de Puja
+                            </span>
+						</th>
+                        <th scope="col" class="pointer" (click)="sorted('detalles.estatus')">
+                            <span>
+                                <i-feather *ngIf="sortedField === 'detalles.estatus' && sortedType === 'ASC'" name="arrow-up" class="fea icon-sm icons"></i-feather>
+								<i-feather *ngIf="sortedField === 'detalles.estatus' && sortedType === 'DESC'" name="arrow-down" class="fea icon-sm icons"></i-feather>
+								Estatus de la puja
+                            </span>
+						</th>
+                        <th scope="col">Estatus de la subasta del Lote</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let detalle of detallesFiltered">
+                        <td>{{ detalle.id }}</td>
+                        <td>{{ detalle.subasta.lote.numero }}</td>
+                        <td>{{ detalle.subasta.lote.nombre }}</td>
+                        <td>{{ detalle.user.id }}</td>
+                        <td>{{ detalle.user.info.nombre }}</td>
+                        <td>{{ detalle.user.info.apellidoMaterno }}</td>
+                        <td>{{ detalle.user.info.apellidoPaterno }}</td>
+                        <td>{{ detalle.monto | currency }}</td>
+                        <td>{{ detalle.creado | date: 'yyyy-MM-dd HH:mm' }}</td>
+                        <td>{{ detalle.estatus }}</td>
+						<td>{{ detalle.subasta.estatus }}</td>
+						<td>
+							<button class="btn btn-danger" (click)="invalidar(detalle)" *ngIf="detalle.estatus !== 'INVALIDA'">Invalidar</button>
+							<button class="btn btn-success" (click)="validar(detalle)" *ngIf="detalle.estatus === 'INVALIDA'">Validar</button>
+						</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+		<br />
+		<ngb-pagination *ngIf="detalles" (pageChange)="onPageChange($event)" [maxSize]="5" [(page)]="page" [pageSize]="pageSize" [collectionSize]="detalles.meta.totalItems"></ngb-pagination>
+    </div>
+ </section>
+
+ <!-- Back to top -->
+ <a href="javascript: void(0);" class="btn btn-icon btn-soft-primary back-to-top" id="back-to-top"
+    [ngxScrollTo]="'#home'">
+    <i-feather name="arrow-up" class="icons"></i-feather>
+ </a>
+ <!-- Back to top -->

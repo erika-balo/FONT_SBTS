@@ -1,0 +1,67 @@
+<section class="bg-half d-table w-100" id="rancho" style="max-width:100%;">
+	<div class="container" *ngIf="rancho">
+		<dl class="row">
+			<dt class="col-sm-3">
+				Dirección
+			</dt>
+			<dd class="col-sm-9">
+				{{ rancho.direccin }}
+			</dd>
+			<dt class="col-sm-3">
+				Nombre
+			</dt>
+			<dd class="col-sm-9">
+				{{ rancho.nombre }}
+			</dd>
+			<dt class="col-sm-3">
+				Número Hato
+			</dt>
+			<dd class="col-sm-9">
+				{{ rancho.numeroHato }}
+			</dd>
+			<dt class="col-sm-3">
+				AnteNombre
+			</dt>
+			<dd class="col-sm-9">
+				{{ rancho.anteNombre }}
+			</dd>
+			<dt class="col-sm-3">
+				Titular
+			</dt>
+			<dd class="col-sm-9">
+				{{ rancho.titular }}
+			</dd>
+			<dt class="col-sm-3">
+				Telefono Contacto
+			</dt>
+			<dd class="col-sm-9">
+				{{ rancho.telefonoContacto }}
+			</dd>
+			<dt class="col-sm-3">
+				Correo Electrónico
+			</dt>
+			<dd class="col-sm-9">
+				{{ rancho.email }}
+			</dd>
+			<dt class="col-sm-3">
+				Facebook
+			</dt>
+			<dd class="col-sm-9">
+				{{ rancho.facebook }}
+			</dd>
+			<dt class="col-sm-3">
+				Instagram
+			</dt>
+			<dd class="col-sm-9">
+				{{ rancho.instagram }}
+			</dd>
+		</dl>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<agm-map [latitude]="latitud" [longitude]="longitud" [scrollwheel]="false" [zoom]="zoom">
+				<agm-marker [latitude]="latitud" [longitude]="longitud"></agm-marker>
+			</agm-map>
+		</div>
+	</div>
+</section>

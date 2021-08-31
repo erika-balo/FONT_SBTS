@@ -1,0 +1,7 @@
+!_TAG_FILE_SORTED	2	/0=unsorted, 1=sorted, 2=foldcase/
+AuthActions	/home/jorsh/code/nubby_web/src/app/store/actions/auth.actions.ts	/^export type AuthActions = Login | Logout | UserRequested | UserLoaded;$/;"	t	language:typescript
+AuthActionTypes	/home/jorsh/code/nubby_web/src/app/store/actions/auth.actions.ts	/^export enum AuthActionTypes {$/;"	e	language:typescript
+Login	/home/jorsh/code/nubby_web/src/app/store/actions/auth.actions.ts	/^export class Login implements Action {$/;"	c	language:typescript
+Logout	/home/jorsh/code/nubby_web/src/app/store/actions/auth.actions.ts	/^export class Logout implements Action {$/;"	c	language:typescript
+UserLoaded	/home/jorsh/code/nubby_web/src/app/store/actions/auth.actions.ts	/^export class UserLoaded implements Action {$/;"	c	language:typescript
+UserRequested	/home/jorsh/code/nubby_web/src/app/store/actions/auth.actions.ts	/^export class UserRequested implements Action {$/;"	c	language:typescript

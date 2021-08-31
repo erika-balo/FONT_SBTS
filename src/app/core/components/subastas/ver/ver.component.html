@@ -1,0 +1,29 @@
+<section class="bg-half d-table w-100" id="ver-subasta-subastador">
+    <div class="container" *ngIf="subasta">
+		<button *ngIf="subasta.estatus === 'EN_PISTA'" type="button" class="btn btn-secondary" (click)="vendida()">Marcar Como Vendida</button>
+		<br />
+		<table class="table mb-0 table-center">
+			<thead class="bg-light">
+				<tr>
+					<th scope="col">Username</th>
+					<th scope="col">Monto</th>
+					<th scope="col"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let subastaDetalle of subastasDetalles">
+					<td>{{ subastaDetalle.user.username }}</td>
+					<td>
+						{{ subastaDetalle.monto | currency }}
+						<span *ngIf="subastaDetalle.estatus === 'GANADORA'" class="badge badge-success ml-2">GANADORA</span>
+					</td>
+					<td>
+						<div class="btn-group" role="group" aria-label="Acciones">
+							<button *ngIf="subastaDetalle.estatus !== 'GANADORA'" type="button" class="btn btn-secondary" (click)="openGanadora(subastaDetalle)">Ganadora</button>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+    </div>
+</section>

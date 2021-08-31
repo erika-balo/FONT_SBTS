@@ -1,0 +1,37 @@
+.videito{
+    padding-top:94px;
+    max-width: 98%;
+}
+
+.fondo{
+    background-image: url('https://drive.google.com/uc?id=13HxMKN9zDOfXvQ8S7XoiaP2Ps0EcU9bu');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.btn-estilo{
+    margin-top: 15px;
+    background-color:#403e31;
+    color:white;
+    font-family: 'Courier New', Courier, monospace;
+    border: 2px solid white;
+    padding: 35px 10px;
+    white-space: normal;
+    width: 400px;
+    -webkit-appearance: none;
+}
+
+input {
+    white-space: normal;
+    width: 50px;
+    -webkit-appearance: none;
+    background: #ddd;
+    border: none;
+}
+
+
+.tabla1{
+    margin-bottom: 10px;
+}

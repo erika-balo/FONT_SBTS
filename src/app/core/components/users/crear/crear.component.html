@@ -1,0 +1,82 @@
+<section class="bg-half-170  d-table w-100" id="crear-subasta">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-12 col-md-12">
+                <div class="card login_page shadow rounded border-0">
+                    <div class="card-body">
+                        <h4 class="card-title text-center">Crear Usuario</h4>
+                        <form class="login-form mt-4" (ngSubmit)="onSubmit()" *ngIf="usuarioForm" [formGroup]="usuarioForm">
+                            <div class="row">
+                                <div class="col-md-6" *ngFor="let form of formsRegistro">
+                                    <div class="form-group position-relative" *ngIf="form.seMuestra && !checkIsInFilter(form.nombre)" formGroupName="info">
+                                        <label>{{ form.label }} <span class="text-danger" *ngIf="form.requerido">*</span></label>
+                                        <input type="text" class="form-control" [formControlName]="form.nombre" placeholder="{{ form.label }}" name="{{ form.nombre }}" [required]="form.requerido">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative" *ngIf="checkIsInFilter('pais')" formGroupName="info">
+                                        <label>Pais <span class="text-danger">*</span></label>
+                                        <select (change)="loadEstados()" class="form-control" formControlName="pais" placeholder="Pais" name="pais" required="">
+                                            <option [value]="pais.id" *ngFor="let pais of paises">{{ pais.nombre }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative" *ngIf="checkIsInFilter('estado')" formGroupName="info">
+                                        <label>Estado <span class="text-danger">*</span></label>
+                                        <select class="form-control" formControlName="estado" placeholder="Estado" name="estado" required="">
+                                            <option [value]="estado.id" *ngFor="let estado of estados">{{ estado.nombre }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Rol <span class="text-danger">*</span></label>
+                                        <select class="form-control" formControlName="roles" placeholder="Rol" name="roles" required="">
+                                            <option value="ROLE_USER">Usuario</option>
+                                            <option value="ROLE_ADMIN">Administrador</option>
+                                            <option value="ROLE_SUBASTA">Subastador</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative" *ngIf="checkIsInFilter('ciudad')" formGroupName="info">
+                                        <label>Ciudad <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" formControlName="ciudad" placeholder="ciudad" name="Ciudad">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Correo Electrónico <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" formControlName="email" placeholder="Correo Electronico" name="email">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Password <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" formControlName="password" placeholder="Password" name="password">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12" formArrayName="archivos">
+                                <div *ngFor="let child of usuarioForm.controls.archivos.controls; let i = index">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group position-relative" [formGroupName]="i">
+                                                <label>{{ getNombreArchivo(i) }} <span class="text-danger">*</span></label>
+                                                <input type="file" (change)="handleFile($event, i)" class="form-control-file" id="fileupload{{i}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 mt-2">
+                                <button class="btn btn-primary btn-block">Aceptar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+</section>

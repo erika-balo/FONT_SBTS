@@ -1,0 +1,195 @@
+ <section class="bg-half-170  d-table w-100" id="ranchos">
+    <div class="container">
+        <a href="#" [routerLink]="['/page/users/crear']" class="btn btn-primary">Crear</a>
+        <form class="login-form mt-4" *ngIf="busquedaForm" [formGroup]="busquedaForm">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="form-group form-inline">
+						Nombre: <input class="form-control ml-2" type="text" formControlName="nombre"/>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group form-inline">
+						Apellido Paterno: <input class="form-control ml-2" type="text" formControlName="apellidoPaterno"/>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group form-inline">
+						Apellido Materno: <input class="form-control ml-2" type="text" formControlName="apellidoMaterno"/>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3">
+					<div class="form-group form-inline">
+						País: 
+						<select (change)="loadCiudades()" class="form-control ml-2" formControlName="pais">
+							<option></option>
+							<option *ngFor="let pais of paises" [value]="pais.id">{{ pais.nombre }}</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="form-group form-inline">
+						Estado: 
+						<select class="form-control ml-2" formControlName="estado">
+							<option></option>
+							<option *ngFor="let estado of estados" [value]="estado.id">{{ estado.nombre }}</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="form-group form-inline">
+						Activo: 
+						<select class="form-control ml-2" formControlName="activo">
+							<option></option>
+							<option value="true">Si</option>
+							<option value="false">No</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="form-group form-inline">
+						Validado: 
+						<select class="form-control ml-2" formControlName="validado">
+							<option></option>
+							<option value="true">Si</option>
+							<option value="false">No</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="input-group mb-3 form-inline">
+						Desde: 
+						<input type="text" ngbDatepicker #dDesde="ngbDatepicker" class="form-control" formControlName="desde" placeholder="Desde" name="desde" required="">
+						<div class="input-group-append">
+							<button class="btn btn-outline-secondary calendar" (click)="dDesde.toggle()" type="button"></button>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="input-group mb-3 form-inline">
+						Hasta: 
+						<input type="text" ngbDatepicker #dHasta="ngbDatepicker" class="form-control" formControlName="hasta" placeholder="Hasta" name="hasta" required="">
+						<div class="input-group-append">
+							<button class="btn btn-outline-secondary calendar" (click)="dHasta.toggle()" type="button"></button>
+						</div>
+					</div>
+				</div>
+			</div>
+        </form>
+        <div class="table-responsive bg-white shadow rounded mt-4">
+            <table class="table mb-0 table-center">
+                <thead class="bg-light">
+                    <tr>
+                        <th scope="col" class="pointer" (click)="sorted('user.id')">
+                            <span>
+                                <i-feather *ngIf="sortedField === 'user.id' && sortedType === 'ASC'" name="arrow-up" class="fea icon-sm icons"></i-feather>
+                                <i-feather *ngIf="sortedField === 'user.id' && sortedType === 'DESC'" name="arrow-down" class="fea icon-sm icons"></i-feather>
+                                ID
+                            </span>
+                        </th>
+                        <th scope="col" class="pointer" (click)="sorted('info.nombre')">
+                            <span>
+                                <i-feather *ngIf="sortedField === 'info.nombre' && sortedType === 'ASC'" name="arrow-up" class="fea icon-sm icons"></i-feather>
+                                <i-feather *ngIf="sortedField === 'info.nombre' && sortedType === 'DESC'" name="arrow-down" class="fea icon-sm icons"></i-feather>
+                                Nombre
+                            </span>
+                        </th>
+                        <th scope="col" class="pointer" (click)="sorted('info.apellidoPaterno')">
+                            <span>
+                                <i-feather *ngIf="sortedField === 'info.apellidoPaterno' && sortedType === 'ASC'" name="arrow-up" class="fea icon-sm icons"></i-feather>
+                                <i-feather *ngIf="sortedField === 'info.apellidoPaterno' && sortedType === 'DESC'" name="arrow-down" class="fea icon-sm icons"></i-feather>
+                                Apellido Paterno
+                            </span>
+                        </th>
+                        <th scope="col" class="pointer" (click)="sorted('info.apellidoMaterno')">
+                            <span>
+                                <i-feather *ngIf="sortedField === 'info.apellidoMaterno' && sortedType === 'ASC'" name="arrow-up" class="fea icon-sm icons"></i-feather>
+                                <i-feather *ngIf="sortedField === 'info.apellidoMaterno' && sortedType === 'DESC'" name="arrow-down" class="fea icon-sm icons"></i-feather>
+                                Apellido Materno
+                            </span>
+                        </th>
+                        <th scope="col" class="pointer" (click)="sorted('activo')">
+                            <span>
+                                <i-feather *ngIf="sortedField === 'activo' && sortedType === 'ASC'" name="arrow-up" class="fea icon-sm icons"></i-feather>
+                                <i-feather *ngIf="sortedField === 'activo' && sortedType === 'DESC'" name="arrow-down" class="fea icon-sm icons"></i-feather>
+                                Activo
+                            </span>
+						</th>
+                        <th scope="col" class="pointer" (click)="sorted('validado')">
+                            <span>
+                                <i-feather *ngIf="sortedField === 'validado' && sortedType === 'ASC'" name="arrow-up" class="fea icon-sm icons"></i-feather>
+                                <i-feather *ngIf="sortedField === 'validado' && sortedType === 'DESC'" name="arrow-down" class="fea icon-sm icons"></i-feather>
+                                Validado
+                            </span>
+						</th>
+                        <th scope="col" class="pointer" (click)="sorted('email')">
+                            <span>
+                                <i-feather *ngIf="sortedField === 'email' && sortedType === 'ASC'" name="arrow-up" class="fea icon-sm icons"></i-feather>
+                                <i-feather *ngIf="sortedField === 'email' && sortedType === 'DESC'" name="arrow-down" class="fea icon-sm icons"></i-feather>
+                                Correo Electrónico
+                            </span>
+                        </th>
+                        <th scope="col">Teléfono</th>
+                        <th scope="col">Ciudad</th>
+                        <th scope="col">País</th>
+                        <th scope="col" class="pointer" (click)="sorted('fecha')">
+                            <span>
+                                <i-feather *ngIf="sortedField === 'fecha' && sortedType === 'ASC'" name="arrow-up" class="fea icon-sm icons"></i-feather>
+                                <i-feather *ngIf="sortedField === 'fecha' && sortedType === 'DESC'" name="arrow-down" class="fea icon-sm icons"></i-feather>
+                                Fecha Registro
+                            </span>
+                        </th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let user of usersFiltered">
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.info.nombre }}</td>
+                        <td>{{ user.info.apellidoPaterno }}</td>
+                        <td>{{ user.info.apellidoMaterno }}</td>
+                        <td>
+                            <span (click)="confirmInactivar(user)" *ngIf="user.activo" class="badge badge-success text-white pointer">Activo</span>
+                            <span (click)="confirmActivar(user)" *ngIf="!user.activo" class="badge badge-danger text-white pointer">Inactivo</span>
+                        </td>
+                        <td>
+                            <span *ngIf="user.validado" class="badge badge-success text-white">Validado</span>
+                            <span *ngIf="!user.validado" class="badge badge-danger text-white">Sin Validar</span>
+                        </td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.info.telefono }}</td>
+                        <td>{{ user.info.estado.nombre }}</td>
+                        <td>{{ user.info.estado.pais.nombre }}</td>
+                        <td>{{ user.fecha | date: 'dd/MM/yyyy' }}</td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Acciones">
+                                <button type="button" *ngIf="user.activo" class="btn btn-danger" (click)="confirmInactivar(user)">Inactivar</button>
+                                <button type="button" *ngIf="!user.activo" class="btn btn-success" (click)="confirmActivar(user)">Activar</button>
+                                <button type="button" *ngIf="user.validado" class="btn btn-danger" (click)="confirmInvalidar(user)">Invalidar</button>
+                                <button type="button" *ngIf="!user.validado && checkIsValidar(user)" class="btn btn-success" (click)="confirmValidar(user)">Validar</button>
+                                <button type="button" class="btn btn-info" [routerLink]="['/page/users/ver', user.id]">Ver</button>
+                                <button type="button" class="btn btn-info" [routerLink]="['/page/users/editar', user.id]">Editar</button>
+                                <button type="button" class="btn btn-warning" (click)="openCambioPassword(user)">Cambio Password</button>
+                                <button *ngIf="isTransferencia" type="button" class="btn btn-info" [routerLink]="['/page/users-pagos', user.id]">Pagos</button>
+                                <button *ngIf="isTransferencia" type="button" class="btn btn-info" [routerLink]="['/page/users-devoluciones', user.id]">Devoluciones</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <br />
+        <ngb-pagination *ngIf="users" (pageChange)="onPageChange($event)" [(page)]="page" [pageSize]="pageSize" [collectionSize]="users.meta.totalItems"></ngb-pagination>
+    </div>
+ </section>
+
+ <!-- Back to top -->
+ <a href="javascript: void(0);" class="btn btn-icon btn-soft-primary back-to-top" id="back-to-top"
+    [ngxScrollTo]="'#home'">
+    <i-feather name="arrow-up" class="icons"></i-feather>
+ </a>
+ <!-- Back to top -->

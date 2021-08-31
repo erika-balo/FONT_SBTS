@@ -1,0 +1,126 @@
+<section class="section">
+	<div class="container" *ngIf="subasta">
+		<section class="bg-half  d-table w-100" id="subasta-en-pista">
+			<div class="row justify-content-center">
+				<div class="col-lg-12 text-center">
+					<div class="page-next-level">
+						<h4 id="lotes" class="text-dark title"> LOTES ACTIVOS </h4>
+						
+						<div class="rounded p-4">
+						<!--Barra que despliega los LOTES ACTIVOS
+						Todos los lotes que esten en estado activo se mostraran aqui, el usuario va seleccionar el lote que
+						entrara a piso -->
+						<select name="LOTES" (change)="changeSubasta($event)" id="barra" class="form-control pl-5" name="LOTES" required="">
+							<option value="{{ subastaEnPista.id }}" [selected]="subastaEnPista.id === subasta.id" *ngFor="let subastaEnPista of subastasEnPista;let i = index">LOTE {{ subastaEnPista.lote.numero }}: {{ subastaEnPista.lote.nombre }}</option>
+						</select>
+						</div>
+						<div class="page-next">
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<div class="position-relative">
+			<div class="shape overflow-hidden text-white">
+				<svg viewBox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M0 48H1437.5H2880V0H2160C1442.5 52 720 0 720 0H0V48Z" fill="currentColor"></path>
+				</svg>
+			</div>
+		</div>
+		<section class="section" *ngIf="subasta">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-5">
+						<h5 id="titulo" class="text-dark  mb-0"><p><b>LOTE {{ subasta.lote.numero }}: {{ subasta.lote.nombre }}</b></p></h5>
+						<span class="badge badge-warning" style="display:flex; width:200px; justify-content:center;" >{{ subasta.estatus }}</span> 
+						<img [src]="subasta.lote.archivoPortada.Location" width="200px" height="200px" style="margin-top: -1rem;">
+						<table default  style="margin-top: 15px;">
+							<head>
+								<style>
+									#color1{color:red ;}
+								</style>
+							</head>
+							<tr>
+								<th>Nombre del Cliente</th>
+								<th>Monto Puja</th>
+								<th>Fecha y Hora</th>
+								<th>Fuente</th>
+							</tr>
+							<tr *ngFor="let subastaDetalle of subastasDetalles">
+								<td [style.color]="subastaDetalle.estatus === 'INVALIDA' ? 'red' : 'black'">
+									{{ subastaDetalle.user.info.nombre }}
+								</td>
+								<td [style.color]="subastaDetalle.estatus === 'INVALIDA' ? 'red' : 'black'">
+									{{ subastaDetalle.monto | currency }}
+								</td>
+								<td [style.color]="subastaDetalle.estatus === 'INVALIDA' ? 'red' : 'black'">
+									{{ subastaDetalle.creado | date: 'hh:mm a' }}
+								</td>
+								<td [style.color]="subastaDetalle.estatus === 'INVALIDA' ? 'red' : 'black'">
+									{{ subastaDetalle.tipo }}
+								</td>
+								<!--Icono de manitas para validar o invalidar pujas
+								Si el usuario invalida la puja, al dar click a la manita abajo se muestra texto de informacion
+								de esa puja en color rojo-->
+								<td *ngIf="subastaDetalle.estatus !== 'INVALIDA'">
+									<svg (click)="invalidar(subastaDetalle)" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-hand-thumbs-up" viewBox="0 0 16 16">
+										<path d="M8.864.046C7.908-.193 7.02.53 6.956 1.466c-.072 1.051-.23 2.016-.428 2.59-.125.36-.479 1.013-1.04 1.639-.557.623-1.282 1.178-2.131 1.41C2.685 7.288 2 7.87 2 8.72v4.001c0 .845.682 1.464 1.448 1.545 1.07.114 1.564.415 2.068.723l.048.03c.272.165.578.348.97.484.397.136.861.217 1.466.217h3.5c.937 0 1.599-.477 1.934-1.064a1.86 1.86 0 0 0 .254-.912c0-.152-.023-.312-.077-.464.201-.263.38-.578.488-.901.11-.33.172-.762.004-1.149.069-.13.12-.269.159-.403.077-.27.113-.568.113-.857 0-.288-.036-.585-.113-.856a2.144 2.144 0 0 0-.138-.362 1.9 1.9 0 0 0 .234-1.734c-.206-.592-.682-1.1-1.2-1.272-.847-.282-1.803-.276-2.516-.211a9.84 9.84 0 0 0-.443.05 9.365 9.365 0 0 0-.062-4.509A1.38 1.38 0 0 0 9.125.111L8.864.046zM11.5 14.721H8c-.51 0-.863-.069-1.14-.164-.281-.097-.506-.228-.776-.393l-.04-.024c-.555-.339-1.198-.731-2.49-.868-.333-.036-.554-.29-.554-.55V8.72c0-.254.226-.543.62-.65 1.095-.3 1.977-.996 2.614-1.708.635-.71 1.064-1.475 1.238-1.978.243-.7.407-1.768.482-2.85.025-.362.36-.594.667-.518l.262.066c.16.04.258.143.288.255a8.34 8.34 0 0 1-.145 4.725.5.5 0 0 0 .595.644l.003-.001.014-.003.058-.014a8.908 8.908 0 0 1 1.036-.157c.663-.06 1.457-.054 2.11.164.175.058.45.3.57.65.107.308.087.67-.266 1.022l-.353.353.353.354c.043.043.105.141.154.315.048.167.075.37.075.581 0 .212-.027.414-.075.582-.05.174-.111.272-.154.315l-.353.353.353.354c.047.047.109.177.005.488a2.224 2.224 0 0 1-.505.805l-.353.353.353.354c.006.005.041.05.041.17a.866.866 0 0 1-.121.416c-.165.288-.503.56-1.066.56z"/>
+									</svg>
+								</td> 
+								<td>
+									<svg (click)="validar(subastaDetalle)" [style.color]="subastaDetalle.estatus === 'INVALIDA' ? 'red' : 'black'" *ngIf="subastaDetalle.estatus === 'INVALIDA'" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-hand-thumbs-down" viewBox="0 0 16 16">
+										<path d="M8.864 15.674c-.956.24-1.843-.484-1.908-1.42-.072-1.05-.23-2.015-.428-2.59-.125-.36-.479-1.012-1.04-1.638-.557-.624-1.282-1.179-2.131-1.41C2.685 8.432 2 7.85 2 7V3c0-.845.682-1.464 1.448-1.546 1.07-.113 1.564-.415 2.068-.723l.048-.029c.272-.166.578-.349.97-.484C6.931.08 7.395 0 8 0h3.5c.937 0 1.599.478 1.934 1.064.164.287.254.607.254.913 0 .152-.023.312-.077.464.201.262.38.577.488.9.11.33.172.762.004 1.15.069.13.12.268.159.403.077.27.113.567.113.856 0 .289-.036.586-.113.856-.035.12-.08.244-.138.363.394.571.418 1.2.234 1.733-.206.592-.682 1.1-1.2 1.272-.847.283-1.803.276-2.516.211a9.877 9.877 0 0 1-.443-.05 9.364 9.364 0 0 1-.062 4.51c-.138.508-.55.848-1.012.964l-.261.065zM11.5 1H8c-.51 0-.863.068-1.14.163-.281.097-.506.229-.776.393l-.04.025c-.555.338-1.198.73-2.49.868-.333.035-.554.29-.554.55V7c0 .255.226.543.62.65 1.095.3 1.977.997 2.614 1.709.635.71 1.064 1.475 1.238 1.977.243.7.407 1.768.482 2.85.025.362.36.595.667.518l.262-.065c.16-.04.258-.144.288-.255a8.34 8.34 0 0 0-.145-4.726.5.5 0 0 1 .595-.643h.003l.014.004.058.013a8.912 8.912 0 0 0 1.036.157c.663.06 1.457.054 2.11-.163.175-.059.45-.301.57-.651.107-.308.087-.67-.266-1.021L12.793 7l.353-.354c.043-.042.105-.14.154-.315.048-.167.075-.37.075-.581 0-.211-.027-.414-.075-.581-.05-.174-.111-.273-.154-.315l-.353-.354.353-.354c.047-.047.109-.176.005-.488a2.224 2.224 0 0 0-.505-.804l-.353-.354.353-.354c.006-.005.041-.05.041-.17a.866.866 0 0 0-.121-.415C12.4 1.272 12.063 1 11.5 1z"/>
+									</svg>
+								</td>
+								<td></td>                
+							</tr>
+						<tr>
+						</table>
+					</div>
+					<div class="col-lg-8 col-md-7 mt-4 mt-sm-0 pt-2 pt-sm-0">
+						<h5 id="texto" style="margin-left: 20px"><b>Puja actual mas alta: {{ lastPuja ? (lastPuja.monto | currency) : '' }}  </b></h5>
+						<!-- Debe mostrar si la puja mas alta en tiempo real es de PISO O INTERNET-->
+						<h5 id="textF" style="margin-left: 20px"><b>Fuente: {{ lastPuja ? lastPuja.tipo : '' }} </b></h5>
+						<!--  INGRESAR PUJAS-->
+						<h6 *ngIf="isEnPista()" id="text" style="margin:100%px;">Ingresar Pujas:</h6>
+						<form class="form-inline navbar-light my-2 my-lg-0" (ngSubmit)="onSubmit()" *ngIf="pujaForm && isEnPista() && subasta.activo" [formGroup]="pujaForm">
+							<!-- : El usuario subastador podrá ingresar un nuevo monto de 
+								puja mayor que la Postura válida más alta del lote -->
+							<input class="form-control mr-sm-2" formControlName="monto" mask="separator.0" thousandSeparator="," type="text" placeholder="Escriba el monto" style='width:70%; margin-bottom: 20px; padding-left: 20px;'
+							[ngClass]="{ 'is-invalid': form.monto.touched && form.monto.errors, 'is-valid': form.monto.touched && !form.monto.errors }">
+							<div *ngIf="form.monto.touched && form.monto.errors" class="invalid-feedback">
+								<div *ngIf="form.monto.errors.required">Monto es requerido</div>
+								<div *ngIf="form.monto.errors.diferenciaMinimaOferta">El monto debe ser mayor o igual a {{ proximaMinimaOferta }}</div>
+							</div>
+							<!-- Al seleccionar el botón validará si el monto ingresado es mayor que la Postura válida más alta del lote.
+								Si el monto ingresado no cumple con la validación, mostrará una notificación que indica:
+								“Su puja es menor a la postura mínima aceptada, favor de ingresar un valor mayor que (valor de la Postura válida más alta del lote), 
+								así como su botón de Aceptar que cerrará la ventana para volver a la sección para ingresar la puja.-->
+								<!-- •	Si el monto ingresado cumple con ser mayor que la Postura válida más alta del lote 
+								entonces la puja se registrará, y se actualizará automáticamente los valores en pantalla y en el sistema.
+								-->
+							<button [disabled]="pujaForm.invalid" class="btn btn-primary" type="submit">Enviar puja</button>
+						</form>
+						<div class="mt-4 pt-2" *ngIf="isEnPista() && subasta.activo">
+							<!--botones atajo son los que ingresarán una puja del valor de la Postura Válida Más alta, más el monto del botón
+							•	Al seleccionar cualquier botón el sistema registrará el valor de la puja más alta válida más el valor del botón e 
+							inmediatamente actualizará los valores en pantalla y en sistema.-->
+							<a *ngFor="let precioFijo of subasta.subastasPreciosFijos" (click)="cantidadFija(precioFijo.cantidad)" href="javascript:void(0)" style='margin-top: 20px; width:170px; height:35px' id="boton" class="btn btn-primary">
+								+ {{ formatCantidad(precioFijo.cantidad) | currency }} 
+							</a> 
+						</div>
+						<br />
+						<h5 style="margin-left: 20px">Estatus: {{ subasta.estatus }}</h5>
+						<!-- Al seleccionarse el lote pasará a estatus En pista de nueva cuenta.-->
+						<button type="button" id="boton1" (click)="enPista()" class="btn btn-success">Reabrir lote</button>
+						<!--Al marcar un lote como Cerrado no podrá ingresar ninguna puja nueva, 
+						tampoco los clientes por intenet,
+						inmediatamente se reflejará el estatus en la pantalla de pujas de todos 
+						los usuarios y desaparecerá la función de pujas de los usuarios Cliente en dicho lote.-->
+						<button type="button" id="boton1" (click)="vendida()" class="btn btn-danger">Cerrar lote</button>     
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+</section>

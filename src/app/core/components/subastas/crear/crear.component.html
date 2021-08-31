@@ -1,0 +1,117 @@
+<section class="bg-half-170  d-table w-100" id="crear-subasta">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-12 col-md-12">
+                <div class="card login_page shadow rounded border-0">
+                    <div class="card-body">
+                        <h4 class="card-title text-center">Nueva Subasta</h4>
+                        <form class="login-form mt-4" (ngSubmit)="onSubmit()" *ngIf="subastaForm" [formGroup]="subastaForm">
+                            <div class="row">
+                                <div class="col-md-12">
+									<div class="row">
+										<div class="col-md-8">
+											<label>Fecha Inicio <span class="text-danger">*</span></label>
+											<div class="input-group mb-3">
+												<input type="text" ngbDatepicker #dInicio="ngbDatepicker" class="form-control" formControlName="fechaInicio" placeholder="Fecha Inicio" name="fechaInicio" required="">
+												<div class="input-group-append">
+													<button class="btn btn-outline-secondary calendar" (click)="dInicio.toggle()" type="button"></button>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<ngb-timepicker formControlName="fechaInicioTime"></ngb-timepicker>
+										</div>
+									</div>
+                                </div>
+                                <div class="col-md-12">
+									<div class="row">
+										<div class="col-md-8">
+											<label>Fecha Fin <span class="text-danger">*</span></label>
+											<div class="input-group mb-3">
+												<input type="text" ngbDatepicker #dFin="ngbDatepicker" class="form-control" formControlName="fechaFin" placeholder="Fecha Fin" name="fechaFin" required="">
+												<div class="input-group-append">
+													<button class="btn btn-outline-secondary calendar" (click)="dFin.toggle()" type="button"></button>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<ngb-timepicker formControlName="fechaFinTime"></ngb-timepicker>
+										</div>
+									</div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Precio de Salida <span class="text-danger">*</span></label>
+                                        <input type="number" class="form-control" formControlName="precioSalida" placeholder="Precio Salida" name="precioSalida" required="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Diferencia Minima Oferta <span class="text-danger">*</span></label>
+                                        <input type="number" class="form-control" formControlName="diferenciaMinimaOferta" placeholder="Diferencia Minima Oferta" name="diferenciaMinimaOferta" required="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Minutos Antes Cerrar <span class="text-danger">*</span></label>
+                                        <input type="number" class="form-control" formControlName="minutosAntesCerrar" placeholder="Minutos Antes Cerrar" name="minutosAntesCerrar" required="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Tiempo Aumenta Fin <span class="text-danger">*</span></label>
+                                        <input type="number" class="form-control" formControlName="tiempoAumentaFin" placeholder="Tiempo Aumenta Fin" name="tiempoAumentaFin" required="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Lote <span class="text-danger">*</span></label>
+                                        <select class="form-control" formControlName="lote" placeholder="Lote" name="lote" required="">
+                                            <option [value]="lote.id" *ngFor="let lote of lotes">{{ lote.numero }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Eventos <span class="text-danger">*</span></label>
+                                        <select class="form-control" formControlName="evento" placeholder="Evento" name="evento" required="">
+                                            <option [value]="evento.id" *ngFor="let evento of eventos">{{ evento.nombre }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" *ngIf="isEdit()">
+                                    <div class="form-group position-relative">
+                                        <label>Estatus <span class="text-danger">*</span></label>
+                                        <select class="form-control" formControlName="estatus" placeholder="Estatus" name="estatus" required="">
+                                            <option value="ABIERTO">ABIERTO</option>
+                                            <option value="VENDIDA">VENDIDA</option>
+                                            <option value="RETENIDA">RETENIDA</option>
+                                            <option value="EN_PISTA">EN PISTA</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <a class="btn btn-success" (click)="addPrecioFijo()">Agregar Precio Fijo</a>
+								<div class="col-md-12" formArrayName="subastasPreciosFijos">
+									<div class="row" *ngFor="let child of subastaForm.controls.subastasPreciosFijos.controls; let i = index">
+										<div class="col-md-8">
+											<div class="form-group position-relative" [formGroupName]="i">
+												<label>Cantidad <span class="text-danger">*</span></label>
+												<input type="number" class="form-control" formControlName="cantidad" placeholder="Cantidad" name="cantidad" required="">
+											</div>
+										</div>
+										<div class="col-md-4">
+											<a class="btn btn-danger mt-4" (click)="eliminarPrecioFijo(i)">Eliminar</a>
+										</div>
+									</div>
+								</div>
+                            </div>
+                            <div class="col-lg-12 mt-2">
+                                <button class="btn btn-primary btn-block">Aceptar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

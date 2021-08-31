@@ -1,0 +1,73 @@
+ <section class="bg-half-170 d-table w-100" id="ranchos">
+    <div class="container">
+        <a href="#" [routerLink]="['/page/ranchos/crear']" class="btn btn-primary">Crear</a>
+        <form class="login-form mt-4" *ngIf="busquedaForm" [formGroup]="busquedaForm">
+            <div class="form-group form-inline">
+                Buscar: <input class="form-control ml-2" type="text" formControlName="busqueda"/>
+            </div>
+        </form>
+        <div class="table-responsive bg-white shadow rounded mt-4">
+            <table class="table mb-0 table-center">
+                <thead class="bg-light">
+                    <tr>
+                        <th scope="col" class="pointer" (click)="sorted('nombre')">
+                            <span>
+                                <i-feather *ngIf="sortedField === 'nombre' && sortedType === 'ASC'" name="arrow-up" class="fea icon-sm icons"></i-feather>
+                                <i-feather *ngIf="sortedField === 'nombre' && sortedType === 'DESC'" name="arrow-down" class="fea icon-sm icons"></i-feather>
+                                Nombre
+                            </span>
+                        </th>
+                        <th scope="col">Activo</th>
+                        <th scope="col" class="pointer" (click)="sorted('titular')">
+                            <span>
+                                <i-feather *ngIf="sortedField === 'titular' && sortedType === 'ASC'" name="arrow-up" class="fea icon-sm icons"></i-feather>
+                                <i-feather *ngIf="sortedField === 'titular' && sortedType === 'DESC'" name="arrow-down" class="fea icon-sm icons"></i-feather>
+                                Titular
+                            </span>
+                        </th>
+                        <th scope="col">Telefono Contacto</th>
+                        <th scope="col" class="pointer" (click)="sorted('email')">
+                            <span>
+                                <i-feather *ngIf="sortedField === 'email' && sortedType === 'ASC'" name="arrow-up" class="fea icon-sm icons"></i-feather>
+                                <i-feather *ngIf="sortedField === 'email' && sortedType === 'DESC'" name="arrow-down" class="fea icon-sm icons"></i-feather>
+                                Email
+                            </span>
+                        </th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let rancho of ranchosFiltered | slice: (page-1) * pageSize : page * pageSize">
+                        <td>{{ rancho.nombre }}</td>
+                        <td *ngIf="isAdmin">
+                            <span (click)="inactivar(rancho)" *ngIf="rancho.activo" class="badge badge-success text-white pointer">Activo</span>
+                            <span (click)="activar(rancho)" *ngIf="!rancho.activo" class="badge badge-danger text-white pointer">Inactivo</span>
+                        </td>
+                        <td *ngIf="!isAdmin">
+                            <span *ngIf="rancho.activo" class="badge badge-success text-white">Activo</span>
+                            <span *ngIf="!rancho.activo" class="badge badge-danger text-white">Inactivo</span>
+                        </td>
+                        <td>{{ rancho.titular }}</td>
+                        <td>{{ rancho.telefonoContacto }}</td>
+                        <td>{{ rancho.email }}</td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Acciones">
+                                <button type="button" class="btn btn-info" [routerLink]="['/page/ranchos/ver', rancho.id]">Ver</button>
+                                <button type="button" class="btn btn-secondary" [routerLink]="['/page/ranchos/editar', rancho.id]">Editar</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <br />
+        <ngb-pagination *ngIf="ranchosFiltered" [(page)]="page" [pageSize]="pageSize" [collectionSize]="ranchosFiltered.length"></ngb-pagination>
+    </div>
+ </section>
+
+ <!-- Back to top -->
+ <a href="javascript: void(0);" class="btn btn-icon btn-soft-primary back-to-top" id="back-to-top"
+    [ngxScrollTo]="'#home'">
+    <i-feather name="arrow-up" class="icons"></i-feather>
+ </a>
+ <!-- Back to top -->

@@ -1,0 +1,40 @@
+ <section class="bg-half-170 d-table w-100" id="configuraciones-generales">
+    <div class="container">
+        <div class="table-responsive bg-white shadow rounded mt-4">
+            <table class="table mb-0 table-center">
+                <thead class="bg-light">
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Valor</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let config of configs">
+                        <td>{{ config.nombre }}</td>
+                        <td>
+                            <div *ngIf="config.tipo === 'boolean'">
+                                <span (click)="cambiarValor(config, 'false')" *ngIf="config.valor === 'true'" class="badge badge-success text-white pointer">Activo</span>
+                                <span (click)="cambiarValor(config, 'true')" *ngIf="config.valor === 'false'" class="badge badge-danger text-white pointer">Inactivo</span>
+                            </div>
+						</td>
+						<td>
+                            <div class="btn-group" role="group" aria-label="Acciones">
+                                <button type="button" *ngIf="config.valor === 'false'" class="btn btn-success" (click)="cambiarValor(config, 'true')">Activar</button>
+                                <button type="button" *ngIf="config.valor === 'true'" class="btn btn-danger" (click)="cambiarValor(config, 'false')">Inactivar</button>
+                            </div>
+						</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <br />
+    </div>
+ </section>
+
+ <!-- Back to top -->
+ <a href="javascript: void(0);" class="btn btn-icon btn-soft-primary back-to-top" id="back-to-top"
+    [ngxScrollTo]="'#home'">
+    <i-feather name="arrow-up" class="icons"></i-feather>
+ </a>
+ <!-- Back to top -->

@@ -1,0 +1,80 @@
+.col-lg-3{
+    margin-top:-50px;
+
+}
+.btn{
+    margin-top: -20px;
+    margin-left:-4px;
+}
+
+.bg-half
+{
+    padding:150px 0 10px 0;
+    padding-top:80px;
+}
+.section{
+    padding:5px;
+    padding-bottom: 10px
+}
+#titulo{
+    margin-top:-6rem;
+}
+#boton{
+    margin-left: 20px;
+}
+.card{
+   
+    width: 900px;
+
+}
+.col-md-5{     
+   
+    flex: 0 0 41.666667%;
+    max-width: 41.666667%;
+}
+.ml-md-4, .mx-md-4 {
+    margin-left: 1.5rem !important;
+}
+.ml-md-4[_ngcontent-emq-c224], .mx-md-4[_ngcontent-emq-c224] {
+    padding-left: -30px;
+}
+.pt-sm-0, .py-sm-0 {
+    padding-top: 0 !important;
+}
+.mt-sm-0, .my-sm-0 {
+    margin-top: 0 !important;
+}
+.col-md-7 {
+    -ms-flex: 0 0 58.333333%;
+    flex: 0 0 58.333333%;
+    max-width: 58.333333%;
+}
+#text{
+    margin-left: 20px;
+}
+
+
+#barra{
+    margin-left: 380px;
+    width:55%;
+    margin-bottom: -1.5rem;
+    
+}
+.form-inline
+{
+    padding-left:20px;
+}
+
+#lotes{
+    padding-left:130px;
+}
+#boton1{
+    margin-left: 21.5px;
+    margin-bottom: -150px;
+}
+#texto{
+margin-left: 11.5rem;
+}
+.bi{
+    margin-left:2rem;
+}

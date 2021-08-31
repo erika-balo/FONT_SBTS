@@ -1,0 +1,116 @@
+<section class="bg-half bg-light d-table w-100" id="home" style="max-width:100%;">
+	<div class="container" *ngIf="lote">
+		<div class="row justify-content-center">
+			<div class="col-lg-12 text-center">
+			<div class="page-next-level">
+				<h4 class="title">LOTE {{ lote.numero }}: {{ lote.nombre }} </h4>
+				<div class="page-next">
+				</div>
+			</div>
+			</div>
+		</div>
+	</div>
+</section>
+<div class="position-relative">
+	<div class="shape overflow-hidden text-white">
+		<svg viewBox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path d="M0 48H1437.5H2880V0H2160C1442.5 52 720 0 720 0H0V48Z" fill="currentColor"></path>
+		</svg>
+	</div>
+</div>
+<section class="section">
+	<div class="container" *ngIf="lote">
+		<div class="row">
+			<div class="col-md-5">
+				<span *ngIf="lastSubasta" class="badge badge-warning" style="display:flex; width:200px; justify-content:center;" >{{ lastSubasta ? lastSubasta.estatus : 'Sin Subasta Activa' }}</span> 
+				<div class="slider slider-for">
+					<a>
+						<app-image-viewer [imageURL]="lote.archivoPortada.Location" [open]="viewerOpenPortada" (close)="viewerOpenPortada = false"></app-image-viewer>
+						<img [src]="lote.archivoPortada.Location" (click)="viewerOpenPortada = true" id="expandedImg" class="img-fluid rounded" alt="">
+					</a>
+				</div>
+				<div class="slider slider-nav mt-2 d-flex">
+					<div *ngFor="let img of lote.lotesFotos; let i = index">
+						<app-image-viewer [imageURL]="sanitizeImagen({ contentType: img.fotoContentType, base64: img.foto })" [open]="viewerOpen[i]" (close)="viewerOpen[i] = false"></app-image-viewer>
+						<img [src]="sanitizeImagen({ contentType: img.fotoContentType, base64: img.foto })" (click)="viewerOpen[i] = true" class="img-fluid" alt=""
+						style="width: 150px;">
+					</div>
+				</div>
+			</div>
+			<div class="col-md-7 mt-4 mt-sm-0 pt-2 pt-sm-0">
+				<div class="section-title ml-md-4">
+					<ul class="list-unstyled text-warning h5 mb-0">
+					</ul>
+					<!-- IMAGENES CATALAGO Y VIDEO-->
+					<div class="row mt-4 pt-2" id="imagenesch" >
+						<img (click)="openPdf()" src="assets/images/CATALOGOBAN.png" alt="" style="max-width:100%; margin-bottom:10px; margin-left:5px;" >
+						<img (click)="openVideo()" src="assets/images/VIDEOBAN.png" alt="" style="max-width:100%; margin-left:5px; margin-bottom:10px;" >
+					</div>
+					<!--ARBOL GENEALÓGICO CONFIGURABLE-->
+					<div class="arbol" style="max-width:100%;">
+						<div class="arbol-nodo">
+							<div class="arbol-padres">
+								<p> <span class="badge badge-pill badge0">{{ lote.padre }}</span></p>
+							</div>
+							<div class="arbol-padres">
+								<p><span class="badge badge-pill badge0">{{ lote.madre }}</span></p>
+							</div>
+						</div>
+						<div class="arbol-nodo">
+							<div class="arbol-abuelos">
+								<p><span class="badge badge-pill">{{ lote.abueloPaterno }}</span></p>
+							</div>
+							<div class="arbol-abuelos">
+								<p><span class="badge badge-pill">{{ lote.abuelaPaterna }}</span></p>
+							</div>
+							<div class="arbol-abuelos">
+								<p><span class="badge badge-pill">{{ lote.abueloMaterno }}</span></p>
+							</div>
+							<div class="arbol-abuelos">
+								<p><span class="badge badge-pill">{{ lote.abuelaMaterna }}</span></p>
+							</div>
+						</div>
+
+						<div class="arbol-nodo1">
+							<div class="arbol-bisaabuelos">
+								<p><span class="badge badge-pill badge1">{{ lote.bisabueloAbueloPaterno }}</span></p>
+							</div>
+							<div class="arbol-bisaabuelos">
+								<p><span class="badge badge-pill badge1">{{ lote.bisabuelaAbueloPaterno }}</span></p>
+							</div>
+							<div class="arbol-bisaabuelos">
+								<p><span class="badge badge-pill badge1">{{ lote.bisabueloAbuelaPaterna }}</span></p>
+							</div>
+							<div class="arbol-bisaabuelos">
+								<p><span class="badge badge-pill badge1">{{ lote.bisabuelaAbuelaPaterna }}</span></p>
+							</div>
+							<div class="arbol-bisaabuelos">
+								<p><span class="badge badge-pill badge1">{{ lote.bisabueloAbueloMaterno }}</span></p>
+							</div>
+							<div class="arbol-bisaabuelos">
+								<p><span class="badge badge-pill badge1">{{ lote.bisabuelaAbueloMaterno }}</span></p>
+							</div>
+							<div class="arbol-bisaabuelos">
+								<p><span class="badge badge-pill badge1">{{ lote.bisabueloAbuelaMaterna }}</span></p>
+							</div>
+							<div class="arbol-bisaabuelos">
+								<p><span class="badge badge-pill badge1">{{ lote.bisabuelaAbuelaMaterna }}</span></p>
+							</div>
+						</div>
+					</div>
+					<!--CAJA DE SUBASTA-->
+					<div class="card mb-2">
+						<div class="card-body">
+						<p>Color: {{ lote.color }}</p>
+						<p>Sexo: {{ lote.sexo }}</p>
+						<p>Fecha de Nacimiento: {{ lote.fechaNacimiento | date: 'yyyy-MM-dd' }}</p>
+						<p>No. de Registro: {{ lote.registro }}</p>
+						<p>Peso al Nacer: {{ lote.pesoNacer }}</p>
+						<p>Peso al Destete: {{ lote.pesoDestete }}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

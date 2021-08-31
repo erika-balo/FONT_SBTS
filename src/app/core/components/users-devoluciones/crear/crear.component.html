@@ -1,0 +1,50 @@
+ <section class="bg-half-170 d-table w-100">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-12 col-md-12">
+                <div class="card login_page shadow rounded border-0">
+                    <div class="card-body">
+                        <h4 class="card-title text-center">Nueva Devolucion</h4>
+                        <form class="login-form mt-4" (ngSubmit)="onSubmit()" *ngIf="devolucionForm" [formGroup]="devolucionForm">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Monto <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" formControlName="monto" placeholder="Monto" name="monto" required="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label>Fecha Pago <span class="text-danger">*</span></label>
+                                    <div class="input-group mb-3">
+                                        <input type="text" ngbDatepicker #dPago="ngbDatepicker" class="form-control" formControlName="fechaPago" placeholder="Fecha Pago" name="fechaPago" required="">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary calendar" (click)="dPago.toggle()" type="button"></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label>Fecha Devolucion <span class="text-danger">*</span></label>
+                                    <div class="input-group mb-3">
+                                        <input type="text" ngbDatepicker #dDevolucion="ngbDatepicker" class="form-control" formControlName="fechaDevolucion" placeholder="Fecha Devolucion" name="fechaDevolucion" required="">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary calendar" (click)="dDevolucion.toggle()" type="button"></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Medio Pago <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" formControlName="medioPago" placeholder="Medio Pago" name="medioPago" required="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 mb-0">
+                                <button class="btn btn-primary btn-block">Aceptar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,106 @@
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
+
+import { LotesService, SubastasDetallesService, SubastasService } from 'app/services';
+
+import * as _ from 'lodash';
+
+import { environment } from 'app/../environments/environment';
+
+@Component({
+	selector: 'app-page-contact-detail',
+	templateUrl: './page-contact-detail.component.html',
+	styleUrls: ['./page-contact-detail.component.css']
+})
+export class PageContactDetailComponent implements OnInit {
+
+	resourceUrl = environment.URL_IMAGENES;
+
+	loteId: number;
+	
+	isActiva: boolean;
+
+	lote: any;
+	lastPuja: any;
+	lastSubasta: any;
+
+	subastaDetalles: any[];
+
+	constructor(
+        private activatedRoute: ActivatedRoute,
+		private lotesService: LotesService,
+		private subastasDetallesService: SubastasDetallesService,
+		private subastasService: SubastasService,
+        private domSanitizer: DomSanitizer,
+		private chdr: ChangeDetectorRef,
+		private router: Router
+	) {
+	}
+
+	ngOnInit(): void {
+		this.load();
+
+		const url = new URL(environment.MERCURE_URL);
+		url.searchParams.append('topic', 'change-en-pista');
+
+		const eventSource = new EventSource(url.toString());
+		eventSource.onmessage = e => {
+			console.log(e);
+			this.load();
+		};
+	}
+
+	load(): void {
+		this.subastasService.getEnPista().subscribe(response => {
+			const data = response.body;
+			if (data) {
+				this.lote = data.lote;
+				this.lastSubasta = data;
+
+				const topicSubasta = 'topic-subasta-' + this.lastSubasta.id;
+
+				const url = new URL(environment.MERCURE_URL);
+				url.searchParams.append('topic', topicSubasta);
+
+				const eventSource = new EventSource(url.toString());
+				eventSource.onmessage = e => {
+					const data = JSON.parse(e.data);
+					if (data.accion === 'puja') {
+						this.loadDetalles();
+					} else if (data.accion === 'vendida') {
+						this.loadDetalles();
+					} else if (data.accion === 'cerrar') {
+						this.loadDetalles();
+					} else if (data.accion === 'invalidar') {
+						this.loadDetalles();
+					} else if (data.accion === 'validar') {
+						this.loadDetalles();
+					}
+				};
+
+				this.loadDetalles();
+			}
+		},
+		err => {
+			console.log(err);
+		});
+	}
+
+	loadDetalles(): void {
+		this.subastasDetallesService.getDetallesLimit(this.lastSubasta.id).subscribe(response => {
+			this.subastaDetalles = response.body;
+			this.lastPuja = _.first(this.subastaDetalles);
+
+			this.chdr.detectChanges();
+		},
+		err => {
+			console.log(err);
+		});
+	}
+
+    sanitizeImagen(imagen: any): any {
+        return this.domSanitizer.bypassSecurityTrustResourceUrl('data:' + imagen.contentType + ';base64,' + imagen.base64);
+	}
+
+}
