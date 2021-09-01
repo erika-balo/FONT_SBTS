@@ -97,16 +97,7 @@ export class IndexComponent implements OnInit, OnDestroy {
     }
 
     pujaAqui(item: any): void {
-		let ob;
-
-        item.subastas.forEach(subasta => {
-            if (subasta.estatus === 'ABIERTO' || subasta.estatus === 'EN_PISTA') {
-                ob = subasta;
-                return;
-            }
-		});
-
-        this.router.navigate(['/subastas/en-pista', ob.id]);
+        this.router.navigate(['/subastas/en-pista', item.lastSubasta.id]);
     }
 
     timerSubastas(lotes: any[]) {
