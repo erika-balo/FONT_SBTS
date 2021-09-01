@@ -87,14 +87,11 @@ export class IndexComponent implements OnInit, OnDestroy {
     checkIsInPista(item: any): boolean {
         let res = false;
 
-        item.subastas.forEach(subasta => {
-            if ((subasta.estatus === 'ABIERTO' || subasta.estatus === 'EN_PISTA') && subasta.activo) {
-                res = true;
+		if (item.lastSubasta) {
+			if ((item.lastSubasta.estatus === 'ABIERTO' || item.lastSubasta.estatus === 'EN_PISTA') && item.lastSubasta.activo) {
+				res = true;
 			}
-			if (subasta.estatus === 'VENDIDA') {
-				res = false;
-			}
-        });
+		}
 
         return res;
     }
