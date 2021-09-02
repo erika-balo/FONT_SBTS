@@ -60,6 +60,10 @@ export class LotesService {
 
     activar(id: number): Observable<any> {
         return this.http.put(this.resourceUrl + '/activar/' + id, {}, { observe: 'response' });
+	}
+
+    byNumero(numero: string): Observable<any> {
+        return this.http.get(this.resourceUrl + '/by-numero/' + numero, { observe: 'response' });
     }
     
 }

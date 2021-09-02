@@ -22,7 +22,7 @@
 	<div class="container" *ngIf="lote">
 		<div class="row">
 			<div class="col-md-5">
-				<!-- <button *ngIf="checkIsInPista()" (click)="pujaAqui()" class="btn btn-primary btn-block">PUJA AQUI</button> -->
+				<button *ngIf="checkIsInPista()" (click)="pujaAqui()" class="btn btn-primary btn-block">PUJA AQUI</button>
 				<span class="badge badge-warning" style="display:flex; width:200px; justify-content:center;" >{{ lastSubasta && lastSubasta.activo ? lastSubasta.estatus : 'Sin Subasta Activa' }}</span> 
 				<div class="slider slider-for">
 					<a>

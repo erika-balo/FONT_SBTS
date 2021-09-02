@@ -48,8 +48,8 @@
         <!--BARRA DE BÚSQUEDA!-->
         <li>
           
-          <form class="form-inline navbar-light my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Búsqueda" aria-label="Search" style="width: 150px;">
+          <form (ngSubmit)="busqueda()" *ngIf="busquedaForm" [formGroup]="busquedaForm" class="form-inline navbar-light my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" formControlName="numero" placeholder="Búsqueda" aria-label="Search" style="width: 150px;">
             <button class="btn btn-primary" type="submit">Buscar</button>
           </form>
 

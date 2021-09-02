@@ -94,7 +94,7 @@ export class VerLoteLandingComponent implements OnInit {
             }
         });
 
-        this.router.navigate(['/user/subastas/en-pista', ob.id]);
+        this.router.navigate(['/subastas/en-pista', ob.id]);
     }
 
 }

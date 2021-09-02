@@ -1,11 +1,14 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 
 import { Store, select } from '@ngrx/store';
 import { AppState, Logout, currentUser } from 'app/store';
 
 import { Subject } from 'rxjs';
 import { delay, filter, take, takeUntil } from 'rxjs/operators'
+
+import { LotesService, ToastService } from 'app/services';
 
 @Component({
   selector: 'app-header',
@@ -18,11 +21,16 @@ export class HeaderComponent implements OnInit {
 
 	user: any;
 
-    private _unsubscribeAll: Subject<any>;
+	private _unsubscribeAll: Subject<any>;
+
+	busquedaForm: FormGroup;
 
   constructor(
-	  private router: Router,
-        private store: Store<AppState>,
+        private _fb: FormBuilder,
+		private router: Router,
+		private store: Store<AppState>,
+		private toastService: ToastService,
+		private lotesService: LotesService
 	) {
     router.events.forEach((event) => {
       if (event instanceof NavigationEnd) {
@@ -30,6 +38,7 @@ export class HeaderComponent implements OnInit {
       }
     });
   }
+
   isCondensed = false;
 
 
@@ -46,6 +55,26 @@ export class HeaderComponent implements OnInit {
 	).subscribe(user => {
 		this.user = user;
 	});
+
+        this.busquedaForm = this._fb.group({
+            numero: [null, Validators.required],
+        });
+  }
+
+  busqueda(): void {
+	  const numero = this.busquedaForm['controls'].numero.value;
+	  this.lotesService.byNumero(numero).subscribe(response => {
+		console.log(response);
+		const data = response.body;
+		if (data.id) {
+			this.router.navigate(['/lotes/ver-landing', data.id]);
+		} else {
+			this.toastService.error('No se encuentra ningún lote con ese número');
+		}
+	  },
+	  err => {
+		console.log(err);
+	  });
   }
 
   _activateMenuDropdown() {
