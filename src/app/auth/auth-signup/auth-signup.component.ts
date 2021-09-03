@@ -112,6 +112,10 @@ export class AuthSignupComponent implements OnInit {
             archivos: this._fb.array([])
         });
 
+		this.registroForm.get('email').valueChanges.subscribe((event) => {
+			this.registroForm.get('email').setValue(event.toLowerCase(), {emitEvent: false});
+		})
+
         this.formsRegistro.forEach(form => {
             if (form.seMuestra) {
                 const info = <FormGroup>this.registroForm['controls'].info;

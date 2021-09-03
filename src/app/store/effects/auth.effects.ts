@@ -39,7 +39,6 @@ export class AuthEffects {
         mergeMap(([action, _isUserLoaded]) => this.usersService.me()),
         tap(response => {
 			const _user = response.body;
-			console.log(_user);
             this.store.dispatch(new UserLoaded({ user: _user }));
         })
     );

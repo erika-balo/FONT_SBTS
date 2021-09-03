@@ -1,3 +1,9 @@
 .footer{
-    background-color: #403e31;
+    background-color: #13120d;
 }
+
+.footer.footer-bar{
+    border-top:1px solid black;
+}
+
+

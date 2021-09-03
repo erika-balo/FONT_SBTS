@@ -210,6 +210,7 @@ export class UsersEditarComponent implements OnInit {
     }
 
     onSubmit(): void {
+		console.log(this.usuarioForm.value);
         this.usersService.editar(this.id, this.usuarioForm.value).subscribe(response => {
             this.toastService.success('Usuario editado correctamente');
             this.router.navigate(['/page/users']);
