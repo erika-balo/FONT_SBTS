@@ -183,7 +183,7 @@
             </table>
         </div>
         <br />
-        <ngb-pagination *ngIf="users" (pageChange)="onPageChange($event)" [(page)]="page" [pageSize]="pageSize" [collectionSize]="users.meta.totalItems"></ngb-pagination>
+        <ngb-pagination *ngIf="users" (pageChange)="onPageChange($event)" [maxSize]="5"] [(page)]="page" [pageSize]="pageSize" [collectionSize]="users.meta.totalItems"></ngb-pagination>
     </div>
  </section>
 
