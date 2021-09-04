@@ -47,7 +47,6 @@ export class UsersCrearComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.loadPaises();
 		this.activatedRoute.params.subscribe(params => {
             forkJoin({
                 documentos: this.configDocumentosRegistroService.getAllActivos(),
@@ -60,6 +59,7 @@ export class UsersCrearComponent implements OnInit {
                 this.formsRegistro = data;
 
                 this.createForm();
+				this.loadPaises();
 
                 this.documentosRegistro.forEach(item => {
                     this.addArchivo(item);
@@ -71,6 +71,8 @@ export class UsersCrearComponent implements OnInit {
     loadPaises(): void {
         this.piasesService.findAll().subscribe(response => {
             this.paises = response.body;
+			this.usuarioForm['controls'].info['controls'].pais.setValue(this.paises[0].id);
+			this.loadEstados();
         },
         err => {
             console.log(err);
@@ -81,6 +83,7 @@ export class UsersCrearComponent implements OnInit {
         const pais = this.usuarioForm['controls'].info['controls'].pais.value;
         this.estadosService.findAllByPais(pais).subscribe(response => {
             this.estados = response.body;
+			this.usuarioForm['controls'].info['controls'].estado.setValue(this.estados[0].id);
         },
         err => {
             console.log(err);
