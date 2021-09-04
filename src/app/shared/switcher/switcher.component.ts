@@ -20,7 +20,7 @@ export class SwitcherComponent implements OnInit {
     // assign value
     this.isVisible = false;
 
-    this.onChangeColor('branding');
+    this.onChangeColor('red');
   }
 
   /**
