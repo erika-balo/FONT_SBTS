@@ -1,26 +1,30 @@
 .btn-outline-success {
-    color: #403e31;
-    border-color: #403e31;
+	color: #403e31;
+	border-color: #403e31;
 }
 
 .btn-outline-success:hover {
-    /*color: rgb(49, 49, 49);
-    background-color: #fff;
-    border-color: #fff;
-    box-shadow: 0 3px 5px 0 rgba(47, 85, 212, 0.3);*/
+	/*color: rgb(49, 49, 49);
+	background-color: #fff;
+	border-color: #fff;
+	box-shadow: 0 3px 5px 0 rgba(47, 85, 212, 0.3);*/
 
-    color: rgb(243, 243, 243);
-    border-color: #403e31;
-    background-color: #403e31;
-    box-shadow:white;
+	color: rgb(243, 243, 243);
+	border-color: #403e31;
+	background-color: #403e31;
+	box-shadow:white;
 }
 
 .my-lg-0 {
-    margin-top: 18px !important;
+	margin-top: 18px !important;
 }
 
 #topnav {
 
-    background-color:black;
+	background-color:black;
 
+}
+
+#topnav .navigation-menu>li>a {
+	color: rgb(243, 243, 243);
 }
