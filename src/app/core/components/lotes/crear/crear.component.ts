@@ -137,7 +137,7 @@ export class LotesCrearComponent implements OnInit, OnDestroy {
 
             this.lote.lotesFotos.forEach(loteFoto => {
                 this.addFoto(loteFoto);
-                this.files.push({ nombre: loteFoto.fotoNombre, fotoUrl: loteFoto.fotoUrl });
+                this.files.push({ nombre: loteFoto.fotoNombre, fotoUrl: loteFoto.fotoUrl, archivoFoto: loteFoto.archivoFoto });
             });
         },
         err => {

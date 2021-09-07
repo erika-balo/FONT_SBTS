@@ -20,11 +20,13 @@
 }
 
 #topnav {
-
 	background-color:black;
-
 }
 
-#topnav .navigation-menu>li>a {
-	color: rgb(243, 243, 243);
+#topnav .navigation-menu>li>a{
+	color:white;
+}
+
+#navigation.active{
+	background-color: black;
 }
