@@ -40,6 +40,7 @@ import { SubastasVerPujasComponent } from './core/components/subastas/pujas/puja
 import { VerPujasComponent } from './core/components/pujas/pujas.component';
 import { TableroClienteComponent } from './core/components/tablero-cliente/tablero-cliente.component';
 import { UsersCrearComponent } from './core/components/users/crear/crear.component';
+import { TerminosCondicionesComponent } from './core/components/terminos-condiciones/terminos-condiciones.component';
 
 import { AuthGuard } from './shared/guards/auth.guard';
 import { RolesGuard } from './shared/guards/roles.guard';
@@ -54,6 +55,7 @@ const routes: Routes = [
       { path: 'lotes/ver-landing/:loteId', component: VerLoteLandingComponent },
       { path: 'subastas/en-pista/:subastaId', component: SubastasEnPistaComponent },
       { path: 'tablero', component: TableroClienteComponent },
+      { path: 'terminos-condiciones', component: TerminosCondicionesComponent },
     ]
   },  
   {

@@ -106,6 +106,7 @@ import { VerPujasComponent } from './core/components/pujas/pujas.component';
 import { TableroClienteComponent } from './core/components/tablero-cliente/tablero-cliente.component';
 import { UsersCrearComponent } from './core/components/users/crear/crear.component';
 import { CerrarSubastaComponent } from './core/components/subastas/cerrar/cerrar.component';
+import { TerminosCondicionesComponent } from './core/components/terminos-condiciones/terminos-condiciones.component';
 
 import { ConfirmacionComponent } from './core/components/generales/confirmacion/confirmacion.component';
 
@@ -186,7 +187,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
 	VerPujasComponent,
 	TableroClienteComponent,
 	UsersCrearComponent,
-	CerrarSubastaComponent
+	CerrarSubastaComponent,
+	TerminosCondicionesComponent
   ],
   entryComponents: [
     GanadoraComponent,

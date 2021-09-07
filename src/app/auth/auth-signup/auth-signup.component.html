@@ -102,7 +102,7 @@
 					<div class="form-check">
 						<input type="checkbox" class="form-check-input" id="terminos" formControlName="terminos" name="terminos"
 						[ngClass]="{ 'is-invalid': f.terminos.touched && f.terminos.errors, 'is-valid': f.terminos.touched && !f.terminos.errors }">
-						<label class="form-check-label" for="terminos">Aceptar Términos y Condiciones <span class="text-danger">*</span></label>
+						<label class="form-check-label" for="terminos"><a class="pointer" [routerLink]="['/terminos-condiciones']">Aceptar Términos y Condiciones <span class="text-danger">*</span> </a></label>
 						<div *ngIf="f.terminos.touched && f.terminos.errors" class="invalid-feedback">
 							<div *ngIf="f.terminos.errors.required">Aceptar Términos y Condiciones es requerido</div>
 						</div>
