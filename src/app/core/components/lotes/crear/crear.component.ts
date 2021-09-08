@@ -301,7 +301,7 @@ export class LotesCrearComponent implements OnInit, OnDestroy {
     }
 
     onSubmit(): void {
-        const params = this.loteForm.value;
+		const params = this.loteForm.value;
         if (this.isEdit()) {
             this.lotesService.edit(this.id, params).subscribe(response => {
                 this.toastService.success('Lote editado correctamente');
