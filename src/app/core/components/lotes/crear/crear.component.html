@@ -241,9 +241,17 @@
                                 <tbody>
                                     <tr *ngFor="let file of files; let i = index">
                                         <td style="width: 200px">
-                                            <img [src]="file.archivoFoto.Location" class="img-fluid" />
+                                            <img *ngIf="file.archivoFoto" [src]="file.archivoFoto.Location" class="img-fluid" />
+                                            <img *ngIf="file.base64" [src]="sanitizeImagen(file)" class="img-fluid" />
                                         </td>
-                                        <td>{{ file.archivoFoto.Key }}</td>
+                                        <td>
+											<span *ngIf="file.archivoFoto">
+												{{ file.archivoFoto.Key }}
+											</span>
+											<span *ngIf="file.nombre">
+												{{ file.nombre }}
+											</span>
+										</td>
                                         <td>
                                             <a class="btn btn-danger" (click)="eliminarFoto(i)">Eliminar</a>
                                         </td>
