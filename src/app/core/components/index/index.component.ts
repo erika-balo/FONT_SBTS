@@ -99,7 +99,11 @@ export class IndexComponent implements OnInit, OnDestroy {
 
     pujaAqui(item: any): void {
         this.router.navigate(['/subastas/en-pista', item.lastSubasta.id]);
-    }
+	}
+	
+	redirectCatalogo(): void {
+		window.open('https://online.fliphtml5.com/utfja/flpl/#p=6', '_blank');
+	}
 
     timerSubastas(lotes: any[]) {
         lotes.forEach((lote, index) => {

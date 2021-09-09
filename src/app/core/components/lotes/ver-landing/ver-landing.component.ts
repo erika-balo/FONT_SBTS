@@ -45,7 +45,6 @@ export class VerLoteLandingComponent implements OnInit {
 	load(): void {
 		this.lotesService.findOneCompleto(this.loteId).subscribe(response => {
 			this.lote = response.body;
-			console.log(this.lote);
 			this.lastSubasta = this.lote.subastas && this.lote.subastas.length > 0 ? _.first(this.lote.subastas) : null;
 			this.lote.lotesFotos.forEach(foto =>  {
 				this.viewerOpen.push(false);
@@ -75,6 +74,7 @@ export class VerLoteLandingComponent implements OnInit {
     checkIsInPista(): boolean {
         let res = false;
 
+		console.log(this.lote);
         this.lote.subastas.forEach(subasta => {
             if (subasta.estatus === 'EN_PISTA' || subasta.estatus === 'ABIERTO') {
                 res = true;

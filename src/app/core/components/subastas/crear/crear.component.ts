@@ -78,7 +78,10 @@ export class SubastasCrearComponent implements OnInit {
 
     loadEventos(): void {
         this.eventosService.findAllActivos().subscribe(response => {
-            this.eventos = response.body;
+			this.eventos = response.body;
+			if (this.eventos.length > 0) {
+				this.subastaForm['controls'].evento.setValue(this.eventos[0].id);
+			}
         },
         err => {
             console.log(err);

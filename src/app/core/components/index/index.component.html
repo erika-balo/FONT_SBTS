@@ -9,7 +9,10 @@
                             <div class="col-sm-12">
                                 <ngb-carousel #carousel [interval]="5000">
                                     <ng-template ngbSlide *ngFor="let img of images; index as i">
-                                        <div class="picsum-img-wrapper" [routerLink]="['/auth-signup']">
+                                        <div *ngIf="i === 0" class="picsum-img-wrapper" [routerLink]="['/auth-signup']">
+                                            <img [src]="img" class="d-block w-100" alt="My image {{i + 1}} description">
+                                        </div>
+                                        <div *ngIf="i === 1" class="picsum-img-wrapper" (click)="redirectCatalogo()">
                                             <img [src]="img" class="d-block w-100" alt="My image {{i + 1}} description">
                                         </div>
                                     </ng-template>
@@ -92,7 +95,7 @@
 						<div class="card-body content pt-4 p-2">
 							<a routerLink="/shop-product-detail" class="text-dark product-name h6"> <b id="texto1">LOTE {{ lote.numero }}: {{ lote.nombre }}</b></a>
 							<div class="d-flex justify-content-between mt-1">
-								<h6 class="text-muted small mb-0 mt-1"> <b>Postura actual:</b>
+								<h6 class="text-muted small mb-0 mt-1"> <b>Postura:</b>
 								<span *ngIf="lote.lastSubasta && lote.lastSubasta.lastPuja">
 									{{ lote.lastSubasta.lastPuja.monto | currency }}
 								</span>
