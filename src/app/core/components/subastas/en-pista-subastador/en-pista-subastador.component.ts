@@ -308,6 +308,9 @@ export class SubastasEnPistaSubastadorComponent implements OnInit, OnDestroy {
 		},
 		err => {
 			console.log(err);
+			if (err.status === 409) {
+				this.toastService.error(err.error.message);
+			}
 		});
 	}
 

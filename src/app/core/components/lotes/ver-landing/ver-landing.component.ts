@@ -74,7 +74,6 @@ export class VerLoteLandingComponent implements OnInit {
     checkIsInPista(): boolean {
         let res = false;
 
-		console.log(this.lote);
         this.lote.subastas.forEach(subasta => {
             if (subasta.estatus === 'EN_PISTA' || subasta.estatus === 'ABIERTO') {
                 res = true;

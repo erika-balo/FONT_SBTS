@@ -34,7 +34,6 @@ export class SubastasCrearComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.loadEventos();
         this.loadLotes();
         this.activatedRoute.params.subscribe(params => {
             if (params['id']) {
@@ -47,6 +46,7 @@ export class SubastasCrearComponent implements OnInit {
                 this.subasta.fechaInicio = moment();
                 this.subasta.fechaFin = moment();
                 this.createForm();
+				this.loadEventos();
             }
         });
     }
@@ -55,6 +55,7 @@ export class SubastasCrearComponent implements OnInit {
         this.subastasService.findOneCompleto(this.id).subscribe(response => {
             this.subasta = response.body;
 			this.createForm();
+			this.loadEventos();
 
 			this.subastaForm.addControl('estatus', new FormControl(this.subasta.estatus, Validators.required));
 
@@ -79,7 +80,7 @@ export class SubastasCrearComponent implements OnInit {
     loadEventos(): void {
         this.eventosService.findAllActivos().subscribe(response => {
 			this.eventos = response.body;
-			if (this.eventos.length > 0) {
+			if (this.eventos.length > 0 && !this.subasta.id) {
 				this.subastaForm['controls'].evento.setValue(this.eventos[0].id);
 			}
         },
@@ -135,7 +136,6 @@ export class SubastasCrearComponent implements OnInit {
 
     onSubmit(): void {
 		const params = this.subastaForm.value;
-		console.log(params);
 		params.fechaInicio = moment(moment(params.fechaInicio).format('YYYY-MM-DD') + ' ' + params.fechaInicioTime.hour.toString().padStart(2, '0') + ':' + params.fechaInicioTime.minute.toString().padStart(2, '0'));
 		params.fechaFin = moment(moment(params.fechaFin).format('YYYY-MM-DD') + ' ' + params.fechaFinTime.hour.toString().padStart(2, '0') + ':' + params.fechaFinTime.minute.toString().padStart(2, '0'));
         if (this.isEdit()) {
