@@ -64,7 +64,6 @@ export class UsersEditarComponent implements OnInit {
                 this.formsRegistro = data;
 
 				this.user = response.user.body;
-				console.log(this.user);
 
                 this.createForm();
 
@@ -170,7 +169,7 @@ export class UsersEditarComponent implements OnInit {
     handleFile(event: any, index: number): void {
         const file = <File>event.target.files[0];
         FilesUtils.readFileBynaryString(file).subscribe(data => {
-            const archivos = this.usuarioForm['controls'].archivos as FormArray;
+			const archivos = this.usuarioForm['controls'].archivos as FormArray;
             const control = archivos.at(index);
 
             control.get('base64').setValue(data.base64);
@@ -188,10 +187,10 @@ export class UsersEditarComponent implements OnInit {
         const configDocumentoRegistro = value.configDocumentoRegistro;
         const doc = this.getDocumento(configDocumentoRegistro);
         if (doc) {
-			if (doc.url) {
+			if (!value.base64) {
 				return doc.url;
 			} else {
-				return this.domSanitizer.bypassSecurityTrustResourceUrl('data:' + doc.contentType + ';base64,' + value.base64);
+				return this.domSanitizer.bypassSecurityTrustResourceUrl('data:' + value.contentType + ';base64,' + value.base64);
 			}
         }
     }
