@@ -54,6 +54,7 @@ export class IndexComponent implements OnInit, OnDestroy {
         this.images = [
             'assets/images/1-slider.png',
             'assets/images/2-slider.png',
+            'assets/images/PATROCINADORES.png',
         ];
 
         this.page = 1;

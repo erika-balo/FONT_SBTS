@@ -263,7 +263,7 @@ export class SubastasEnPistaComponent implements OnInit, OnDestroy {
 
     onSubmit(): void {
 		this.checkIsLogin();
-		this.validDiferenciaPuja();
+		// this.validDiferenciaPuja();
 		if (this.pujaForm.valid && this.user) {
 			const modalRef = this.modalService.open(ConfirmacionComponent);
 			modalRef.componentInstance.texto = '¿Desea registrar esta puja?';

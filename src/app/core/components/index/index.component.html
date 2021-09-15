@@ -15,6 +15,9 @@
                                         <div *ngIf="i === 1" class="picsum-img-wrapper" (click)="redirectCatalogo()">
                                             <img [src]="img" class="d-block w-100" alt="My image {{i + 1}} description">
                                         </div>
+                                        <div *ngIf="i === 2" class="picsum-img-wrapper">
+                                            <img [src]="img" class="d-block w-100" alt="My image {{i + 1}} description">
+                                        </div>
                                     </ng-template>
                                 </ngb-carousel>
                             </div>
