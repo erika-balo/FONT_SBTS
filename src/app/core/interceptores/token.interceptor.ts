@@ -11,6 +11,8 @@ import {
 import { catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 
+import { ToastService } from 'app/services';
+
 import { environment } from 'app/../environments/environment';
 
 @Injectable()
@@ -18,6 +20,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
     constructor(
         private router: Router,
+		private toastService: ToastService,
     ) {
     }
 
@@ -36,6 +39,10 @@ export class TokenInterceptor implements HttpInterceptor {
         return next.handle(request)
             .pipe(
                 catchError((err) => {
+					if (request.url.indexOf('/auth/login') === -1 && err.status === 401) {
+						this.toastService.error('Su sesión ha caducado, porfavor ingrese de nuevo');
+						this.router.navigate(['/auth-login']);
+					}
                     return throwError(err);
                 })
             );
