@@ -12,11 +12,13 @@
                                         <div *ngIf="i === 0" class="picsum-img-wrapper" [routerLink]="['/auth-signup']">
                                             <img [src]="img" class="d-block w-100" alt="My image {{i + 1}} description">
                                         </div>
-                                        <div *ngIf="i === 1" class="picsum-img-wrapper" (click)="redirectCatalogo()">
+                                        <div *ngIf="i === 1" class="picsum-img-wrapper">
                                             <img [src]="img" class="d-block w-100" alt="My image {{i + 1}} description">
                                         </div>
                                         <div *ngIf="i === 2" class="picsum-img-wrapper">
-                                            <img [src]="img" class="d-block w-100" alt="My image {{i + 1}} description">
+											<a target="_blank" href="https://us02web.zoom.us/j/84213897651?pwd=V3loWnQzZnNtV1NyWmFQeER4d0kzQT09">
+												<img [src]="img" class="d-block w-100" alt="My image {{i + 1}} description">
+											</a>
                                         </div>
                                     </ng-template>
                                 </ngb-carousel>

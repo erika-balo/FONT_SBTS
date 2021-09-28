@@ -52,9 +52,9 @@ export class IndexComponent implements OnInit, OnDestroy {
 		this.timers = [];
 		this.lotes = [];
         this.images = [
-            'assets/images/1-slider.png',
-            'assets/images/2-slider.png',
-            'assets/images/PATROCINADORES.png',
+            'assets/images/slider1.jpeg',
+            'assets/images/slider3.jpeg',
+            'assets/images/slider2.jpeg',
         ];
 
         this.page = 1;
