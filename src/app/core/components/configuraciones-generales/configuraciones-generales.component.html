@@ -10,18 +10,24 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let config of configs">
+                    <tr *ngFor="let config of configs; let i = index">
                         <td>{{ config.nombre }}</td>
                         <td>
                             <div *ngIf="config.tipo === 'boolean'">
                                 <span (click)="cambiarValor(config, 'false')" *ngIf="config.valor === 'true'" class="badge badge-success text-white pointer">Activo</span>
                                 <span (click)="cambiarValor(config, 'true')" *ngIf="config.valor === 'false'" class="badge badge-danger text-white pointer">Inactivo</span>
                             </div>
+                            <div *ngIf="config.tipo === 'string'">
+								<span (click)="editarString(config, i)" *ngIf="!config.editar" class="pointer">{{ config.valor }}</span>
+								<input type="text" *ngIf="config.editar" [(ngModel)]="valores[i]" value="{{ config.valor }}" />
+								<i-feather name="save" *ngIf="config.editar" (click)="cambiarValorString(config, i)" class="icons"></i-feather>
+                            </div>
 						</td>
 						<td>
                             <div class="btn-group" role="group" aria-label="Acciones">
-                                <button type="button" *ngIf="config.valor === 'false'" class="btn btn-success" (click)="cambiarValor(config, 'true')">Activar</button>
-                                <button type="button" *ngIf="config.valor === 'true'" class="btn btn-danger" (click)="cambiarValor(config, 'false')">Inactivar</button>
+                                <button type="button" *ngIf="config.tipo === 'boolean' && config.valor === 'false'" class="btn btn-success" (click)="cambiarValor(config, 'true')">Activar</button>
+                                <button type="button" *ngIf="config.tipo === 'boolean' && config.valor === 'true'" class="btn btn-danger" (click)="cambiarValor(config, 'false')">Inactivar</button>
+                                <button type="button" *ngIf="config.tipo === 'string'" class="btn btn-info" (click)="editarString(config, i)">Cambiar</button>
                             </div>
 						</td>
                     </tr>

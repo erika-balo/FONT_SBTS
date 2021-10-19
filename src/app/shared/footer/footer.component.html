@@ -37,12 +37,14 @@
          <ul class="list-unstyled footer-list mt-4">
            <li><a routerLink="/page-aboutus" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> En subasta</a>
            </li>
-           <li><a routerLink="/page-services" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> Eventos anteriores</a>
+           <li><a routerLink="/list" [queryParams]="{ tipo: 'past' }" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> Eventos anteriores</a>
+           </li>
+           <li><a routerLink="/list" [queryParams]="{ tipo: 'future' }" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> Eventos futuros</a>
            </li>
            <li><a routerLink="/auth-signup-three" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> Regístrate</a></li>
-           <li><a target="_blank" href="https://online.fliphtml5.com/utfja/rocl/#p=1" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> Catálogo</a>
+           <li><a target="_blank" href="{{ linkCatalogo }}" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> Catálogo</a>
            </li>
-           <li><a routerLink="/page-work-modern" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i>
+           <li><a [routerLink]="['/enlace/VIDEOS']" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i>
                Videos</a></li>
      
          </ul>
@@ -52,7 +54,7 @@
        <div class="col-lg-3 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
          <h4 class="text-light footer-head">Otros enlaces</h4>
          <ul class="list-unstyled footer-list mt-4">
-           <li><a routerLink="/terminos-condiciones" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> Términos y condiciones</a>
+           <li><a [routerLink]="['/enlace/TERMINOS_CONDICIONES']" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> Términos y condiciones</a>
            </li>
            <!-- <li><a routerLink="/page-privacy" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> Política de privacidad</a>
            </li> -->

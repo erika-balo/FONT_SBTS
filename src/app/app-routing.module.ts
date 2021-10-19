@@ -40,7 +40,15 @@ import { SubastasVerPujasComponent } from './core/components/subastas/pujas/puja
 import { VerPujasComponent } from './core/components/pujas/pujas.component';
 import { TableroClienteComponent } from './core/components/tablero-cliente/tablero-cliente.component';
 import { UsersCrearComponent } from './core/components/users/crear/crear.component';
-import { TerminosCondicionesComponent } from './core/components/terminos-condiciones/terminos-condiciones.component';
+import { PageComponent } from './core/components/page/page.component';
+import { SlidersComponent } from './core/components/sliders/sliders.component';
+import { SlidersCrearComponent } from './core/components/sliders/crear/crear.component';
+import { AuthRePasswordComponent } from './auth/auth-re-password/auth-re-password.component';
+import { AuthRePasswordFinishComponent } from './auth/auth-re-password-finish/auth-re-password-finish.component';
+import { PagesComponent } from './core/components/pages/pages.component';
+import { PagesCrearComponent } from './core/components/pages/crear/crear.component';
+import { BannersComponent } from './core/components/banners/banners.component';
+import { BannersCrearComponent } from './core/components/banners/crear/crear.component';
 
 import { AuthGuard } from './shared/guards/auth.guard';
 import { RolesGuard } from './shared/guards/roles.guard';
@@ -51,11 +59,12 @@ const routes: Routes = [
     component: MasterPageComponent,
     children: [
       { path: '', component: IndexComponent },
+      { path: 'list', component: IndexComponent },
       { path: '#', component: SwitcherComponent },
       { path: 'lotes/ver-landing/:loteId', component: VerLoteLandingComponent },
       { path: 'subastas/en-pista/:subastaId', component: SubastasEnPistaComponent },
       { path: 'tablero', component: TableroClienteComponent },
-      { path: 'terminos-condiciones', component: TerminosCondicionesComponent },
+      { path: 'enlace/:slug', component: PageComponent },
     ]
   },  
   {
@@ -92,6 +101,9 @@ const routes: Routes = [
       { path: 'configuraciones-documentos/editar/:id', component: ConfiguracionesDocumentosCrearComponent },
       { path: 'configuraciones-form-registro', component: ConfiguracionesFormRegistroComponent },
       { path: 'configuraciones-generales', component: ConfiguracionesGeneralesComponent },
+      { path: 'configuraciones-sliders', component: SlidersComponent },
+      { path: 'configuraciones-sliders/crear', component: SlidersCrearComponent },
+      { path: 'configuraciones-sliders/editar/:id', component: SlidersCrearComponent },
       { path: 'users-pagos/:userId', component: UsersPagosComponent },
       { path: 'users-pagos/crear/:userId', component: UsersPagosCrearComponent },
       { path: 'users-pagos/editar/:userId/:id', component: UsersPagosCrearComponent },
@@ -100,6 +112,10 @@ const routes: Routes = [
       { path: 'users-devoluciones/editar/:userId/:id', component: UsersDevolucionCrearComponent },
       { path: 'lotes/page-contact-detail', component: PageContactDetailComponent },
       { path: 'pujas', component: VerPujasComponent },
+      { path: 'pages', component: PagesComponent },
+      { path: 'pages/editar/:id', component: PagesCrearComponent },
+      { path: 'banners', component: BannersComponent },
+      { path: 'banners/editar/:id', component: BannersCrearComponent },
     ]
   },  
   {
@@ -121,6 +137,8 @@ const routes: Routes = [
   },  
   { path: 'auth-signup', component: AuthSignupComponent },
   { path: 'auth-login', component: AuthLoginComponent },
+  { path: 'auth-re-password', component: AuthRePasswordComponent },
+  { path: 'auth-re-password-finish/:token', component: AuthRePasswordFinishComponent },
 ];
 
 @NgModule({

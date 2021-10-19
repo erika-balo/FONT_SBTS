@@ -15,7 +15,8 @@ import { delay, filter, take, takeUntil } from 'rxjs/operators'
 })
 export class ConfiguracionesGeneralesComponent implements OnInit, OnDestroy {
 
-    configs: any[];
+	configs: any[];
+	valores: any[];
 
     user: any;
 
@@ -29,7 +30,8 @@ export class ConfiguracionesGeneralesComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this._unsubscribeAll = new Subject();
+		this._unsubscribeAll = new Subject();
+		this.valores = [];
 
         this.store.pipe(
             takeUntil(this._unsubscribeAll),
@@ -61,7 +63,26 @@ export class ConfiguracionesGeneralesComponent implements OnInit, OnDestroy {
         err => {
             console.log(err);
         });
-    }
+	}
+
+    cambiarValorString(item: any, i: number): void {
+        const params = {
+            valor: this.valores[i]
+		};
+		console.log(params);
+        this.configGeneralesService.edit(item.id, params).subscribe(response => {
+            this.toastService.success('Registro editado correctamente');
+            this.load();
+        },
+        err => {
+            console.log(err);
+        });
+	}
+	
+	editarString(item: any, i: number) : void {
+		this.valores[i] = item.valor;
+		item.editar = true;
+	}
 
     ngOnDestroy(): void {
         this._unsubscribeAll.next();

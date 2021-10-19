@@ -57,7 +57,10 @@ import {
     UsersPagosService,
     UsersDevolucionesService,
     PaisesService,
-    EstadosService
+	EstadosService,
+	SlidersService,
+	PagesService,
+	BannersService
 } from './services';
 
 import { allIcons, User } from 'angular-feather/icons';
@@ -106,7 +109,14 @@ import { VerPujasComponent } from './core/components/pujas/pujas.component';
 import { TableroClienteComponent } from './core/components/tablero-cliente/tablero-cliente.component';
 import { UsersCrearComponent } from './core/components/users/crear/crear.component';
 import { CerrarSubastaComponent } from './core/components/subastas/cerrar/cerrar.component';
-import { TerminosCondicionesComponent } from './core/components/terminos-condiciones/terminos-condiciones.component';
+import { PageComponent } from './core/components/page/page.component';
+import { SlidersComponent } from './core/components/sliders/sliders.component';
+import { SlidersCrearComponent } from './core/components/sliders/crear/crear.component';
+import { AuthRePasswordFinishComponent } from './auth/auth-re-password-finish/auth-re-password-finish.component';
+import { PagesComponent } from './core/components/pages/pages.component';
+import { PagesCrearComponent } from './core/components/pages/crear/crear.component';
+import { BannersComponent } from './core/components/banners/banners.component';
+import { BannersCrearComponent } from './core/components/banners/crear/crear.component';
 
 import { ConfirmacionComponent } from './core/components/generales/confirmacion/confirmacion.component';
 
@@ -188,12 +198,19 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
 	TableroClienteComponent,
 	UsersCrearComponent,
 	CerrarSubastaComponent,
-	TerminosCondicionesComponent
+	PageComponent,
+	SlidersComponent,
+	SlidersCrearComponent,
+	AuthRePasswordFinishComponent,
+	PagesComponent,
+	PagesCrearComponent,
+	BannersComponent,
+	BannersCrearComponent
   ],
   entryComponents: [
     GanadoraComponent,
     ConfirmacionComponent,
-	CerrarSubastaComponent
+	CerrarSubastaComponent,
   ],
   imports: [
     CommonModule,
@@ -271,7 +288,10 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     UsersPagosService,
     UsersDevolucionesService,
     PaisesService,
-    EstadosService
+	EstadosService,
+	SlidersService,
+	PagesService,
+	BannersService
   ],
   bootstrap: [AppComponent]
 })

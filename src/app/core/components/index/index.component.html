@@ -9,17 +9,9 @@
                             <div class="col-sm-12">
                                 <ngb-carousel #carousel [interval]="5000">
                                     <ng-template ngbSlide *ngFor="let img of images; index as i">
-                                        <div *ngIf="i === 0" class="picsum-img-wrapper" [routerLink]="['/auth-signup']">
-                                            <img [src]="img" class="d-block w-100" alt="My image {{i + 1}} description">
-                                        </div>
-                                        <div *ngIf="i === 1" class="picsum-img-wrapper">
-											<a target="_blank" href="https://online.fliphtml5.com/utfja/rocl/#p=1">
-												<img [src]="img" class="d-block w-100" alt="My image {{i + 1}} description">
-											</a>
-                                        </div>
-                                        <div *ngIf="i === 2" class="picsum-img-wrapper">
-											<a target="_blank" href="https://us02web.zoom.us/j/84213897651?pwd=V3loWnQzZnNtV1NyWmFQeER4d0kzQT09">
-												<img [src]="img" class="d-block w-100" alt="My image {{i + 1}} description">
+                                        <div class="picsum-img-wrapper">
+											<a target="_blank" href="{{ img.urlRedireccion }}">
+												<img [src]="img.archivoImagen.Location" class="d-block w-100" alt="My image {{i + 1}} description">
 											</a>
                                         </div>
                                     </ng-template>
@@ -38,8 +30,8 @@
 <section class="py-4 border-bottom border-top" id="home">
     <div class="container">
 		<div class="row">
-			<div class="col-sm-12">
-				<img src="assets/images/fierros.jpeg" class="d-block" width="100%" alt="lotes" style=" display:flex; justify-content:center;" />
+			<div class="col-sm-12" *ngIf="bannerIndex">
+				<img [src]="bannerIndex" class="d-block" width="100%" alt="lotes" style=" display:flex; justify-content:center;" />
 			</div>
 		</div>
     </div>
@@ -80,6 +72,14 @@
                         </h4>
                     </div>
                 </div>
+                <div *ngIf="tipo && tipo !== 'current'" class="row justify-content-center">
+					<div class="form-group form-inline">
+						Evento: 
+						<select (change)="onChangeEvento($event)" class="form-control ml-2">
+							<option [value]="evento.id" *ngFor="let evento of eventos">{{ evento.nombre }}</option>
+						</select>
+					</div>
+				</div>
             </div>
 		</section>
 		<div class="search-results"

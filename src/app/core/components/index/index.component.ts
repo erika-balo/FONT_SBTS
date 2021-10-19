@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 
-import { LotesService } from 'app/services';
+import { EventosService, LotesService, SlidersService, BannersService } from 'app/services';
 
 import { Store, select } from '@ngrx/store';
 import { AppState, Login, currentUser } from 'app/store';
@@ -25,7 +25,12 @@ export class IndexComponent implements OnInit, OnDestroy {
 	resourceUrl = environment.URL_IMAGENES;
 
     data: any;
-    lotes: any[];
+	lotes: any[];
+	bannerIndex: string;
+	eventos: any[];
+	eventoSeleccionado: number;
+
+	tipo: string;
 
     page: number;
     limit: number;
@@ -42,7 +47,11 @@ export class IndexComponent implements OnInit, OnDestroy {
         private lotesService: LotesService,
         private domSanitizer: DomSanitizer,
         private store: Store<AppState>,
-        private router: Router
+		private router: Router,
+		private slidersService: SlidersService,
+		private bannersService: BannersService,
+		private eventosService: EventosService,
+		private activatedRoute: ActivatedRoute
     ) {
     }
 
@@ -52,15 +61,13 @@ export class IndexComponent implements OnInit, OnDestroy {
 		this.timers = [];
 		this.lotes = [];
         this.images = [
-            'assets/images/slider3.jpeg',
-            'assets/images/slider2.jpeg',
-            'assets/images/slider1.jpeg',
         ];
 
         this.page = 1;
         this.limit = 20;
 
-		this.load();
+		this.loadSliders();
+		this.loadBanners();
 
 		this.store.pipe(
 			takeUntil(this._unsubscribeAll),
@@ -69,10 +76,82 @@ export class IndexComponent implements OnInit, OnDestroy {
 		).subscribe(user => {
 			this.user = user;
 		});
-    }
+
+		this.activatedRoute.queryParams.subscribe(params => {
+			if (params.tipo) {
+				this.lotes = [];
+				this.timers = [];
+				this.tipo = params.tipo;
+				switch (this.tipo) {
+					case 'past':
+						this.loadEventosPast();
+						break;
+					case 'future':
+						this.loadEventosFuture();
+						break;
+				}
+			} else {
+				this.tipo = 'current';
+				this.loadEventosFuture();
+			}
+		});
+	}
+
+	loadEventosPast(): void {
+		const now = moment().format('YYYY-MM-DD') + ' 00:00:00';
+		this.eventosService.findPast(now).subscribe(response => {
+			this.eventos = response.body;
+		},
+		err => {
+			console.log(err);
+		});
+	}
+
+	loadEventosFuture(): void {
+		const now = moment().format('YYYY-MM-DD') + ' 00:00:00';
+		this.eventosService.findFuture(now).subscribe(response => {
+			this.eventos = response.body;
+			if (this.tipo === 'current') {
+				this.eventoSeleccionado = this.eventos[0].id;
+				this.load();
+			}
+		},
+		err => {
+			console.log(err);
+		});
+	}
+
+	onChangeEvento(event: any): void {
+		this.eventoSeleccionado = event.target.value;
+		this.load();
+	}
+	
+	loadSliders(): void {
+		this.slidersService.findAll().subscribe(response => {
+			const data = response.body;
+			this.images = data;
+		},
+		err => {
+			console.log(err);
+		});
+	}
+
+	loadBanners(): void {
+		this.bannersService.findAll().subscribe(response => {
+			const data = response.body;
+			data.forEach(dat => {
+				if (dat.slug === 'INDEX_TOP') {
+					this.bannerIndex = dat.archivoImagen.Location;
+				}
+			});
+		},
+		err => {
+			console.log(err);
+		});
+	}
 
     load(): void {
-        this.lotesService.allPaginate(this.page, this.limit).subscribe(response => {
+        this.lotesService.allPaginate(this.eventoSeleccionado, this.page, this.limit).subscribe(response => {
 			this.data = response.body;
 			this.lotes = this.lotes.concat(this.data.items);
 			this.timers.forEach(timer => {

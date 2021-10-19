@@ -46,6 +46,14 @@ export class EventosService {
 
     activar(id: number): Observable<any> {
         return this.http.put(this.resourceUrl + '/activar/' + id, {}, { observe: 'response' });
+	}
+
+    findPast(fechaInicial: string): Observable<any> {
+        return this.http.get(this.resourceUrl + '/past/' + fechaInicial, { observe: 'response' });
+	}
+
+    findFuture(fechaInicial: string): Observable<any> {
+        return this.http.get(this.resourceUrl + '/future/' + fechaInicial, { observe: 'response' });
     }
     
 }

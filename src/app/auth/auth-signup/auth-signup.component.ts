@@ -195,15 +195,15 @@ export class AuthSignupComponent implements OnInit {
 	}
 	
 	get f(): any { 
-        return this.registroForm['controls']
+        return this.registroForm['controls'];
 	}; 
 
 	get fInfo(): any { 
-        return this.registroForm['controls'].info['controls']
+        return this.registroForm['controls'].info['controls'];
 	}; 
 
 	get fArchivos(): any { 
-        return this.registroForm['controls'].archivos['controls']
+        return this.registroForm['controls'].archivos['controls'];
     }; 
 
     onSubmit(): void {

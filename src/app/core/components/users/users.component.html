@@ -1,5 +1,6 @@
  <section class="bg-half-170  d-table w-100" id="ranchos">
     <div class="container">
+		<a href="#" (click)="exportCsv($event)" class="btn btn-primary">Export CSV</a>
         <a href="#" [routerLink]="['/page/users/crear']" class="btn btn-primary">Crear</a>
         <form class="login-form mt-4" *ngIf="busquedaForm" [formGroup]="busquedaForm">
 			<div class="row">

@@ -7,6 +7,9 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CambioPasswordComponent } from './cambio-password/cambio-password.component';
 import { ConfirmacionComponent } from 'app/core/components/generales/confirmacion/confirmacion.component';
 
+import * as moment from 'moment';
+import { saveAs } from 'file-saver';
+
 @Component({
     selector: 'app-users',
     templateUrl: './users.component.html',
@@ -237,6 +240,45 @@ export class UsersComponent implements OnInit {
         err => {
             console.log(err);
         });
-    }
+	}
+
+	exportCsv(event: any) {
+		event.preventDefault();
+		this.usersService.getAllUsersTotal().subscribe(response => {
+			const detalles = response.body;
+			const data = [];
+			if (detalles.length > 0) {
+				detalles.forEach(detalle => {
+					const mp = {
+						'id': detalle.id,
+						'nombre': detalle.info.nombre,
+						'apellido_paterno': detalle.info.apellidoPaterno,
+						'apellido_materno': detalle.info.apellidoMaterno,
+						'activo': detalle.activo,
+						'validado': detalle.validado,
+						'correo_electronico': detalle.email,
+						'telefono': detalle.info.telefono,
+						'ciudad': detalle.info.estado.nombre,
+						'pais': detalle.info.estado.pais.nombre,
+						'fecha_registro': moment(detalle.info).format('DD/MM/YYYY'),
+					};
+
+					data.push(mp);
+				});
+				const replacer = (key, value) => value === null ? '' : value;
+				const header = Object.keys(data[0]);
+				let csv = data.map(row => header.map(fieldName => JSON.stringify(row[fieldName],replacer)).join(','));
+				csv.unshift(header.join(','));
+				let csvArray = csv.join('\r\n');
+				var blob = new Blob([csvArray], {type: 'text/csv' })
+				saveAs(blob, 'usuarios.csv');
+			} else {
+                this.toastService.error('No existen usuarios que procesar');
+			}
+		},
+		err => {
+			console.log(err);
+		});
+	}
 
 }

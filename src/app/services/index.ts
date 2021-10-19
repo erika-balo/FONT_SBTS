@@ -13,3 +13,6 @@ export * from './users-pagos.service';
 export * from './users-devoluciones.service';
 export * from './paises.service';
 export * from './estados.service';
+export * from './sliders.service';
+export * from './pages.service';
+export * from './banners.service';

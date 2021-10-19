@@ -8,7 +8,7 @@ import { AppState, Logout, currentUser } from 'app/store';
 import { Subject } from 'rxjs';
 import { delay, filter, take, takeUntil } from 'rxjs/operators'
 
-import { LotesService, ToastService } from 'app/services';
+import { LotesService, ToastService, ConfigGeneralesService } from 'app/services';
 
 @Component({
   selector: 'app-header',
@@ -17,9 +17,11 @@ import { LotesService, ToastService } from 'app/services';
 })
 export class HeaderComponent implements OnInit {
 
-  @Input() navClass: string;
+	@Input() navClass: string;
 
 	user: any;
+	linkCatalogo: string;
+	linkTutoriales: string;
 
 	private _unsubscribeAll: Subject<any>;
 
@@ -30,7 +32,8 @@ export class HeaderComponent implements OnInit {
 		private router: Router,
 		private store: Store<AppState>,
 		private toastService: ToastService,
-		private lotesService: LotesService
+		private lotesService: LotesService,
+		private configGeneralesService: ConfigGeneralesService
 	) {
     router.events.forEach((event) => {
       if (event instanceof NavigationEnd) {
@@ -47,6 +50,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+	this.loadConfigs();
 	this._unsubscribeAll = new Subject();
 	this.store.pipe(
 		takeUntil(this._unsubscribeAll),
@@ -61,10 +65,26 @@ export class HeaderComponent implements OnInit {
         });
   }
 
+  loadConfigs(): void {
+	  this.configGeneralesService.getAll().subscribe(response => {
+		  const data = response.body;
+		  data.forEach(dt => {
+			  if (dt.slug === 'LINK_CATALOGO') {
+				this.linkCatalogo = dt.valor;
+			  }
+			  if (dt.slug === 'LINK_TUTORIALES') {
+				this.linkTutoriales = dt.valor;
+			  }
+		  });
+	  },
+	  err => {
+		  console.log(err);
+	  });
+  }
+
   busqueda(): void {
 	  const numero = this.busquedaForm['controls'].numero.value;
 	  this.lotesService.byNumero(numero).subscribe(response => {
-		console.log(response);
 		const data = response.body;
 		if (data.id) {
 			this.router.navigate(['/lotes/ver-landing', data.id]);

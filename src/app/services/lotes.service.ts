@@ -46,8 +46,8 @@ export class LotesService {
         return this.http.put(this.resourceUrl + '/' + id, params, { observe: 'response' });
     }
 
-    allPaginate(page: number, limit: number): Observable<any> {
-        return this.http.get(this.resourceUrl + '/all/paginate?page=' + page + '&limit=' + limit, { observe: 'response' });
+    allPaginate(eventoId: number, page: number, limit: number): Observable<any> {
+        return this.http.get(this.resourceUrl + '/all/paginate/' + eventoId + '?page=' + page + '&limit=' + limit, { observe: 'response' });
 	}
 
     allPaginateByUserCurent(page: number, limit: number): Observable<any> {

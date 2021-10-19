@@ -1,14 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 
 import { ToastService, UsersService } from 'app/services';
 
 @Component({
-	selector: 'app-auth-re-password',
-	templateUrl: './auth-re-password.component.html',
-	styleUrls: ['./auth-re-password.component.css']
+	selector: 'app-auth-re-password-finish',
+	templateUrl: './auth-re-password-finish.component.html',
+	styleUrls: ['./auth-re-password-finish.component.css']
 })
-export class AuthRePasswordComponent implements OnInit {
+export class AuthRePasswordFinishComponent implements OnInit {
+
+	token: string;
 
 	cambioForm: FormGroup;
 
@@ -17,17 +20,22 @@ export class AuthRePasswordComponent implements OnInit {
 	constructor(
         private _fb: FormBuilder,
         private toastService: ToastService,
-		private usersService: UsersService
+		private usersService: UsersService,
+		private activatedRoute: ActivatedRoute,
+		private router: Router
 	) {
 	}
 
 	ngOnInit(): void {
-		this.createForm();
+		this.activatedRoute.params.subscribe(params => {
+			this.token = params.token;
+			this.createForm();
+		});
 	}
 
     createForm(): void {
         this.cambioForm = this._fb.group({
-            username: [null, Validators.required],
+            nuevoPassword: [null, Validators.required],
         });
 	}
 
@@ -44,13 +52,14 @@ export class AuthRePasswordComponent implements OnInit {
 
 		this.loading = true;
 		const params = this.cambioForm.value;
-        this.usersService.cambiarPasswordInit(params).subscribe(response => {
-            this.toastService.success('Si el correo esta dado de alta en nuestro sistema se enviara un correo la dirección de correo proporcionada para recuperar la contraseña');
+        this.usersService.cambiarPasswordFinish(this.token, params).subscribe(response => {
+			this.toastService.success('Cambio de contraseña correcto');
+			this.router.navigate(['/auth-login']);
 			this.loading = false;
         },
         err => {
             console.log(err);
-            this.toastService.success('Si el correo esta dado de alta en nuestro sistema se enviara un correo la dirección de correo proporcionada para recuperar la contraseña');
+			this.toastService.error(err.error.message);
 			this.loading = false;
         });
     }

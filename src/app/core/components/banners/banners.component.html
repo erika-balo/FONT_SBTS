@@ -1,0 +1,36 @@
+ <section class="bg-half-170 d-table w-100" id="ranchos">
+    <div class="container">
+        <div class="table-responsive bg-white shadow rounded mt-4">
+            <table class="table mb-0 table-center">
+                <thead class="bg-light">
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Imagen</th>
+                        <th scope="col">Slug</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let banner of banners">
+                        <td>{{ banner.id }}</td>
+                        <td>
+							<img width="100" [src]="banner.archivoImagen.Location" class="img-fluid" />
+						</td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Acciones">
+                                <button type="button" class="btn btn-secondary" [routerLink]="['/page/banners/editar', banner.id]">Editar</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+ </section>
+
+ <!-- Back to top -->
+ <a href="javascript: void(0);" class="btn btn-icon btn-soft-primary back-to-top" id="back-to-top"
+    [ngxScrollTo]="'#home'">
+    <i-feather name="arrow-up" class="icons"></i-feather>
+ </a>
+ <!-- Back to top -->

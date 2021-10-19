@@ -62,6 +62,14 @@ export class UsersService {
 
     cambiarPassword(id: number, params: any): Observable<any> {
         return this.http.put(this.resourceUrl + '/cambiar-password/' + id, params, { observe: 'response' });
+	}
+
+    cambiarPasswordInit(params: any): Observable<any> {
+        return this.http.put(this.resourceUrl + '/cambio-password/init', params, { observe: 'response' });
+	}
+
+    cambiarPasswordFinish(token: string, params: any): Observable<any> {
+        return this.http.put(this.resourceUrl + '/cambio-password/finish/' + token, params, { observe: 'response' });
     }
 
 }

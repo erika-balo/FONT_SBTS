@@ -102,7 +102,7 @@
 					<div class="form-check">
 						<input type="checkbox" class="form-check-input" id="terminos" formControlName="terminos" name="terminos"
 						[ngClass]="{ 'is-invalid': f.terminos.touched && f.terminos.errors, 'is-valid': f.terminos.touched && !f.terminos.errors }">
-						<label class="form-check-label" for="terminos"><a class="pointer" [routerLink]="['/terminos-condiciones']">Aceptar Términos y Condiciones <span class="text-danger">*</span> </a></label>
+						<label class="form-check-label" for="terminos"><a class="pointer" target="_blank" [routerLink]="['/enlace/TERMINOS_CONDICIONES']">Aceptar Términos y Condiciones <span class="text-danger">*</span> </a></label>
 						<div *ngIf="f.terminos.touched && f.terminos.errors" class="invalid-feedback">
 							<div *ngIf="f.terminos.errors.required">Aceptar Términos y Condiciones es requerido</div>
 						</div>
@@ -115,6 +115,9 @@
 						<i *ngIf="loading" class="fa fa-spinner fa-spin"></i>
 						Registrarse
 					</button>
+					<a [routerLink]="['/']" class="btn btn-info btn-block">
+						Inicio
+					</a>
                 </div>
                 <!-- <div class="col-lg-12 mt-4 text-center">
                   <h6>Or Signup With</h6>
