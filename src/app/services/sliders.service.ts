@@ -29,6 +29,10 @@ export class SlidersService {
 
     edit(id: number, params: any): Observable<any> {
         return this.http.put(this.resourceUrl + '/' + id, params, { observe: 'response' });
+	}
+
+    borrar(id: number): Observable<any> {
+        return this.http.delete(this.resourceUrl + '/' + id, { observe: 'response' });
     }
 
 }

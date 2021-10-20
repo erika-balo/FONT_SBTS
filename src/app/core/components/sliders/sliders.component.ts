@@ -52,7 +52,17 @@ export class SlidersComponent implements OnInit, OnDestroy {
 		err => {
 			console.log(err);
 		});
-    }
+	}
+	
+	eliminar(slider: any): void {
+		this.slidersService.borrar(slider.id).subscribe(response => {
+			console.log(response);
+			this.load();
+		},
+		err => {
+			console.log(err);
+		});
+	}
 
     ngOnDestroy(): void {
         this._unsubscribeAll.next();
