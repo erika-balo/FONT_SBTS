@@ -92,7 +92,7 @@ export class IndexComponent implements OnInit, OnDestroy {
 				}
 			} else {
 				this.tipo = 'current';
-				this.loadEventosFuture();
+				this.loadEventosCurrent();
 			}
 		});
 	}
@@ -111,9 +111,18 @@ export class IndexComponent implements OnInit, OnDestroy {
 		const now = moment().format('YYYY-MM-DD') + ' 00:00:00';
 		this.eventosService.findFuture(now).subscribe(response => {
 			this.eventos = response.body;
-			if (this.tipo === 'current') {
+		},
+		err => {
+			console.log(err);
+		});
+	}
+
+	loadEventosCurrent(): void {
+		const now = moment().format('YYYY-MM-DD') + ' 00:00:00';
+		this.eventosService.findCurrent(now).subscribe(response => {
+			this.eventos = response.body;
+			if (this.eventos.length > 0) {
 				this.eventoSeleccionado = this.eventos[0].id;
-				this.load();
 			}
 		},
 		err => {

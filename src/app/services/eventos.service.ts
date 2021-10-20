@@ -54,6 +54,10 @@ export class EventosService {
 
     findFuture(fechaInicial: string): Observable<any> {
         return this.http.get(this.resourceUrl + '/future/' + fechaInicial, { observe: 'response' });
+	}
+
+    findCurrent(fecha: string): Observable<any> {
+        return this.http.get(this.resourceUrl + '/current/' + fecha, { observe: 'response' });
     }
     
 }
