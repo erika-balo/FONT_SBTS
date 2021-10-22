@@ -103,6 +103,7 @@ export class IndexComponent implements OnInit, OnDestroy {
 			this.eventos = response.body;
 			if (this.eventos.length > 0) {
 				this.eventoSeleccionado = this.eventos[0].id;
+				this.load();
 			}
 		},
 		err => {
@@ -116,6 +117,7 @@ export class IndexComponent implements OnInit, OnDestroy {
 			this.eventos = response.body;
 			if (this.eventos.length > 0) {
 				this.eventoSeleccionado = this.eventos[0].id;
+				this.load();
 			}
 		},
 		err => {
@@ -166,18 +168,20 @@ export class IndexComponent implements OnInit, OnDestroy {
 	}
 
     load(): void {
-        this.lotesService.allPaginate(this.eventoSeleccionado, this.page, this.limit).subscribe(response => {
-			this.data = response.body;
-			this.lotes = this.lotes.concat(this.data.items);
-			this.timers.forEach(timer => {
-				timer.unsubscribe();
+		if (this.eventoSeleccionado) {
+			this.lotesService.allPaginate(this.eventoSeleccionado, this.page, this.limit).subscribe(response => {
+				this.data = response.body;
+				this.lotes = this.lotes.concat(this.data.items);
+				this.timers.forEach(timer => {
+					timer.unsubscribe();
+				});
+				this.timers = [];
+				this.timerSubastas(this.lotes);
+			},
+			err => {
+				console.log(err);
 			});
-			this.timers = [];
-            this.timerSubastas(this.lotes);
-        },
-        err => {
-            console.log(err);
-        });
+		}
     }
 
     checkIsInPista(item: any): boolean {
