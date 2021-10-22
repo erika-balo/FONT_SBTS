@@ -63,7 +63,7 @@ export class IndexComponent implements OnInit, OnDestroy {
         this.images = [
         ];
 
-        this.page = 1;
+        this.page = 0;
         this.limit = 20;
 
 		this.loadSliders();
@@ -169,7 +169,7 @@ export class IndexComponent implements OnInit, OnDestroy {
 	}
 
     load(): void {
-		if (this.eventoSeleccionado) {
+		if (this.eventoSeleccionado && this.page > 0) {
 			this.lotesService.allPaginate(this.eventoSeleccionado, this.page, this.limit).subscribe(response => {
 				this.data = response.body;
 				this.lotes = this.lotes.concat(this.data.items);
