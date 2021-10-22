@@ -101,6 +101,9 @@ export class IndexComponent implements OnInit, OnDestroy {
 		const now = moment().format('YYYY-MM-DD') + ' 00:00:00';
 		this.eventosService.findPast(now).subscribe(response => {
 			this.eventos = response.body;
+			if (this.eventos.length > 0) {
+				this.eventoSeleccionado = this.eventos[0].id;
+			}
 		},
 		err => {
 			console.log(err);
@@ -111,6 +114,9 @@ export class IndexComponent implements OnInit, OnDestroy {
 		const now = moment().format('YYYY-MM-DD') + ' 00:00:00';
 		this.eventosService.findFuture(now).subscribe(response => {
 			this.eventos = response.body;
+			if (this.eventos.length > 0) {
+				this.eventoSeleccionado = this.eventos[0].id;
+			}
 		},
 		err => {
 			console.log(err);
