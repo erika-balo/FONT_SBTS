@@ -131,6 +131,7 @@ export class IndexComponent implements OnInit, OnDestroy {
 			this.eventos = response.body;
 			if (this.eventos.length > 0) {
 				this.eventoSeleccionado = this.eventos[0].id;
+				this.load();
 			}
 		},
 		err => {
