@@ -78,9 +78,9 @@ export class IndexComponent implements OnInit, OnDestroy {
 		});
 
 		this.activatedRoute.queryParams.subscribe(params => {
+			this.lotes = [];
+			this.timers = [];
 			if (params.tipo) {
-				this.lotes = [];
-				this.timers = [];
 				this.tipo = params.tipo;
 				switch (this.tipo) {
 					case 'past':
