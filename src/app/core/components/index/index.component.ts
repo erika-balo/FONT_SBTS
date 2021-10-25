@@ -172,6 +172,7 @@ export class IndexComponent implements OnInit, OnDestroy {
 		if (this.eventoSeleccionado && this.page > 0) {
 			this.lotesService.allPaginate(this.eventoSeleccionado, this.page, this.limit).subscribe(response => {
 				this.data = response.body;
+				console.log(this.data);
 				this.lotes = this.lotes.concat(this.data.items);
 				this.timers.forEach(timer => {
 					timer.unsubscribe();
