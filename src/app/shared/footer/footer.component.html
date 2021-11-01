@@ -37,9 +37,9 @@
          <ul class="list-unstyled footer-list mt-4">
            <li><a href="{{ linkEnSubasta }}" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> {{ nombreEnlaceEnSubasta }}</a>
            </li>
-           <li><a routerLink="/list" [queryParams]="{ tipo: 'past' }" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> {{ nombreEnlaceEventosAnteriores }}</a>
+           <li><a routerLink="/historial-eventos" [queryParams]="{ tipo: 'past' }" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> {{ nombreEnlaceEventosAnteriores }}</a>
            </li>
-           <li><a routerLink="/list" [queryParams]="{ tipo: 'future' }" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> {{ nombreEnlaceEventosFuturos }}</a>
+           <li><a routerLink="/historial-eventos" [queryParams]="{ tipo: 'future' }" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> {{ nombreEnlaceEventosFuturos }}</a>
            </li>
            <li><a routerLink="/auth-signup-three" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> {{ nombreEnlaceRegistrate }}</a></li>
            <li><a target="_blank" href="{{ linkCatalogo }}" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> {{ nombreEnlaceCatalogo }}</a>

@@ -91,8 +91,13 @@ export class IndexComponent implements OnInit, OnDestroy {
 						break;
 				}
 			} else {
-				this.tipo = 'current';
-				this.loadEventosCurrent();
+				if (params.eventoId) {
+					this.eventoSeleccionado = params.eventoId;
+					this.load();
+				} else {
+					this.tipo = 'current';
+					this.loadEventosCurrent();
+				}
 			}
 		});
 	}

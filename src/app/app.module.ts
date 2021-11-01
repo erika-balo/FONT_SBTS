@@ -117,6 +117,7 @@ import { PagesComponent } from './core/components/pages/pages.component';
 import { PagesCrearComponent } from './core/components/pages/crear/crear.component';
 import { BannersComponent } from './core/components/banners/banners.component';
 import { BannersCrearComponent } from './core/components/banners/crear/crear.component';
+import { HistorialEventosComponent } from './core/components/historial-eventos/historial-eventos.component';
 
 import { ConfirmacionComponent } from './core/components/generales/confirmacion/confirmacion.component';
 
@@ -205,7 +206,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
 	PagesComponent,
 	PagesCrearComponent,
 	BannersComponent,
-	BannersCrearComponent
+	BannersCrearComponent,
+	HistorialEventosComponent
   ],
   entryComponents: [
     GanadoraComponent,

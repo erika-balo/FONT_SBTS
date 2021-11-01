@@ -49,6 +49,7 @@ import { PagesComponent } from './core/components/pages/pages.component';
 import { PagesCrearComponent } from './core/components/pages/crear/crear.component';
 import { BannersComponent } from './core/components/banners/banners.component';
 import { BannersCrearComponent } from './core/components/banners/crear/crear.component';
+import { HistorialEventosComponent } from './core/components/historial-eventos/historial-eventos.component';
 
 import { AuthGuard } from './shared/guards/auth.guard';
 import { RolesGuard } from './shared/guards/roles.guard';
@@ -65,6 +66,7 @@ const routes: Routes = [
       { path: 'subastas/en-pista/:subastaId', component: SubastasEnPistaComponent },
       { path: 'tablero', component: TableroClienteComponent },
       { path: 'enlace/:slug', component: PageComponent },
+      { path: 'historial-eventos', component: HistorialEventosComponent },
     ]
   },  
   {
