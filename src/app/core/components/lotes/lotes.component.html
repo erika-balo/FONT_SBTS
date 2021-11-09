@@ -41,7 +41,7 @@
                 <tbody>
                     <tr *ngFor="let lote of lotesFiltered | slice: (page-1) * pageSize : page * pageSize">
                         <td>
-                            <img [src]="lote.archivoPortada.Location" id="expandedImg" width="120" class="img-fluid rounded" alt="">
+                            <img [src]="lote.archivoPortada && lote.archivoPortada.Location" id="expandedImg" width="120" class="img-fluid rounded" alt="">
                         </td>
                         <td>{{ lote.id }}</td>
                         <td *ngIf="isAdmin">
