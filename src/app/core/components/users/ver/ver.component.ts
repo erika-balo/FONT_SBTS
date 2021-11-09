@@ -93,7 +93,12 @@ export class UsersVerComponent implements OnInit {
     }
 
     sanitizeImagen(imagen: any): any {
-        return this.domSanitizer.bypassSecurityTrustResourceUrl('data:' + imagen.contentType + ';base64,' + imagen.archivo);
+		console.log(imagen);
+		if (!imagen.archivo) {
+			return imagen.url;
+		} else {
+			return this.domSanitizer.bypassSecurityTrustResourceUrl('data:' + imagen.contentType + ';base64,' + imagen.archivo);
+		}
     }
 
 
