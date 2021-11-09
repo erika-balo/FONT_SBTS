@@ -93,7 +93,6 @@ export class UsersVerComponent implements OnInit {
     }
 
     sanitizeImagen(imagen: any): any {
-		console.log(imagen);
 		if (!imagen.archivo) {
 			return imagen.url;
 		} else {
