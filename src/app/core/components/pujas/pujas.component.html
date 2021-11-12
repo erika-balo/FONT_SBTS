@@ -64,18 +64,18 @@
 								Nombre del Cliente
                             </span>
 						</th>
-                        <th scope="col" class="pointer" (click)="sorted('info.apellidoMaterno')">
-                            <span>
-                                <i-feather *ngIf="sortedField === 'info.apellidoMaterno' && sortedType === 'ASC'" name="arrow-up" class="fea icon-sm icons"></i-feather>
-								<i-feather *ngIf="sortedField === 'info.apellidoMaterno' && sortedType === 'DESC'" name="arrow-down" class="fea icon-sm icons"></i-feather>
-								Apellido Materno del Cliente
-                            </span>
-						</th>
                         <th scope="col" class="pointer" (click)="sorted('info.apellidoPaterno')">
                             <span>
                                 <i-feather *ngIf="sortedField === 'info.apellidoPaterno' && sortedType === 'ASC'" name="arrow-up" class="fea icon-sm icons"></i-feather>
 								<i-feather *ngIf="sortedField === 'info.apellidoPaterno' && sortedType === 'DESC'" name="arrow-down" class="fea icon-sm icons"></i-feather>
 								Apellido Paterno del Cliente
+                            </span>
+						</th>
+                        <th scope="col" class="pointer" (click)="sorted('info.apellidoMaterno')">
+                            <span>
+                                <i-feather *ngIf="sortedField === 'info.apellidoMaterno' && sortedType === 'ASC'" name="arrow-up" class="fea icon-sm icons"></i-feather>
+								<i-feather *ngIf="sortedField === 'info.apellidoMaterno' && sortedType === 'DESC'" name="arrow-down" class="fea icon-sm icons"></i-feather>
+								Apellido Materno del Cliente
                             </span>
 						</th>
                         <th scope="col" class="pointer" (click)="sorted('monto')">
@@ -110,8 +110,8 @@
                         <td>{{ detalle.subasta.lote.nombre }}</td>
                         <td>{{ detalle.user.id }}</td>
                         <td>{{ detalle.user.info.nombre }}</td>
-                        <td>{{ detalle.user.info.apellidoMaterno }}</td>
                         <td>{{ detalle.user.info.apellidoPaterno }}</td>
+                        <td>{{ detalle.user.info.apellidoMaterno }}</td>
                         <td>{{ detalle.monto | currency }}</td>
                         <td>{{ detalle.creado | date: 'yyyy-MM-dd HH:mm' }}</td>
                         <td>{{ detalle.estatus }}</td>
