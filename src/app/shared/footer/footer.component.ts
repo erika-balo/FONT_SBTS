@@ -11,6 +11,7 @@ export class FooterComponent implements OnInit {
 
 	linkCatalogo: string;
 	linkTutoriales: string;
+	linkRegistrate: string;
 
 	linkVideos: string;
 	linkTerminos: string;
@@ -46,6 +47,9 @@ export class FooterComponent implements OnInit {
 				}
 				if (dt.slug === 'LINK_EN_SUBASTA') {
 					this.linkEnSubasta = dt.valor;
+				}
+				if (dt.slug === 'LINK_REGISTRATE') {
+					this.linkRegistrate = dt.valor;
 				}
 				if (dt.slug === 'ICONO_FACEBOOK') {
 					this.linkFacebook = dt.valor;

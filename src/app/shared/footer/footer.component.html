@@ -41,7 +41,7 @@
            </li>
            <li><a routerLink="/historial-eventos" [queryParams]="{ tipo: 'future' }" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> {{ nombreEnlaceEventosFuturos }}</a>
            </li>
-           <li><a routerLink="/auth-signup-three" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> {{ nombreEnlaceRegistrate }}</a></li>
+           <li><a href="{{ linkRegistrate }}" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> {{ nombreEnlaceRegistrate }}</a></li>
            <li><a target="_blank" href="{{ linkCatalogo }}" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> {{ nombreEnlaceCatalogo }}</a>
            </li>
            <li><a [routerLink]="['/enlace/VIDEOS']" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i>

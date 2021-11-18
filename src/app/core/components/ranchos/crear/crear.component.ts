@@ -106,8 +106,12 @@ export class RanchosCrearComponent implements OnInit, OnDestroy,AfterViewInit {
             this.createForm();
             this.loadMap();
 
-            this.longitud = this.rancho.ubicacion.coordinates[0];
-            this.latitud = this.rancho.ubicacion.coordinates[1];
+			if (this.rancho.ubicacion) {
+				this.longitud = this.rancho.ubicacion.coordinates[0];
+				this.latitud = this.rancho.ubicacion.coordinates[1];
+			} else {
+				this.setCurrentPosition();
+			}
 
             this.zoom = 15;
         },
@@ -168,16 +172,19 @@ export class RanchosCrearComponent implements OnInit, OnDestroy,AfterViewInit {
     }
 
     onSubmit(): void {
+		console.log(this.ranchoForm);
         if (!this.ranchoForm.valid) {
             return;
         }
 
         const params = this.ranchoForm.value;
-        params.direccion = this.direccion;
-        params.ubicacion = {
-            type: 'point',
-            coordinates: [this.longitud, this.latitud]
-        };
+		if (this.direccion && this.latitud && this.longitud) {
+			params.direccion = this.direccion;
+			params.ubicacion = {
+				type: 'point',
+				coordinates: [this.longitud, this.latitud]
+			};
+		}
         if (this.isEdit()) {
             this.ranchosService.edit(this.id, params).subscribe(response => {
                 this.toastService.success('Rancho editado correctamente');
