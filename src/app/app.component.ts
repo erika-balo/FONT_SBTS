@@ -15,7 +15,9 @@ export class AppComponent {
      */
     router.events.forEach((event) => {
       if (event instanceof NavigationEnd) {
-        window['Unicons']['refresh']();
+		  if (window['Unicons']) {
+			window['Unicons']['refresh']();
+		  }
       }
     });
   }

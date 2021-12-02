@@ -96,7 +96,7 @@ export class IndexComponent implements OnInit, OnDestroy {
 					this.load();
 				} else {
 					this.tipo = 'current';
-					this.loadEventosCurrent();
+					this.loadEventosFuture();
 				}
 			}
 		});
@@ -146,7 +146,8 @@ export class IndexComponent implements OnInit, OnDestroy {
 
 	onChangeEvento(event: any): void {
 		this.eventoSeleccionado = event.target.value;
-		this.load();
+		this.page = 1;
+		this.load(true);
 	}
 	
 	loadSliders(): void {
@@ -173,11 +174,15 @@ export class IndexComponent implements OnInit, OnDestroy {
 		});
 	}
 
-    load(): void {
+    load(reload: boolean = false): void {
 		if (this.eventoSeleccionado && this.page > 0) {
 			this.lotesService.allPaginate(this.eventoSeleccionado, this.page, this.limit).subscribe(response => {
 				this.data = response.body;
-				this.lotes = this.lotes.concat(this.data.items);
+				if (reload) {
+					this.lotes = this.data.items;
+				} else {
+					this.lotes = this.lotes.concat(this.data.items);
+				}
 				this.timers.forEach(timer => {
 					timer.unsubscribe();
 				});
