@@ -132,6 +132,11 @@ export class EventosComponent implements OnInit {
         });
 	}
 
+    onPageChange(event: any): void {
+        this.page = event;
+        this.load();
+    }
+
     sorted(field: string): void {
         if (field !== this.sortedField) {
             this.sortedType = 'ASC';
