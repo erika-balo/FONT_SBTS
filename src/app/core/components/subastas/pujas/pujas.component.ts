@@ -79,6 +79,7 @@ export class SubastasVerPujasComponent implements OnInit {
 
 		this.subastasDetallesService.getDetallesBySubasta(this.subastaId, req).subscribe(response => {
 			this.detalles = response.body;
+			console.log(this.detalles);
 			this.chdr.detectChanges();
 		},
 		err => {

@@ -85,7 +85,7 @@
             </table>
         </div>
         <br />
-        <ngb-pagination *ngIf="eventos" [(page)]="page" [pageSize]="pageSize" [collectionSize]="eventos.meta.totalItems"></ngb-pagination>
+        <ngb-pagination *ngIf="eventos" (pageChange)="onPageChange($event)" [maxSize]="5" [(page)]="page" [pageSize]="pageSize" [collectionSize]="eventos.meta.totalItems"></ngb-pagination>
     </div>
  </section>
 
