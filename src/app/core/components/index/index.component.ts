@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -29,7 +29,7 @@ export class IndexComponent implements OnInit, OnDestroy {
 	bannerIndex: string;
 	eventos: any[];
 	eventoSeleccionado: number;
-
+	nombreevento: string;
 	tipo: string;
 
     page: number;
@@ -50,6 +50,7 @@ export class IndexComponent implements OnInit, OnDestroy {
 		private router: Router,
 		private slidersService: SlidersService,
 		private bannersService: BannersService,
+		private cdr: ChangeDetectorRef,
 		private eventosService: EventosService,
 		private activatedRoute: ActivatedRoute
     ) {
@@ -63,8 +64,8 @@ export class IndexComponent implements OnInit, OnDestroy {
         this.images = [
         ];
 
-        this.page = 0;
-        this.limit = 20;
+        this.page = 1;
+        this.limit = 5;
 
 		this.loadSliders();
 		this.loadBanners();
@@ -146,6 +147,7 @@ export class IndexComponent implements OnInit, OnDestroy {
 
 	onChangeEvento(event: any): void {
 		this.eventoSeleccionado = event.target.value;
+		console.log(this.eventoSeleccionado);
 		this.page = 1;
 		this.load(true);
 	}
@@ -173,6 +175,7 @@ export class IndexComponent implements OnInit, OnDestroy {
 			console.log(err);
 		});
 	}
+
 
     load(reload: boolean = false): void {
 		if (this.eventoSeleccionado && this.page > 0) {
@@ -269,6 +272,12 @@ export class IndexComponent implements OnInit, OnDestroy {
 		this.page = this.page + 1;
 		this.onPageChange(this.page);
 	}
+
+  selectEvento(eventoId: number): void {
+    this.eventoSeleccionado = eventoId;
+    this.page = 1;
+    this.load(true);
+  }
 
     ngOnDestroy(): void {
         this._unsubscribeAll.next();

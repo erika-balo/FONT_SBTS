@@ -5,22 +5,22 @@
     <div>
       <a class="logo" routerLink="/" *ngIf="navClass !== 'nav-light'">
 
-        <img src="assets/images/beefmaster blanco.png" class="l-dark" height="60"  alt="">
-        <img src="assets/images/beefmaster blanco.png" class="l-light" height="60" alt="">
+        <img src="https://subastaccm.s3.us-west-2.amazonaws.com/Varios/logo+web+cuarto.png" class="l-dark" height="60"  alt="">
+        <img src="https://subastaccm.s3.us-west-2.amazonaws.com/Varios/logo+web+cuarto.png" class="l-light" height="60" alt="">
       </a>
       <a class="logo" routerLink="/index" *ngIf="navClass === 'nav-light'">
-        <img src="http://www.beefmaster.org.mx/Logotipo%202021%20C3.png" class="l-dark" height="58" alt="">
-        <img src="http://www.beefmaster.org.mx/Logotipo%202021%20C3.png" class="l-light" height="58" alt="">
+        <img src="https://subastaccm.s3.us-west-2.amazonaws.com/Varios/logo+web+cuarto.png" class="l-dark" height="58" alt="">
+        <img src="https://subastaccm.s3.us-west-2.amazonaws.com/Varios/logo+web+cuarto.png" class="l-light" height="58" alt="">
       </a>
     </div>
     <div class="buy-button">
       <ng-template [ngIf]="navClass === 'nav-light'">
-        <a href="javascript: void(0);" *ngIf="!user" [routerLink]="['/auth-login']" class="btn btn-primary login-btn-primary">Inicia Sesión Aquí</a>
-        <a href="javascript: void(0);" *ngIf="!user" [routerLink]="['/auth-login']" class="btn btn-light login-btn-light">Inicia Sesión Aquí</a>
+        <a href="javascript: void(0);" *ngIf="!user" [routerLink]="['/auth-login']" class="btn btn-primary login-btn-primary">Regístrate/Inicia Sesión</a>
+        <a href="javascript: void(0);" *ngIf="!user" [routerLink]="['/auth-login']" class="btn btn-light login-btn-light">Regístrate/Inicia Sesión</a>
 		<a href="javascript: void(0);" *ngIf="user" (click)="cerrarSesion()" class="btn btn-primary">Cerrar Sesión</a>
       </ng-template>
       <ng-template [ngIf]="navClass !== 'nav-light'">
-          <a href="javascript: void(0);" *ngIf="!user" [routerLink]="['/auth-login']" class="btn btn-primary">Inicia Sesión Aquí</a>
+          <a href="javascript: void(0);" *ngIf="!user" [routerLink]="['/auth-login']" class="btn btn-primary">Regístrate/Inicia Sesión</a>
           <a href="javascript: void(0);" *ngIf="user" (click)="cerrarSesion()" class="btn btn-primary">Cerrar Sesión</a>
       </ng-template>
 
@@ -62,7 +62,8 @@
         
           <li><a target="_blank" href="{{ linkCatalogo }}">Catálogo</a></li>
 		<li><a routerLink="/tablero" *ngIf="user">Mis Pujas</a></li>
-        
+        <!--nuevo enlace-->
+	<li><a class="cursor" (click)="loteActivo()">Transmisión</a></li>
           <li><a routerLink="/auth-signup-three" *ngIf="!user" [routerLink]="['/auth-signup']">Regístrate</a></li>
       </ul>
       <!--end navigation menu-->

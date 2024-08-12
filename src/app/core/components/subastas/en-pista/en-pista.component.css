@@ -2,7 +2,64 @@
     padding:150px 0 10px 0;
     padding-top:80px;
 }
+/*NUEVO ACOMODO*/
+#imagenesch {
+  margin: 0 !important;
+  padding: 0 !important;
+}
 
+
+
+/*Botones Siguientes*/
+.title {
+  margin: 0 0 10px 0 !important;
+}
+.botones-siguientes {
+  margin: 10px 0;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+@media (max-width: 468px) {
+  .btn-lote{
+	padding-inline: .35rem !important;
+	}
+  
+}
+.btn-lote {
+  position: relative;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+  padding-block: 0.5rem;
+  padding-inline: 1.25rem;
+  background-color: #111113;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffff;
+  gap: 10px;
+  font-weight: bold;
+  border: 3px solid #ffffff4d;
+  outline: none;
+  overflow: hidden;
+  font-size: 15px;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-lote:hover {
+  transform: scale(1.05);
+  border-color: #fff9;
+}
+
+.btn-lote:hover .icon {
+  transform: translate(4px);
+}
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
     margin-bottom: 2rem;
 }
@@ -17,17 +74,41 @@
 .ml-md-4, .mx-md-4 {
      padding-left: -30px;
 }
-
+.pre{
+ color: red;
+font-size: 1.2rem;
+font-weight: bold;
+}
 .arbol {
     width:750px;
     height:300px;
     display:block;
-    margin: 50px auto;
+    margin: 10px auto;
     margin-top: 1px;
     font-family:"Nunito", sans-serif;
     overflow-x: scroll;
     overflow-y: hidden;
   }
+
+.actualizar {
+background-color: #4caf50;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  border-radius: 64px;
+  border: 2px solid #4caf50;
+  padding: 1px 8px;
+  box-shadow: 5px 5px 4px #5a5a5a;
+  margin-bottom: .5rem;
+}
+
+
+.actualizar:hover {
+background-color: #3b863e;
+border: 2px solid #3b863e;
+}
   
   .arbol .arbol-nodo {
     float:left;
@@ -169,9 +250,6 @@ border-left: none;
 border-bottom: none; 
 }
 
-.pujaactual{
-  margin-top: 20px;
-}
 
 /*CRONOMETRO*/
 .cronos1 {
@@ -259,3 +337,52 @@ line-height: 100px;
   max-width: 200px;
 
     }
+/*nuevo diseno*/
+
+
+
+@media (max-width:768px) {
+  .actualizar{
+    width: 100%;
+  }
+  .divbotones {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem !important;
+  }
+  #enviar-monto {
+    width: 100% !important;
+  }
+  #btn-enviar {
+    width: 100%;
+  }
+  .card.mb-2 {
+  display: none;
+  }
+  .card.mb-2.pc {
+  display: block !important;
+}
+  .pujaactual h2 {
+    font-size: 1.2rem;
+    text-align: center;
+  }
+}
+.actualizar.btn-relog {
+  background-color: #ab0334;
+  border: 2px solid #ab0334;
+  padding: 1px 2rem;
+}
+.divbotones {
+  display: flex;
+  justify-content: flex-start;
+  gap: 2rem;
+}
+.card.mb-2.pc {
+  display: none;
+  }
+
+#imagenesch {
+	margin-left: 0px;
+	justify-content: center;
+	line-height: 100px;
+}

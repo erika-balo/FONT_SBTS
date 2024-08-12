@@ -1,8 +1,10 @@
 .btn-outline-success {
-	color: #403e31;
-	border-color: #403e31;
+	color: #403e30;
+	border-color: #403e30;
 }
-
+.cursor{
+	cursor: pointer;
+}
 .btn-outline-success:hover {
 	/*color: rgb(49, 49, 49);
 	background-color: #fff;
@@ -10,23 +12,40 @@
 	box-shadow: 0 3px 5px 0 rgba(47, 85, 212, 0.3);*/
 
 	color: rgb(243, 243, 243);
-	border-color: #403e31;
-	background-color: #403e31;
+	border-color: #403e30;
+	background-color: #403e30;
 	box-shadow:white;
 }
+
+.btn-primary {
+	border-color: #403e30 !important;
+	background-color: #403e30 !important;
+	box-shadow: none !important;
+  }
+
+  .btn-primary:hover {
+	box-shadow:  0 3px 5px 0 gray !important;
+  }
 
 .my-lg-0 {
 	margin-top: 18px !important;
 }
 
 #topnav {
-	background-color:black;
+	background-color:white;
 }
 
 #topnav .navigation-menu>li>a{
-	color:white;
+	color:#403e30;
 }
 
+
 #navigation.active{
-	background-color: black;
+	background-color: white;
 }
+
+.text-primary, .bg-soft-primary, .btn-soft-primary, .btn-outline-primary, .badge-outline-primary, .alert-outline-primary, .breadcrumb .breadcrumb-item.active, .breadcrumb .breadcrumb-item a:hover, .faq-content .card a.faq[data-toggle="collapse"], .faq-content .card a.faq[data-toggle="collapse"]::before, #topnav .has-submenu.active .submenu li.active > a, #topnav .navigation-menu > li:hover > a, #topnav .navigation-menu > li.active > a, #topnav .navigation-menu > li > a:hover, #topnav .navigation-menu > li > a:active, #topnav .navigation-menu > li .submenu li a:hover, #topnav .navigation-menu > li:hover > a, #topnav .navigation-menu > li.active > a, #topnav .navigation-menu > li > a:hover, #topnav .navigation-menu > li .submenu li a:hover, #topnav .navigation-menu > li.has-submenu.open > a, #topnav .has-submenu.active a, #topnav.nav-sticky .navigation-menu.nav-light > li.active > a, #topnav.nav-sticky .navigation-menu.nav-light > li:hover > a, #topnav.nav-sticky .navigation-menu.nav-light > li.active > a, .course-feature .title:hover, .pricing-rates.business-rate:hover .title, .blog .content .title:hover, .blog .content .post-meta .readmore:hover, .sidebar .widget .blog-catagories li a:hover, .sidebar .widget .post-recent .post-recent-content a:hover, .media-list .media .media-heading:hover, .job-box .position a:hover, .job-box .company-name:hover, .event-schedule .content .title:hover, .courses-desc .content .title:hover, .container-filter li a.active, .container-filter li a:hover, .team .name:hover, .catagories a:hover, .explore-feature:hover .icon, .explore-feature:hover .title, .work-container.work-classic .content .title:hover, .work-container.work-grid .content .title:hover, .work-container.work-modern .content .title:hover, .shop-list .content .product-name:hover, .features.fea-primary .content .title:hover, .dropdown-primary .dropdown-menu .dropdown-item:hover, .dropdown-primary .dropdown-menu .dropdown-item.active, .dropdown-primary .dropdown-menu .dropdown-item:active, .dropdown-primary .dropdown-menu .dropdown-item.focus, .dropdown-primary .dropdown-menu .dropdown-item:focus {
+  color: black !important;
+}
+
+

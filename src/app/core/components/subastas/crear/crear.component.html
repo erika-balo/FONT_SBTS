@@ -67,7 +67,7 @@
                                     <div class="form-group position-relative">
                                         <label>Lote <span class="text-danger">*</span></label>
                                         <select class="form-control" formControlName="lote" placeholder="Lote" name="lote" required="">
-                                            <option [value]="lote.id" *ngFor="let lote of lotes">{{ lote.numero }}</option>
+                                            <option [value]="lote.id" *ngFor="let lote of lotes">{{ lote.numero }}: {{ lote.nombre }}</option>
                                         </select>
                                     </div>
                                 </div>

@@ -4,13 +4,13 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FilesUtils } from 'app/shared/utils/files-utils';
 
-import { ToastService, SubastasService, SubastasDetallesService } from 'app/services';
+import { LotesService, ToastService, SubastasService, SubastasDetallesService } from 'app/services';
 
 import { Store, select } from '@ngrx/store';
 import { AppState, currentUser, Logout } from 'app/store';
 
 import { Subject, timer } from 'rxjs';
-import { delay, filter, take, takeUntil } from 'rxjs/operators'
+import { delay, filter, take, takeUntil, switchMap, catchError } from 'rxjs/operators'
 
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmacionComponent } from 'app/core/components/generales/confirmacion/confirmacion.component';
@@ -30,9 +30,10 @@ export class SubastasEnPistaComponent implements OnInit, OnDestroy {
 	resourceUrl = environment.URL_IMAGENES;
 
     subastaId: number;
-
+	lote: any;
+	time: any;
+	lastSubasta: any;
 	pujaForm: FormGroup;
-	
 	subasta: any;
 	lastPuja: any;
 	subastasDetalles: any[];
@@ -44,9 +45,9 @@ export class SubastasEnPistaComponent implements OnInit, OnDestroy {
 
 	subastaEnPista: boolean;
 
-    isSubasta: boolean;
-    isUser: boolean;
-
+	 isSubasta: boolean;
+         isUser: boolean;
+	subastasEnPista: any[];
 	viewerOpenPortada: boolean;
 	viewerOpen: boolean[];
 
@@ -61,8 +62,9 @@ export class SubastasEnPistaComponent implements OnInit, OnDestroy {
 		private subastasService: SubastasService,
 		private subastasDetallesService: SubastasDetallesService,
 		private toastService: ToastService,
-        private domSanitizer: DomSanitizer,
-        private store: Store<AppState>,
+		private lotesService: LotesService,
+        	private domSanitizer: DomSanitizer,
+        	private store: Store<AppState>,
 		private modalService: NgbModal,
 		private chdr: ChangeDetectorRef
     ) {
@@ -70,7 +72,21 @@ export class SubastasEnPistaComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this._unsubscribeAll = new Subject();
+			/*prueba*/
+	const url = new URL(environment.MERCURE_URL);
+                url.searchParams.append('topic', 'change-en-pista');
 
+                const eventSource = new EventSource(url.toString());
+                eventSource.onmessage = e => {
+                        console.log(e);
+			this.load();
+			this.loadDetalles();
+			 this.chdr.detectChanges();
+
+                };
+	
+
+	/*prueba fin*/
 		this.viewerOpen = [];
         this.activatedRoute.params.subscribe(params => {
 			this.subastaId = +params['subastaId'];
@@ -85,6 +101,7 @@ export class SubastasEnPistaComponent implements OnInit, OnDestroy {
 			const eventSource = new EventSource(url.toString());
 			eventSource.onmessage = e => {
 				const data = JSON.parse(e.data);
+				console.log(data.accion);
 				if (data.accion === 'puja') {
 					this.loadDetalles();
 				} else if (data.accion === 'vendida') {
@@ -93,7 +110,7 @@ export class SubastasEnPistaComponent implements OnInit, OnDestroy {
 					this.load();
 				} else if (data.accion === 'invalidar') {
 					this.load();
-				} else if (data.accion === 'validar') {
+				} else if (data.accion === 'abierto') {
 					this.load();
 				} else if (data.accion === 'subasta-activa') {
 					this.load();
@@ -132,13 +149,17 @@ export class SubastasEnPistaComponent implements OnInit, OnDestroy {
 	load(): void {
 		this.subastasService.findOneCompleto(this.subastaId).subscribe(response => {
 			this.subasta = response.body;
+			console.log(this.subasta);
 			this.diferenciaMinimaOferta = this.subasta.diferenciaMinimaOferta;
 			this.subastaEnPista = this.subasta.estatus === 'ABIERTO' || this.subasta.estatus === 'EN_PISTA';
 
 			this.subasta.lote.lotesFotos.forEach(foto =>  {
 				this.viewerOpen.push(false);
 			});
-
+			
+			/*prueba inicio*/
+			
+			/*prueba fin*/
 			this.loadDetalles();
 			if (this.subastaEnPista) {
                 const now = moment();
@@ -151,8 +172,8 @@ export class SubastasEnPistaComponent implements OnInit, OnDestroy {
 				const minutes = duration.minutes().toString();
 				const seconds = duration.seconds().toString();
 				this.subasta.tiempoFormat = (days.length < 2 ? '0' + days : days) + ':' + (hours.length < 2 ? '0' + hours : hours) + ':' + (minutes.length < 2 ? '0' + minutes : minutes) + ':' + (seconds.length < 2 ? '0' + seconds : seconds);
-
-                const time = timer(1000, 1000)
+			
+                 this.time = timer(1000, 1000)
                     .pipe(takeUntil(this._unsubscribeAll))
                     .subscribe(res => {
                         this.subasta.tiempo--;
@@ -163,7 +184,7 @@ export class SubastasEnPistaComponent implements OnInit, OnDestroy {
 						const seconds = duration.seconds().toString();
 						this.subasta.tiempoFormat = (days.length < 2 ? '0' + days : days) + ':' + (hours.length < 2 ? '0' + hours : hours) + ':' + (minutes.length < 2 ? '0' + minutes : minutes) + ':' + (seconds.length < 2 ? '0' + seconds : seconds);
                         if (this.subasta.tiempo <= 0) {
-                            time.unsubscribe();
+                            this.time.unsubscribe();
                         }
                     });
 			}
@@ -183,17 +204,104 @@ export class SubastasEnPistaComponent implements OnInit, OnDestroy {
 				this.proximaMinimaOferta = +this.subasta.precioSalida + +this.subasta.diferenciaMinimaOferta;
 			}
 
-			this.chdr.detectChanges();
 		},
 		err => {
 			console.log(err);
 		});
 	}
 
+	loadActivasEnPista() {
+		this.subastasService.activasPista().subscribe(response => {
+			this.subastasEnPista = response.body;
+		},
+		err => {
+			console.log(err);
+		});
+	}
+
+
+
 	isEnPista(): boolean {
 		return this.subasta && (this.subasta.estatus === 'ABIERTO' || this.subasta.estatus === 'EN_PISTA');
 	}
+/*Botones Iniciales*/
+plu(): boolean {
+		return this.subasta && (this.subasta.estatus === 'ABIERTO');
+	}
 
+reload(){
+  	// any other execution
+  	window.location.reload();
+
+	}
+pla(): boolean{
+		return this.subasta && (this.subasta.estatus === 'VENDIDA')
+	}
+
+navegarSiguiente(): void {
+const numeroLote = this.subasta.lote.numero;
+const Noevento = this.subasta.evento.id;
+const numeroSuma = parseInt(numeroLote) + 1;
+const numeroString = numeroSuma.toString();
+  this.lotesService.findAllActivosBotones().subscribe(response => {
+  const datas = response.body;
+	console.log(datas);
+  let resultado = null;
+  for (let i of  datas) {
+  if( i.numero === numeroString && i.subastas[0].evento.id === Noevento){
+      resultado = i.subastas[0].id;
+  break
+  }
+  }
+  if (resultado !== null) {
+       if(this.subastaEnPista){
+	   this.time.unsubscribe();
+	}
+        this.router.navigate(['/subastas/en-pista/', resultado]);
+  } else {
+      const modalRef = this.modalService.open(ConfirmacionComponent);
+                        modalRef.componentInstance.texto = 'No hay más lotes en este evento';
+
+  }
+  },
+err => {
+console.log(err);
+});
+    
+}
+
+navegarAnterior(): void {
+const numeroLote = this.subasta.lote.numero;
+const Noevento = this.subasta.evento.id;
+const numeroSuma = parseInt(numeroLote) - 1;
+const numeroString = numeroSuma.toString();
+  this.lotesService.findAllActivosBotones().subscribe(response => {
+  const datas = response.body;
+  let resultado = null;
+  for (let i of  datas) {
+  if( i.numero === numeroString && i.subastas[0].evento.id === Noevento){
+      resultado = i.subastas[0].id;
+  break
+  }
+  }
+  if (resultado !== null) {
+        if(this.subastaEnPista){
+		this.time.unsubscribe();
+	}
+        this.router.navigate(['/subastas/en-pista/', resultado]);
+  } else {
+        const modalRef = this.modalService.open(ConfirmacionComponent);
+                        modalRef.componentInstance.texto = 'No hay más lotes en este evento';
+
+  }
+  },
+err => {
+console.log(err);
+});
+    
+}
+
+/*Botones Finales*/
     createForm(): void {
         this.pujaForm = this._fb.group({
             monto: [null, Validators.required],
@@ -226,7 +334,7 @@ export class SubastasEnPistaComponent implements OnInit, OnDestroy {
 	}
 
 	openVideo(): void {
-		window.open(this.subasta.lote.linkYoutube, '_blank');
+		window.open(this.subasta.lote.linkYoutube, '_self');
 	}
 
 	openPdf(): void {
@@ -240,9 +348,29 @@ export class SubastasEnPistaComponent implements OnInit, OnDestroy {
 	onSlide(event: any): void {
 	}
 
-	pujaAqui(): void {
-        this.router.navigate(['/auth-login'], { queryParams: { redirectUrl: '/subastas/en-pista/' + this.subasta.id }});
-	}
+
+
+
+	
+/**/
+ reAqui(): void {
+                this.subastasService.getEnPista().subscribe(response => {
+                        const data = response.body;
+                        if (data === null) {
+                              const modalRef = this.modalService.open(ConfirmacionComponent);
+                        modalRef.componentInstance.texto = 'En este momento no se encuentra un lote en pista';
+                        }else{
+                                this.router.navigate(['/lotes/page-contact-detail/']);
+                        }
+                },
+                err => {
+                        console.log(err);
+                });
+        }
+/**/
+
+
+
 
 	get form(): any {
 		return this.pujaForm['controls'];
@@ -281,7 +409,7 @@ export class SubastasEnPistaComponent implements OnInit, OnDestroy {
 			modalRef.componentInstance.texto = 'Para hacer pujas necesitas iniciar sesión con un usuario registrado en el portal';
 			modalRef.result.then(result => {
 				if (result.res) {
-					this.pujaAqui();
+					/**this.pujaAqui();*/
 				}
 			});
 		}

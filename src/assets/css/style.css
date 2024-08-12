@@ -2586,12 +2586,12 @@ p {
   margin: 0;
   padding: 0;
 }
-
+/*cambio*/
 #topnav .navigation-menu>li {
   float: left;
   display: block;
   position: relative;
-  margin: 0 10px;
+  margin: 0 0;
 }
 
 #topnav .navigation-menu>li:hover>a,

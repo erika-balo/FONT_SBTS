@@ -25,6 +25,11 @@ export class LotesService {
         return this.http.get(this.resourceUrl + '/activos', { params: params, observe: 'response' });
     }
 
+    findAllActivosBotones(req?: any): Observable<any> {
+        const params = createRequestOptionTotal(req);
+        return this.http.get(this.resourceUrl + '/activosBotones', { params: params, observe: 'response' });
+    }
+
     findAllCurrent(req?: any): Observable<any> {
         const params = createRequestOptionTotal(req);
         return this.http.get(this.resourceUrl + '/current', { params: params, observe: 'response' });

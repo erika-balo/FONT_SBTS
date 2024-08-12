@@ -43,7 +43,11 @@ export class SubastasService {
     vendida(id: number, params: any = {}): Observable<any> {
         return this.http.put(this.resourceUrl + '/vendida/' + id, params, { observe: 'response' });
 	}
-
+	abierto(id: number, params: any = {}): Observable<any> {
+        return this.http.put(this.resourceUrl + '/abierto/' + id, params, { observe: 'response' });
+        }
+	
+	
     activa(id: number): Observable<any> {
         return this.http.put(this.resourceUrl + '/activa/' + id, {}, { observe: 'response' });
 	}
@@ -67,5 +71,7 @@ export class SubastasService {
     getCurrent(): Observable<any> {
         return this.http.get(this.resourceUrl + '/by-user/current', { observe: 'response' });
     }
-    
+findOneCompletoEnPista(): Observable<any> {
+        return this.http.get(this.resourceUrl + '/completo/one/en-pista', { observe: 'response' });
+	}
 }

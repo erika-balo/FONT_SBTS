@@ -6,6 +6,30 @@
     background-attachment: fixed;
 }
 
+.btn-primary {
+    border-color: #ab0334 !important;
+    background-color: #ab0334 !important;
+    box-shadow: 0 3px 5px 0 rgba(211, 187, 144, 0.795);
+}
+
+.btn-primary:hover {
+    border-color: #7e0025 !important;
+    background-color: #7e0025 !important;
+    box-shadow: 0 3px 5px 0 rgba(211, 187, 144, 0.795);
+}
+
+.btn-info{
+    border-color: #ab0334 !important;
+    background-color: #ab0334 !important;
+    box-shadow: 0 3px 5px 0 rgba(211, 187, 144, 0.795);
+}
+
+.btn-info:hover{
+    border-color: #7e0025 !important;
+    background-color: #7e0025 !important;
+    box-shadow: 0 3px 5px 0 rgba(211, 187, 144, 0.795);
+}
+
 .img-login{
    /* width: 20rem;
     padding-left: 7rem;*/
@@ -13,7 +37,37 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 158px;
+    width: 120px;
     padding-top: 15px;
 
+}
+.bg-home.bg-circle-gradiant.d-flex.align-items-center {
+	padding: 4rem 0;
+}
+.mb-0.mt-3 {
+	font-size: 23px;
+	font-weight: bold;
+}
+.btn.btn-info.btn-block.ama {
+	margin: .4rem 0;
+}
+.btn.btn-info.btn-block.ama {
+	margin: .4rem 0;
+	border-color: #ff9218 !important;
+	background-color: #ff9218 !important;
+	width: 70%;
+}
+.card-body {
+	padding-top: 0 !important;
+}
+.col-12.text-center.flex {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.card-title.text-center {
+	padding-top: 2rem;
+}
+.login-form.mt-4.ng-untouched.ng-pristine.ng-invalid {
+	margin-top: 0 !important;
 }

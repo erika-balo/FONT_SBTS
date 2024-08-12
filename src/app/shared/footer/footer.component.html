@@ -17,9 +17,9 @@
        <div class="col-lg-4 col-12 mb-0 mb-md-4 pb-0 pb-md-2">
          <a href="#" class="logo-footer">
            <!--Imágen en línea-->
-           <img src="assets/images/beefmaster blanco.png" height="80" alt="">
+           <img src="https://subastaccm.s3.us-west-2.amazonaws.com/Varios/logo+web+cuarto.png" height="80" alt="">
          </a>
-         <p class="mt-4">Síguenos en nuestras redes sociales.</p>
+         <p class="mt-4" style="color:white">Síguenos en nuestras redes sociales.</p>
          <ul class="list-unstyled social-icon social mb-0 mt-4">
            <li class="list-inline-item"><a href="{{ linkFacebook }}" class="rounded">
                <i-feather name="facebook" class="fea icon-sm fea-social"></i-feather>
@@ -35,8 +35,6 @@
        <div class="col-lg-2 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
          <h4 class="text-light footer-head">Enlaces</h4>
          <ul class="list-unstyled footer-list mt-4">
-           <li><a href="{{ linkEnSubasta }}" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> {{ nombreEnlaceEnSubasta }}</a>
-           </li>
            <li><a routerLink="/historial-eventos" [queryParams]="{ tipo: 'past' }" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> {{ nombreEnlaceEventosAnteriores }}</a>
            </li>
            <li><a routerLink="/historial-eventos" [queryParams]="{ tipo: 'future' }" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> {{ nombreEnlaceEventosFuturos }}</a>
@@ -44,9 +42,8 @@
            <li><a href="{{ linkRegistrate }}" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> {{ nombreEnlaceRegistrate }}</a></li>
            <li><a target="_blank" href="{{ linkCatalogo }}" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> {{ nombreEnlaceCatalogo }}</a>
            </li>
-           <li><a [routerLink]="['/enlace/VIDEOS']" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i>
-               {{ nombreEnlaceVideos }}</a></li>
-     
+           <li><a href="{{nombreEnlaceVideos}}" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i>{{ nombreEnlaceVideos }}</a></li> 		
+    
          </ul>
        </div>
        <!--end col-->
@@ -88,8 +85,8 @@
      <div class="row align-items-center">
        <div class="col-sm-6">
          <div class="text-sm-left">
-           <p class="mb-0">© 2021 Desarrollado por <i class="mdi  text-danger"></i> Inovatix <a
-               href="#" target="_blank" class="text-reset">Negocios y Tecnologías</a>.</p>
+           <p class="mb-0" style="color:white">© 2023 Desarrollado por <i class="mdi  text-danger" style="color:white"></i> Inovatix <a
+               href="#" target="_blank" class="text-reset" style="color:white">Negocios y Tecnologías</a>.</p>
          </div>
        </div>
        <!--end col-->

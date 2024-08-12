@@ -1,3 +1,13 @@
+/*cambios nuevos*/
+.title-heading.mt-4 {
+  margin-top: 0px !important;
+}
+.py-4.border-bottom.border-top {
+  padding-top: 0px !important;
+}
+/*sin cambios*/
+
+
 .bg-half-170 {
    padding:100px 0 20px 0;
 }
@@ -63,3 +73,65 @@ td {
 margin:auto;
 }
 
+/*Nuevos eventos*/
+.section-title .title {
+	font-size: 16px;
+	font-weight: bold;
+}
+.pc-grid{
+display: none;
+}
+.movil-grid {
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        gap: 2rem;
+}
+
+@media (min-width: 867px) {
+   .picsum-img-wrapper{
+      height: 250px!important;
+   }
+
+.section-title .title {
+        font-size: 20px;
+}
+.movil-grid{
+	 display: none;
+}
+.pc-grid {
+        display: grid !important;
+        grid-template-columns: repeat(2,1fr);
+        gap: 2rem;
+}
+
+
+}
+.img-eve {
+	height: 100%;
+	width: 100%;
+}
+.bg-half-170 {
+	padding: 100px 0 0px;
+}
+.form-group.form-inline {
+	padding-top: 1.5rem;
+}
+.form-inline {
+	display: flex;
+	flex-flow: row wrap;
+	align-items: center;
+	justify-content: center;
+}
+.form-control.ml-2 {
+	text-align: center;
+}
+.img-eve {
+	border-radius: 10px;
+	box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+}
+.d-block.w-100 {
+	border-radius: 10px;
+}
+.carousel-indicators {
+	display: none;
+}
