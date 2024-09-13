@@ -219,7 +219,7 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
         CarouselModule,
         FeatherModule.pick(allIcons),
         ScrollToModule.forRoot(),
-        RouterModule.forRoot([], { relativeLinkResolution: 'legacy', scrollPositionRestoration: 'enabled' }),
+        RouterModule.forRoot([], { scrollPositionRestoration: 'enabled' }),
         NgxMaskModule.forRoot(),
         NgxYoutubePlayerModule,
         NgbModule,
