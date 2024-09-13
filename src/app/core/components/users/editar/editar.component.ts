@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
-import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, UntypedFormArray, UntypedFormControl } from '@angular/forms';
 import { FilesUtils } from 'app/shared/utils/files-utils';
 
 import { ToastService, UsersService, ConfigDocumentosRegistroService, ConfigFormRegistroService, PaisesService, EstadosService } from 'app/services';
@@ -20,7 +20,7 @@ export class UsersEditarComponent implements OnInit {
 	id: number;
     user: any;
 
-    usuarioForm: FormGroup;
+    usuarioForm: UntypedFormGroup;
 
     documentosRegistro: any[];
     formsRegistro: any[];
@@ -35,7 +35,7 @@ export class UsersEditarComponent implements OnInit {
 	];
 
     constructor(
-        private _fb: FormBuilder,
+        private _fb: UntypedFormBuilder,
         private usersService: UsersService,
         private configDocumentosRegistroService: ConfigDocumentosRegistroService,
         private configFormRegistroService: ConfigFormRegistroService,
@@ -107,8 +107,8 @@ export class UsersEditarComponent implements OnInit {
 
         this.formsRegistro.forEach(form => {
             if (form.seMuestra) {
-                const info = <FormGroup>this.usuarioForm['controls'].info;
-                info.addControl(form.nombre, new FormControl(this.user.info[form.nombre], this.requerido(form.nombre) ? Validators.required : null));
+                const info = <UntypedFormGroup>this.usuarioForm['controls'].info;
+                info.addControl(form.nombre, new UntypedFormControl(this.user.info[form.nombre], this.requerido(form.nombre) ? Validators.required : null));
             }
         });
 
@@ -142,11 +142,11 @@ export class UsersEditarComponent implements OnInit {
 	}
 
     addArchivo(item: any): void {
-        const control = <FormArray>this.usuarioForm.controls['archivos'];
+        const control = <UntypedFormArray>this.usuarioForm.controls['archivos'];
         control.push(this.initArchivo(item));
     }
 
-    initArchivo(item: any): FormGroup {
+    initArchivo(item: any): UntypedFormGroup {
         const doc = this.getDocumento(item.id);
         if (doc) {
             return this._fb.group({
@@ -169,7 +169,7 @@ export class UsersEditarComponent implements OnInit {
     handleFile(event: any, index: number): void {
         const file = <File>event.target.files[0];
         FilesUtils.readFileBynaryString(file).subscribe(data => {
-			const archivos = this.usuarioForm['controls'].archivos as FormArray;
+			const archivos = this.usuarioForm['controls'].archivos as UntypedFormArray;
             const control = archivos.at(index);
 
             control.get('base64').setValue(data.base64);

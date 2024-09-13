@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, FormArray } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FilesUtils } from 'app/shared/utils/files-utils';
 
@@ -33,7 +33,7 @@ export class SubastasEnPistaSubastadorComponent implements OnInit, OnDestroy {
 
     subastaId: number;
 
-	pujaForm: FormGroup;
+	pujaForm: UntypedFormGroup;
 	
 	subastasEnPista: any[];
 
@@ -59,7 +59,7 @@ export class SubastasEnPistaSubastadorComponent implements OnInit, OnDestroy {
 		@Inject(DOCUMENT) document,
         private activatedRoute: ActivatedRoute,
         private router: Router,
-        private _fb: FormBuilder,
+        private _fb: UntypedFormBuilder,
 		private subastasService: SubastasService,
 		private subastasDetallesService: SubastasDetallesService,
 		private toastService: ToastService,

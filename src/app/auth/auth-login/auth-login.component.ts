@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 import { ToastService, AuthService } from 'app/services';
 
@@ -17,7 +17,7 @@ import { delay, filter, take, takeUntil } from 'rxjs/operators'
 })
 export class AuthLoginComponent implements OnInit, OnDestroy {
 
-    loginForm: FormGroup;
+    loginForm: UntypedFormGroup;
 
 	redirectUrl: string;
 	
@@ -28,7 +28,7 @@ export class AuthLoginComponent implements OnInit, OnDestroy {
     private _unsubscribeAll: Subject<any>;
 
 	constructor(
-        private _fb: FormBuilder,
+        private _fb: UntypedFormBuilder,
         private store: Store<AppState>,
         private authService: AuthService,
         private toastService: ToastService,

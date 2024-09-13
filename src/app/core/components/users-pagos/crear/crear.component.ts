@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, FormArray } from '@angular/forms';
 
 import { ToastService, UsersPagosService } from 'app/services';
 
@@ -15,14 +15,14 @@ export class UsersPagosCrearComponent implements OnInit {
     id: number;
     userId: number;
 
-    pagoForm: FormGroup;
+    pagoForm: UntypedFormGroup;
 
     pago: any;
 
     constructor(
         private activatedRoute: ActivatedRoute,
         private router: Router,
-        private _fb: FormBuilder,
+        private _fb: UntypedFormBuilder,
         private usersPagosService: UsersPagosService,
         private toastService: ToastService
     ) {

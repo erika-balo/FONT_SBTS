@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, FormArray } from '@angular/forms';
 
 import { UsersService, ToastService, PaisesService, EstadosService, ConfigGeneralesService } from 'app/services';
 
@@ -31,13 +31,13 @@ export class UsersComponent implements OnInit {
     sortedField: string;
     sortedType: string;
 
-	busquedaForm: FormGroup;
+	busquedaForm: UntypedFormGroup;
 
     paises: any[];
 	estados: any[];
 
     constructor(
-        private _fb: FormBuilder,
+        private _fb: UntypedFormBuilder,
         private usersService: UsersService,
 		private toastService: ToastService,
         private configGeneralesService: ConfigGeneralesService,

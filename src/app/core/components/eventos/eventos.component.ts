@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, FormArray } from '@angular/forms';
 
 import { EventosService, ToastService } from 'app/services';
 
@@ -31,12 +31,12 @@ export class EventosComponent implements OnInit {
     sortedField: string;
     sortedType: string;
 
-	busquedaForm: FormGroup;
+	busquedaForm: UntypedFormGroup;
 
     private _unsubscribeAll: Subject<any>;
 
     constructor(
-        private _fb: FormBuilder,
+        private _fb: UntypedFormBuilder,
         private store: Store<AppState>,
 		private modalService: NgbModal,
         private eventosService: EventosService,

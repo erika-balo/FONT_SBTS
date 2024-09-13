@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, FormArray } from '@angular/forms';
 
 import { UsersService } from 'app/services';
 
@@ -14,11 +14,11 @@ export class CambioPasswordComponent implements OnInit {
 	@Input()
 	userId: number;
 
-    cambioForm: FormGroup;
+    cambioForm: UntypedFormGroup;
 
 	constructor(
 		public activeModal: NgbActiveModal,
-        private _fb: FormBuilder,
+        private _fb: UntypedFormBuilder,
 		private usersService: UsersService
 	) {
 	}

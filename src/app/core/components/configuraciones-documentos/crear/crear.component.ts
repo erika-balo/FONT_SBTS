@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, FormArray } from '@angular/forms';
 
 import { ToastService, ConfigDocumentosRegistroService } from 'app/services';
 
@@ -13,14 +13,14 @@ export class ConfiguracionesDocumentosCrearComponent implements OnInit, OnDestro
 
     id: number;
 
-    documentoForm: FormGroup;
+    documentoForm: UntypedFormGroup;
 
     documento: any;
 
     constructor(
         private activatedRoute: ActivatedRoute,
         private router: Router,
-        private _fb: FormBuilder,
+        private _fb: UntypedFormBuilder,
         private configDocumentosRegistrosService: ConfigDocumentosRegistroService,
         private toastService: ToastService
     ) {

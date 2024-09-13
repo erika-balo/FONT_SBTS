@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, UntypedFormArray, UntypedFormControl } from '@angular/forms';
 
 import { ToastService, EventosService, LotesService, SubastasService } from 'app/services';
 
@@ -15,7 +15,7 @@ export class SubastasCrearComponent implements OnInit {
 
     id: number;
 
-    subastaForm: FormGroup;
+    subastaForm: UntypedFormGroup;
 
     subasta: any;
     
@@ -25,7 +25,7 @@ export class SubastasCrearComponent implements OnInit {
     constructor(
         private activatedRoute: ActivatedRoute,
         private router: Router,
-        private _fb: FormBuilder,
+        private _fb: UntypedFormBuilder,
         private subastasService: SubastasService,
         private lotesService: LotesService,
         private eventosService: EventosService,
@@ -57,7 +57,7 @@ export class SubastasCrearComponent implements OnInit {
 			this.createForm();
 			this.loadEventos();
 
-			this.subastaForm.addControl('estatus', new FormControl(this.subasta.estatus, Validators.required));
+			this.subastaForm.addControl('estatus', new UntypedFormControl(this.subasta.estatus, Validators.required));
 
 			this.subasta.subastasPreciosFijos.forEach(precioFijo => {
 				this.addPrecioFijo(precioFijo);
@@ -107,11 +107,11 @@ export class SubastasCrearComponent implements OnInit {
 	}
 
     addPrecioFijo(item: any = {}): void {
-        const control = <FormArray>this.subastaForm.controls['subastasPreciosFijos'];
+        const control = <UntypedFormArray>this.subastaForm.controls['subastasPreciosFijos'];
         control.push(this.initPrecioFijo(item));
     }
 
-    initPrecioFijo(item: any): FormGroup {
+    initPrecioFijo(item: any): UntypedFormGroup {
 		if (this.isEdit()) {
 			return this._fb.group({
 				id: [item.id],
@@ -126,7 +126,7 @@ export class SubastasCrearComponent implements OnInit {
 	}
 
     eliminarPrecioFijo(index: number): void {
-        const fotos = <FormArray>this.subastaForm.controls['subastasPreciosFijos'];
+        const fotos = <UntypedFormArray>this.subastaForm.controls['subastasPreciosFijos'];
         fotos.removeAt(index);
     }
 

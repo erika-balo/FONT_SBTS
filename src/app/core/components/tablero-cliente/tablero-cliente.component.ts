@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, FormArray } from '@angular/forms';
 
 import { LotesService, SubastasService } from 'app/services';
 
@@ -35,12 +35,12 @@ export class TableroClienteComponent implements OnInit, OnDestroy {
 
 	user: any;
 
-	busquedaForm: FormGroup;
+	busquedaForm: UntypedFormGroup;
 
     private _unsubscribeAll: Subject<any>;
 
     constructor(
-        private _fb: FormBuilder,
+        private _fb: UntypedFormBuilder,
         private lotesService: LotesService,
         private domSanitizer: DomSanitizer,
         private store: Store<AppState>,

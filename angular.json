@@ -121,7 +121,6 @@
       }
     }
   },
-  "defaultProject": "landrick-angular",
   "cli": {
     "analytics": "1c178791-cf28-4603-9dde-4839596a26aa"
   }

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, FormArray } from '@angular/forms';
 
 import { Store, select } from '@ngrx/store';
 import { AppState, Logout, currentUser } from 'app/store';
@@ -25,10 +25,10 @@ export class HeaderComponent implements OnInit {
 
 	private _unsubscribeAll: Subject<any>;
 
-	busquedaForm: FormGroup;
+	busquedaForm: UntypedFormGroup;
 
   constructor(
-        private _fb: FormBuilder,
+        private _fb: UntypedFormBuilder,
 		private router: Router,
 		private store: Store<AppState>,
 		private toastService: ToastService,

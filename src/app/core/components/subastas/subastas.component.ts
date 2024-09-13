@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, FormArray } from '@angular/forms';
 
 import { SubastasService } from 'app/services';
 
@@ -15,13 +15,13 @@ export class SubastasComponent implements OnInit {
     page: number;
 	pageSize: number;
 
-	busquedaForm: FormGroup;
+	busquedaForm: UntypedFormGroup;
 
     sortedField: string;
     sortedType: string;
 
     constructor(
-        private _fb: FormBuilder,
+        private _fb: UntypedFormBuilder,
         private subastasService: SubastasService
     ) {
     }
