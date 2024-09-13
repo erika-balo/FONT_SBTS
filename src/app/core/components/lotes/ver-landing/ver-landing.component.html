@@ -43,9 +43,9 @@
 					<ul class="list-unstyled text-warning h5 mb-0">
 					</ul>
 					<!-- IMAGENES CATALAGO Y VIDEO-->
-					<div class="row mt-4 pt-2" id="imagenesch" >
-						<img (click)="openPdf()" src="assets/images/CATALOGOBAN.png" alt="" style="max-width:100%; margin-bottom:10px; margin-left:5px;" >
-						<img (click)="openVideo()" src="assets/images/VIDEOBAN.png" alt="" style="max-width:100%; margin-left:5px; margin-bottom:10px;" >
+					<div class="row mt-4 pt-2" id="imagenesch" style="display: grid; grid-template-columns: repeat(2, 1fr); padding: 1rem; gap:1rem;">
+				<img (click)="openPdf()" src="https://bucketsubasta1.s3.us-east-2.amazonaws.com/varios/vercatalogo.png" alt="" style="width:100%; margin-bottom: 10px; cursor: pointer;" >
+				<img (click)="openVideo()" src="https://bucketsubasta1.s3.us-east-2.amazonaws.com/varios/vervideo.png" alt="" style="width:100%; margin-bottom: 10px; cursor: pointer; " >
 					</div>
 					<!--ARBOL GENEALÓGICO CONFIGURABLE-->
 					<div class="arbol" style="max-width:100%;">
