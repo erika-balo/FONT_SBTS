@@ -1,9 +1,9 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
-import { ConfirmacionComponent } from 'app/core/components/generales/confirmacion/confirmacion.component';
-import { SubastasDetallesService, SubastasService, ToastService } from 'app/services';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
+import { SubastasDetallesService, SubastasService } from 'app/services';
+
 import { environment } from 'app/../environments/environment';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
@@ -36,8 +36,6 @@ export class SubastasVerPujasComponent implements OnInit {
         private _fb: FormBuilder,
         private activatedRoute: ActivatedRoute,
 		private subastasDetallesService: SubastasDetallesService,
-		private modalService: NgbModal,
-		private toastService: ToastService,
 		private subastasService: SubastasService,
 		private chdr: ChangeDetectorRef
     ) {
@@ -119,9 +117,7 @@ export class SubastasVerPujasComponent implements OnInit {
 
 	 ganadoraFinal(item: any, params: any): void {
                 this.subastasDetallesService.ganadoraFinal(item.id, params).subscribe(response => {
-			this.load();
-			this.toastService.success('Ganador Asignado Correctamente');
-
+                        this.load();
                 },
                 err => {
                         console.log(err);
@@ -164,7 +160,7 @@ export class SubastasVerPujasComponent implements OnInit {
                 content: [
 			{text: `VENTA PISO LOTE ${numerolote}, ${nombrelote}`, style: ['titulo']},
                         {text: `¡Felicidades, ha ganado el Lote ${numerolote}, ${nombrelote} por ${final} en nuestra Subasta!`, margin:[0,5,0,5]},
-			{text: `Yo Sr(a):_____________________________________ he comprado al contado en venta pública al ser el mejor postor, el lote ${numerolote}, ${nombrelote} por la cantidad de ${final}, monto que debo y pagaré de manera inmediata a la Unión Ganadera Regional de Chihuahua el dia ${fechaPuja} en sus instalaciones, de retrasarse el pago se aplicará un interés del 10% mensual hasta su liquidación total.`, style:['padding']},
+			{text: `Yo Sr(a):_____________________________________ he comprado al contado en venta pública al ser el mejor postor, el lote ${numerolote}, ${nombrelote} por la cantidad de ${final}, monto que debo y pagaré de manera inmediata a la Unión Ganadera Regional de Chihuahua el dia ${fechaPuja} en sus instalaciones, de retrasarse el pago se aplicará in interés del 10% mensual hasta su liquidacipon total.`, style:['padding']},
 			{text: `Firma Cliente:_____________________`, margin:[0,5,0,5]},
 			{text:  `Datos del Lote`, margin:[0, 5, 0, 5]}, 
 			{text: `No. Lote: ${numerolote}`},
@@ -198,7 +194,7 @@ export class SubastasVerPujasComponent implements OnInit {
                 }
 
                 }
-                pdfMake.createPdf(data).download(`pujaFinal-lote_${numerolote}.pdf`);
+                pdfMake.createPdf(data).download('pujaFinal.pdf');
 		
         },
                 err => {

@@ -66,6 +66,7 @@ const routes: Routes = [
       { path: 'subastas/en-pista/:subastaId', component: SubastasEnPistaComponent },
       { path: 'tablero', component: TableroClienteComponent },
       { path: 'enlace/:slug', component: PageComponent },
+	{ path: 'lotes/page-contact-detail', component: PageContactDetailComponent },	
       { path: 'historial-eventos', component: HistorialEventosComponent },
     ]
   },  

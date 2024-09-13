@@ -34,6 +34,7 @@ export class PageContactDetailComponent implements OnInit {
         isSubasta: boolean;
         /*variables fin*/
         loteId: number;
+
         isActiva: boolean;
 
         lote: any;
@@ -71,36 +72,36 @@ ngOnInit(): void {
                         this.load();
                 };
                 /*prueba*/
-                
-	this.store.pipe(
-	takeUntil(this._unsubscribeAll),
-	select(currentUser),
-	filter(user => user)
-).subscribe(user => {
-	this.user = user;
-	this.isSubasta = user.roles.indexOf('ROLE_SUBASTA') >= 0;
-	this.isUser = user.roles.indexOf('ROLE_USER') >= 0;
+                this.store.pipe(
+                                takeUntil(this._unsubscribeAll),
+                                select(currentUser),
+                                filter(user => user)
+                        ).subscribe(user => {
+                                this.user = user;
+                                this.isSubasta = user.roles.indexOf('ROLE_SUBASTA') >= 0;
+                                this.isUser = user.roles.indexOf('ROLE_USER') >= 0;
 
-	if (this.isUser) {
-			const url = new URL(environment.MERCURE_URL);
-			url.searchParams.append('topic', 'user-' + this.user.id);
+                                if (this.isUser) {
+                                        const url = new URL(environment.MERCURE_URL);
+                                        url.searchParams.append('topic', 'user-' + this.user.id);
 
-			const eventSource = new EventSource(url.toString());
-			eventSource.onmessage = e => {
-					const data = JSON.parse(e.data);
-					if (data.accion === 'logout') {
-							this.store.dispatch(new Logout());
-							this.router.navigate(['/']);
-					}
-			};
-	}
-});		
+                                        const eventSource = new EventSource(url.toString());
+                                        eventSource.onmessage = e => {
+                                                const data = JSON.parse(e.data);
+                                                if (data.accion === 'logout') {
+                                                        this.store.dispatch(new Logout());
+                                                        this.router.navigate(['/']);
+                                                }
+                                        };
+                                }
+                        });
+
+
                 /*fin*/
         }
-	 load(): void {
+load(): void {
                 this.subastasService.getEnPista().subscribe(response => {
                         const data = response.body;
-                        console.log(data);
                         if (data) {
                                 this.lote = data.lote;
                                 this.lastSubasta = data;
@@ -117,7 +118,7 @@ ngOnInit(): void {
                                         } else if (data.accion === 'cerrar') {
                                                 this.hola();
                                         } else if (data.accion === 'invalidar') {
-                                                this.loadDetalles();
+                                                this.hola();
                                         } else if (data.accion === 'validar') {
                                                 this.hola();
                                         }else if (data.accion === 'subasta-activa') {
@@ -127,8 +128,6 @@ ngOnInit(): void {
                                         }
                                 };
                                 this.loadDetalles();
-
-
                         }
                 },
                 err => {
@@ -139,6 +138,7 @@ ngOnInit(): void {
         hola(): void {
                 this.subastasService.findOneCompleto(this.lastSubasta.id).subscribe(response => {
                         this.lastSubasta = response.body;
+			console.log(this.lastSubasta);
                         this.diferenciaMinimaOferta = this.lastSubasta.diferenciaMinimaOferta;
                         this.loadDetalles();
                 },
@@ -152,6 +152,7 @@ loadDetalles(): void {
                 this.subastasDetallesService.getDetallesLimit(this.lastSubasta.id).subscribe(response => {
                         this.subastasDetalles = response.body;
 			console.log(this.subastasDetalles);
+                        /**this.loadDetalles();**/
                         this.lastPuja = _.first(this.subastasDetalles);
                         if (this.subastasDetalles.length > 0) {
                                 this.proximaMinimaOferta = +this.lastPuja.monto + +this.lastSubasta.diferenciaMinimaOferta;
@@ -165,17 +166,19 @@ loadDetalles(): void {
                         console.log(err);
                 });
         }
-/*inicio*/	
+/*inicio*/
+	gn(): void{
+		if(this.user.id.this.lastSubasta === this.lastSubasta === 'GANADORA' ){
+		console.log('si eres el usuario');
+		}else{ console.log('no eres el usuario');}
+	}	
         isEnPista(): boolean {
                 return this.lastSubasta && (this.lastSubasta.estatus === 'EN_PISTA');
         }
 
-	msNolote(): boolean {
-		return this.subasta && (this.subasta.estatus === null);
-	}	
-	msvendido(): boolean{
-		return this.lastSubasta && (this.lastSubasta.estatus === 'VENDIDA')
-	}
+        pla(): boolean{
+                return this.lastSubasta && (this.lastSubasta.estatus === 'VENDIDA')
+        }
 createForm(): void {
         this.pujaForm = this._fb.group({
             monto: [null, Validators.required],
@@ -223,26 +226,6 @@ createForm(): void {
                 this.pujaForm['controls'].monto.setValue(total);
                 this.onSubmit();
         }
-
-	reload(){
-  	// any other execution
-  	window.location.reload();
-
-	}
-
-	/**puja aqui inicio*/
-	openinfo(): void {
-		this.router.navigate(['/subastas/en-pista', this.lastSubasta.id]);
-	} 
-	
-	openVideo(): void {
-		window.open(this.lastSubasta.lote.linkYoutube, '_blank');
-	}
-
-	/**puja aqui fin*/
-
-
-
     onSubmit(): void {
                 this.checkIsLogin();
                 this.validDiferenciaPuja();

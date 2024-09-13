@@ -5,11 +5,9 @@
 		</svg>
 	</div>
 </div>
-
 <section class="section">
 	<div class="container">
 		<h4 class="title ">LOTE {{lote.numero }}: {{lote.nombre }} </h4>
-		<a *ngIf="msvendido()" class="ms-vendido" >Este lote esta: VENDIDO, espere al siguiente lote o actualice su página</a>
 
 		<div class="row">
 			<div class="col-md-5">
@@ -20,10 +18,9 @@
 					</a>
 				</div>
 
-				<div *ngIf="isEnPista()" class="row mt-4 pt-2 " style="display:grid; grid-template-columns: repeat(2, 1fr); padding: 1rem;" >
-                                                <img (click)="openinfo()"  src="http://drive.google.com/uc?export=view&id=1AIAh8GdRmm0j0gl41VE0RTZiaJK9P_r5" alt="" style="width:100%; margin-bottom:10px; cursor: pointer; " >
-                                                <img (click)="openVideo()" src="http://drive.google.com/uc?export=view&id=1ixFVTiJxPfhmsyr2Shaz6oGBKm-blUon" alt="" style="width:100%; margin-bottom:10px; cursor: pointer;" >
-				
+				<div class="row mt-4 pt-2 " style="display:grid; grid-template-columns: repeat(2, 1fr); padding: 1rem;" >
+                                                <img  src="https://i.ibb.co/Gsd5bCW/info.png" alt="" style="width:100%; margin-bottom:10px; margin-left:5px;" >
+                                                <img  src="https://i.ibb.co/TB4Jqg6/video.png" alt="" style="width:100%; margin-left:5px; margin-bottom:10px;" >
 
                                         </div>
 			</div>
@@ -34,8 +31,8 @@
 					<!-- IMAGENES CATALAGO Y VIDEO  prueba-->
 					
 					<!--cierre de catalogo y video-->
-					<div class="pujaactual" *ngIf="isEnPista()">
-						<h2 class="puja-actual"> PUJA ACTUAL: {{ lastPuja ? (lastPuja.monto | currency) : (lastSubasta.precioSalida | currency) }}</h2>
+					<div class="pujaactual" *ngIf="isEnPista()" style="margin-bottom:20px;">
+						<h2 class> PUJA ACTUAL: {{ lastPuja ? (lastPuja.monto | currency) : (lastSubasta.precioSalida | currency) }}</h2>
 					</div>
 					<!--CAJA DE SUBASTA-->
 					<!-- <br /> -->
@@ -47,27 +44,28 @@
 					<button (click)="pujaAqui()" class="btn btn-primary btn-block">PUJA AQUI</button>
 
 					<button *ngIf="isEnPista()" (click)="pujaAqui()" class="btn btn-primary btn-block">TEST2</button> -->
-
-					 <section *ngIf="user && isEnPista()">
+					<section *ngIf="user">
                                         <div *ngFor="let subastaDetalle of subastasDetalles">
                                                 <h4 style="font-weight: bold; color:#549f63" *ngIf="user.id === subastaDetalle.user.id && subastaDetalle.estatus== 'GANADORA'">¡TIENES LA POSTURA LIDER!</h4>
                                         </div>
 
                                         </section>
 
- 					<section *ngIf="user && isEnPista()" >
+
+
+                                        <section *ngIf="user">
                                         <div *ngFor="let subastaDetalle of subastasDetalles | slice:0:1; let i=index">
                                                 <h4 style="font-weight: bold; color:#dc0a0a" *ngIf="user.id !== subastaDetalle.user.id">¡VAS FUERA, INGRESA UNA POSTURA!</h4>
                                         </div>
 
                                         </section>
+
 					<!--BOTON ACTUALIZAR TEST-->
-					<div *ngIf="isEnPista()" class="divboton">
+					<div class="divboton">
 						<button class="actualizar" (click)="reload()">Actualizar Posturas</button>
 					</div>
 
 					<p *ngIf="isEnPista()" class="text1">Ingresa tu puja en la caja de texto o en los botones inferiores</p>
-					<p *ngIf="isEnPista()" class="text1" style="font-weight:900;">Puja mínima válida: {{ proximaMinimaOferta | currency }}</p>
 					<form class="form-inline navbar-light my-2 my-lg-0" (ngSubmit)="onSubmit()" *ngIf="pujaForm && isEnPista()" [formGroup]="pujaForm">
 						<input class="form-control mr-sm-2" type="text" mask="separator.0" thousandSeparator="," formControlName="monto" placeholder="Escriba el monto" style='width:60%; margin-bottom: 20px;'
 						[ngClass]="{ 'is-invalid': form.monto.touched && form.monto.errors, 'is-valid': form.monto.touched && !form.monto.errors }">
@@ -75,14 +73,15 @@
 							<div *ngIf="form.monto.errors.required">Monto es requerido</div>
 							<div *ngIf="form.monto.errors.diferenciaMinimaOferta">El monto debe ser mayor o igual a {{ proximaMinimaOferta }}</div>
 						</div>
-						<button [disabled]="pujaForm.invalid" id="btn-enviar" class="btn btn-primary" type="submit" style='margin-bottom: 20px;'>Enviar puja</button>
+						<button [disabled]="pujaForm.invalid" class="btn btn-primary" type="submit" style='margin-bottom: 20px;'>Enviar puja</button>
 					</form>
 					<!--SUMATORIA DE LA PUJA ACTUAL + VALOR DE UMBRAL-->
 
+					<p *ngIf="isEnPista()" class="text1" style="font-weight:900;">Puja mínima válida: {{ proximaMinimaOferta | currency }}</p>
 
 					<!--BOTONES CONFIGURABLES PARA PUJAR AUTOMATICAMENTE-->
 					<div *ngIf="isEnPista()" class="mt-4 pt-2" style=" max-width: 100%; margin-bottom:20px;">
-						<div *ngIf="isEnPista()" class="grid">
+						<div *ngIf="isEnPista()">
 							<a href="javascript:void(0)" *ngFor="let precioFijo of lastSubasta.subastasPreciosFijos" (click)="cantidadFija(precioFijo.cantidad)" style='height:35px; margin-left:10px; max-width: 100%;' id="boton"
 								class="btn btn-primary"> + {{ formatCantidad(precioFijo.cantidad) | currency }}</a>
 						</div>
@@ -91,7 +90,7 @@
 					
 
 					<div *ngIf="isEnPista()">
-						<h4 class="centrar" style="font-weight: bold; color:#856a47">Historial de pujas</h4>
+						<h4 style="font-weight: bold; color:#856a47">Historial de pujas</h4>
 					</div>
 					<!--empieza historial pujas-->
 					<div class="datagrid" style="max-width:100%;" *ngIf="isEnPista()">

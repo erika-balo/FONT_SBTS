@@ -1,9 +1,9 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
-import { ConfirmacionComponent } from 'app/core/components/generales/confirmacion/confirmacion.component';
-import { SubastasDetallesService, SubastasService, ToastService } from 'app/services';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
+import { SubastasDetallesService, SubastasService } from 'app/services';
+
 import { environment } from 'app/../environments/environment';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
@@ -15,11 +15,11 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 })
 export class SubastasVerPujasComponent implements OnInit {
 
-        subastaId: number;
+    subastaId: number;
 	detalle: any;
 	detalles: any[];
 	pdfDefinition: any[];
-        page: number;
+    page: number;
 	pageSize: number;
 	lote: any;
 	topicSubasta: string;
@@ -36,8 +36,6 @@ export class SubastasVerPujasComponent implements OnInit {
         private _fb: FormBuilder,
         private activatedRoute: ActivatedRoute,
 		private subastasDetallesService: SubastasDetallesService,
-		private modalService: NgbModal,
-		private toastService: ToastService,
 		private subastasService: SubastasService,
 		private chdr: ChangeDetectorRef
     ) {
@@ -119,9 +117,7 @@ export class SubastasVerPujasComponent implements OnInit {
 
 	 ganadoraFinal(item: any, params: any): void {
                 this.subastasDetallesService.ganadoraFinal(item.id, params).subscribe(response => {
-			this.load();
-			this.toastService.success('Ganador Asignado Correctamente');
-
+                        this.load();
                 },
                 err => {
                         console.log(err);
@@ -133,8 +129,6 @@ export class SubastasVerPujasComponent implements OnInit {
         this.subastasDetallesService.ganadoraPdf(item.id, params).subscribe(response => {
                 this.detalle = response.body;
                 let montoPuja = this.detalle.monto;
-		let montoFinal = parseFloat(montoPuja);
-		let final = montoFinal.toLocaleString("en-US", {style:"currency", currency:"USD"});
 		const numerolote = this.detalle.subasta.lote.numero;
 		const nombrelote = this.detalle.subasta.lote.nombre;
 		let fechaPuja = parseDate(this.detalle.creado);
@@ -144,9 +138,9 @@ export class SubastasVerPujasComponent implements OnInit {
 		const numeroRegistro = this.detalle.subasta.lote.registro;
 		const pesoNacer = this.detalle.subasta.lote.pesoNacer;
 		const pesoDestete = this.detalle.subasta.lote.pesoDestete;
-		let des = this.detalle.subasta.lote.informacionAnimal;                 
-                console.log(this.detalle);
-		console.log(typeof des);
+		const des = this.detalle.subasta.lote.descripcion;
+  
+
 		function parseDate (isodate) {
   		return (
     			new Date(isodate)
@@ -159,14 +153,17 @@ export class SubastasVerPujasComponent implements OnInit {
   			);
 			}
 
+
+
+
 			
          const data = {
                 content: [
 			{text: `VENTA PISO LOTE ${numerolote}, ${nombrelote}`, style: ['titulo']},
-                        {text: `¡Felicidades, ha ganado el Lote ${numerolote}, ${nombrelote} por ${final} en nuestra Subasta!`, margin:[0,5,0,5]},
-			{text: `Yo Sr(a):_____________________________________ he comprado al contado en venta pública al ser el mejor postor, el lote ${numerolote}, ${nombrelote} por la cantidad de ${final}, monto que debo y pagaré de manera inmediata a la Unión Ganadera Regional de Chihuahua el dia ${fechaPuja} en sus instalaciones, de retrasarse el pago se aplicará un interés del 10% mensual hasta su liquidación total.`, style:['padding']},
-			{text: `Firma Cliente:_____________________`, margin:[0,5,0,5]},
-			{text:  `Datos del Lote`, margin:[0, 5, 0, 5]}, 
+                         {text: `¡Felicidades, ha ganado el Lote ${numerolote}, ${nombrelote} por ${montoPuja} en nuestra Subasta!`},
+			{text: `Yo Sr(a):_____________________________________ he comprado al contado en venta pública al ser el mejor postor, el lote ${numerolote}, ${nombrelote} por la cantidad de ${montoPuja}, monto que debo y pagaré de manera inmediata a la Unión Ganadera Regional de Chihuahua el dia ${fechaPuja} en sus instalaciones, de retrasarse el pago se aplicará in interés del 10% mensual hasta su liquidacipon total.`, style:['padding']},
+			{text: `Firma Cliente:_____________________`},
+
 			{text: `No. Lote: ${numerolote}`},
 			{text: `Nombre del Lote: ${nombrelote}`},
 			{text: `Color: ${color}`},
@@ -176,12 +173,6 @@ export class SubastasVerPujasComponent implements OnInit {
 			{text: `Peso al Nacer: ${pesoNacer}`},
 			{text: `Peso al Destete: ${pesoDestete}`},
 			{text: `Descripción: ${des}`},
-			{text: `Para mayor información, pagos en efectivo o transferencias favor de comunicarse con nuestro equipo por los siguientes medios:`, margin:[0,5,0,5]},
-			{text: `Teléfonos: 6142883705 o 6144340110`},
-			{text: `Mail: ugrch.subasta@gmail.com`},
-
-
-
 
 
                 ],
@@ -192,19 +183,19 @@ export class SubastasVerPujasComponent implements OnInit {
 			margin: 5
                 },
 			padding:{
-			margin: [0 , 5 ,0 ,5],
-			alignment: 'justify',
+			margin: 5
 			}
                 }
 
                 }
-                pdfMake.createPdf(data).download(`pujaFinal-lote_${numerolote}.pdf`);
-		
+                pdfMake.createPdf(data).open();
         },
                 err => {
                         console.log(err);
                 });
 }
+
+
 
     sorted(field: string): void {
         if (field !== this.sortedField) {

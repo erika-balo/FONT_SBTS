@@ -23,3 +23,4 @@ describe('PageContactDetailComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+

@@ -1,5 +1,6 @@
 .footer{
-    background-color: #13120d;
+    background-color: #8d3527;
+	color: #ffffff;
 }
 
 .footer.footer-bar{
@@ -7,3 +8,11 @@
 }
 
 
+.social-icon.social li a {
+	color: #FFFFFF;
+	border-color: #FFFFFF;
+}
+
+.footer .text-foot {
+	color: #ffffff;
+}

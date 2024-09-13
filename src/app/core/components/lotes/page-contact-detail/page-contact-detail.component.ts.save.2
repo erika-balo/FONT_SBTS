@@ -26,20 +26,21 @@ export class PageContactDetailComponent implements OnInit {
         subasta: any;
         pujaForm: FormGroup;
         user:any;
-        subastaId: number;
+	subastaId: number;
         topicSubasta: string;
         isUser: boolean;
-        subastaEnPista: boolean;
-        subastasDetalles: any[];
+	subastaEnPista: boolean;
+	subastasDetalles: any[];
         isSubasta: boolean;
         /*variables fin*/
         loteId: number;
+
         isActiva: boolean;
 
         lote: any;
         lastPuja: any;
         lastSubasta: any;
-        viewerOpen: boolean[];
+	viewerOpen: boolean[];
         subastaDetalles: any[];
         private _unsubscribeAll: Subject<any>;
 
@@ -57,56 +58,58 @@ export class PageContactDetailComponent implements OnInit {
                 private router: Router
         ) {
         }
-ngOnInit(): void {
+
+        ngOnInit(): void {
                 this.load();
-		
-                this.createForm();
+		this.createForm();
                 this._unsubscribeAll = new Subject();
-               const url = new URL(environment.MERCURE_URL);
+                const url = new URL(environment.MERCURE_URL);
                 url.searchParams.append('topic', 'change-en-pista');
+
                 const eventSource = new EventSource(url.toString());
                 eventSource.onmessage = e => {
-                        console.log(e)
-			window.location.reload();
+			console.log(e)
                         this.load();
                 };
                 /*prueba*/
-                
-	this.store.pipe(
-	takeUntil(this._unsubscribeAll),
-	select(currentUser),
-	filter(user => user)
-).subscribe(user => {
-	this.user = user;
-	this.isSubasta = user.roles.indexOf('ROLE_SUBASTA') >= 0;
-	this.isUser = user.roles.indexOf('ROLE_USER') >= 0;
+ 		this.store.pipe(
+                                takeUntil(this._unsubscribeAll),
+                                select(currentUser),
+                                filter(user => user)
+                        ).subscribe(user => {
+                                this.user = user;
+                                this.isSubasta = user.roles.indexOf('ROLE_SUBASTA') >= 0;
+                                this.isUser = user.roles.indexOf('ROLE_USER') >= 0;
 
-	if (this.isUser) {
-			const url = new URL(environment.MERCURE_URL);
-			url.searchParams.append('topic', 'user-' + this.user.id);
+                                if (this.isUser) {
+                                        const url = new URL(environment.MERCURE_URL);
+                                        url.searchParams.append('topic', 'user-' + this.user.id);
 
-			const eventSource = new EventSource(url.toString());
-			eventSource.onmessage = e => {
-					const data = JSON.parse(e.data);
-					if (data.accion === 'logout') {
-							this.store.dispatch(new Logout());
-							this.router.navigate(['/']);
-					}
-			};
-	}
-});		
+                                        const eventSource = new EventSource(url.toString());
+                                        eventSource.onmessage = e => {
+                                                const data = JSON.parse(e.data);
+                                                if (data.accion === 'logout') {
+                                                        this.store.dispatch(new Logout());
+                                                        this.router.navigate(['/']);
+                                                }
+                                        };
+                                }
+                        });
+
+
                 /*fin*/
         }
-	 load(): void {
+  load(): void {
                 this.subastasService.getEnPista().subscribe(response => {
                         const data = response.body;
-                        console.log(data);
                         if (data) {
                                 this.lote = data.lote;
                                 this.lastSubasta = data;
                                 this.topicSubasta = 'topic-subasta-' + this.lastSubasta.id;
+				
                                 const url = new URL(environment.MERCURE_URL);
                                 url.searchParams.append('topic', this.topicSubasta);
+
                                 const eventSource = new EventSource(url.toString());
                                 eventSource.onmessage = e => {
                                         const data = JSON.parse(e.data);
@@ -115,20 +118,18 @@ ngOnInit(): void {
                                         } else if (data.accion === 'vendida') {
                                                 this.hola();
                                         } else if (data.accion === 'cerrar') {
-                                                this.hola();
+                                                this.loadDetalles();
                                         } else if (data.accion === 'invalidar') {
                                                 this.loadDetalles();
                                         } else if (data.accion === 'validar') {
-                                                this.hola();
+                                                this.loadDetalles();
                                         }else if (data.accion === 'subasta-activa') {
-                                                this.hola();
-                                        } else if (data.accion === 'subasta-inactiva') {
-                                                this.hola();
-                                        }
+						this.loadDetalles();
+					} else if (data.accion === 'subasta-inactiva') {
+						this.loadDetalles();
+					}
                                 };
                                 this.loadDetalles();
-
-
                         }
                 },
                 err => {
@@ -136,22 +137,21 @@ ngOnInit(): void {
                 });
         }
         /*inicio*/
-        hola(): void {
-                this.subastasService.findOneCompleto(this.lastSubasta.id).subscribe(response => {
-                        this.lastSubasta = response.body;
-                        this.diferenciaMinimaOferta = this.lastSubasta.diferenciaMinimaOferta;
-                        this.loadDetalles();
-                },
-                err => {
-                        console.log(err);
-                });
-        }
+	hola(): void {
+		this.subastasService.findOneCompleto(this.lastSubasta.id).subscribe(response => {
+			this.lastSubasta = response.body;
+			this.diferenciaMinimaOferta = this.lastSubasta.diferenciaMinimaOferta;
+			this.subastaEnPista = this.lastSubasta.estatus === 'ABIERTO' || this.lastSubasta.estatus === 'EN_PISTA';
+		},
+		err => {
+			console.log(err);
+		});
+	}
         /*fin*/
-
-loadDetalles(): void {
+  loadDetalles(): void {
+		
                 this.subastasDetallesService.getDetallesLimit(this.lastSubasta.id).subscribe(response => {
                         this.subastasDetalles = response.body;
-			console.log(this.subastasDetalles);
                         this.lastPuja = _.first(this.subastasDetalles);
                         if (this.subastasDetalles.length > 0) {
                                 this.proximaMinimaOferta = +this.lastPuja.monto + +this.lastSubasta.diferenciaMinimaOferta;
@@ -159,21 +159,17 @@ loadDetalles(): void {
                                 this.proximaMinimaOferta = +this.subasta.precioSalida  + +this.lastSubasta.diferenciaMinimaOferta;
                         }
                         this.chdr.detectChanges();
-		
                 },
                 err => {
                         console.log(err);
                 });
         }
-/*inicio*/	
-        isEnPista(): boolean {
-                return this.lastSubasta && (this.lastSubasta.estatus === 'EN_PISTA');
-        }
+/*inicio*/
+	isEnPista(): boolean {
+		return this.lastSubasta && (this.lastSubasta.estatus === 'EN_PISTA');
+	}
 
-	msNolote(): boolean {
-		return this.subasta && (this.subasta.estatus === null);
-	}	
-	msvendido(): boolean{
+	pla(): boolean{
 		return this.lastSubasta && (this.lastSubasta.estatus === 'VENDIDA')
 	}
 createForm(): void {
@@ -202,7 +198,6 @@ createForm(): void {
                         control.setErrors(null);
                 }
         }
-
  pujaAqui(): void {
         this.router.navigate(['/auth-login'], { queryParams: { redirectUrl: '/trans' + this.lastSubasta.id }});
         }
@@ -224,25 +219,6 @@ createForm(): void {
                 this.onSubmit();
         }
 
-	reload(){
-  	// any other execution
-  	window.location.reload();
-
-	}
-
-	/**puja aqui inicio*/
-	openinfo(): void {
-		this.router.navigate(['/subastas/en-pista', this.lastSubasta.id]);
-	} 
-	
-	openVideo(): void {
-		window.open(this.lastSubasta.lote.linkYoutube, '_blank');
-	}
-
-	/**puja aqui fin*/
-
-
-
     onSubmit(): void {
                 this.checkIsLogin();
                 this.validDiferenciaPuja();
@@ -257,7 +233,7 @@ createForm(): void {
                 }
         }
 
- checkIsLogin(): void {
+        checkIsLogin(): void {
                 if (!this.user) {
                         const modalRef = this.modalService.open(ConfirmacionComponent);
                         modalRef.componentInstance.texto = 'Para hacer pujas necesitas iniciar sesión con un usuario registrado en el portal';
@@ -304,4 +280,3 @@ createForm(): void {
         }
 
 }
-

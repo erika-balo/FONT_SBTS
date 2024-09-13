@@ -1,25 +1,25 @@
-
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 
-import { SubastasDetallesService, ToastService } from 'app/services';
+import { SubastasDetallesService } from 'app/services';
 
 import { environment } from 'app/../environments/environment';
 
-import { saveAs } from 'file-saver';
-
 @Component({
-    selector: 'app-pujas',
+    selector: 'app-subasta-pujas',
     templateUrl: './pujas.component.html',
 })
-export class VerPujasComponent implements OnInit {
+export class SubastasVerPujasComponent implements OnInit {
 
-	detalles: any;
-	detallesFiltered: any[];
+    subastaId: number;
+
+	detalles: any[];
 
     page: number;
 	pageSize: number;
+
+	topicSubasta: string;
 
 	busquedaForm: FormGroup;
 
@@ -30,7 +30,6 @@ export class VerPujasComponent implements OnInit {
         private _fb: FormBuilder,
         private activatedRoute: ActivatedRoute,
 		private subastasDetallesService: SubastasDetallesService,
-        private toastService: ToastService,
 		private chdr: ChangeDetectorRef
     ) {
     }
@@ -40,12 +39,14 @@ export class VerPujasComponent implements OnInit {
 		this.pageSize = 10;
 
         this.activatedRoute.params.subscribe(params => {
+			this.subastaId = +params['subastaId'];
+			this.topicSubasta = 'topic-subasta-' + this.subastaId;
 			this.createForm();
 
 			this.load();
 
 			const url = new URL(environment.MERCURE_URL);
-			url.searchParams.append('topic', 'pujas-general');
+			url.searchParams.append('topic', this.topicSubasta);
 
 			const eventSource = new EventSource(url.toString());
 			eventSource.onmessage = e => {
@@ -76,9 +77,9 @@ export class VerPujasComponent implements OnInit {
 		req.sortedField = this.sortedField;
 		req.sortedType = this.sortedType;
 
-		this.subastasDetallesService.getDetalles(this.page, this.pageSize, req).subscribe(response => {
+		this.subastasDetallesService.getDetallesBySubasta(this.subastaId, req).subscribe(response => {
 			this.detalles = response.body;
-			this.detallesFiltered = this.detalles.items;
+			console.log(this.detalles);
 			this.chdr.detectChanges();
 		},
 		err => {
@@ -103,15 +104,29 @@ export class VerPujasComponent implements OnInit {
 			console.log(err);
 		});
 	}
-	/*prueba inicio ganadora*/
 
 
-	/*prueba fin ganadora*/
-    onPageChange(event: any): void {
-        this.page = event;
-        this.load();
-    }
 
+	 ganadoraFinal(item: any, params: any): void {
+                this.subastasDetallesService.ganadoraFinal(item.id, params).subscribe(response => {
+                        this.load();
+                },
+                err => {
+                        console.log(err);
+                });
+        }
+
+	exportCsv(event: any) {
+	this.subastasDetallesService.getDetallesLimit(this.subastaId).subscribe(response => {
+		this.lote = response.body;
+		const numeroLote = this.lote.lote.nombre;
+		console.log(numeroLote);
+	}
+
+
+
+
+	}
     sorted(field: string): void {
         if (field !== this.sortedField) {
             this.sortedType = 'ASC';
@@ -124,44 +139,6 @@ export class VerPujasComponent implements OnInit {
         }
         this.sortedField = field;
         this.load();
-	}
-exportCsv(event: any) {
-		event.preventDefault();
-		this.subastasDetallesService.getDetallesTotal().subscribe(response => {
-			const detalles = response.body;
-			const data = [];
-			if (detalles.length > 0) {
-				detalles.map(detalle => {
-					const mp = {
-						'id_puja': detalle.id,
-						'numero_lote': detalle.subasta.lote.numero,
-						'nombre_lote': detalle.subasta.lote.nombre,
-						'id_cliente': detalle.user.id,
-						'nombre_cliente': detalle.user.info.nombre,
-						'apellido_paterno_cliente': detalle.user.info.apellidoPaterno,
-						'apellido_materno_cliente': detalle.user.info.apellidoMaterno,
-						'precio_puja': detalle.monto,
-						'fecha_hora_puja': detalle.creado,
-						'estatus_puja': detalle.estatus,
-						'estatus_lote': detalle.subasta.estatus,
-					};
-
-					data.push(mp);
-				});
-				const replacer = (key, value) => value === null ? '' : value;
-				const header = Object.keys(data[0]);
-				let csv = data.map(row => header.map(fieldName => JSON.stringify(row[fieldName],replacer)).join(','));
-				csv.unshift(header.join(','));
-				let csvArray = csv.join('\r\n');
-				var blob = new Blob([csvArray], {type: 'text/csv' })
-				saveAs(blob, 'pujas.csv');
-			} else {
-                this.toastService.error('No existen pujas que procesar');
-			}
-		},
-		err => {
-			console.log(err);
-		});
 	}
 
 }

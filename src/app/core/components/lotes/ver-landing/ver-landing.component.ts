@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FilesUtils } from 'app/shared/utils/files-utils';
-
-import { LotesService } from 'app/services';
-
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { LotesService, SubastasService } from 'app/services';
+import { ConfirmacionComponent } from 'app/core/components/generales/confirmacion/confirmacion.component';
 import { environment } from 'app/../environments/environment';
 
 import * as _ from 'lodash';
@@ -19,9 +19,11 @@ export class VerLoteLandingComponent implements OnInit {
 	resourceUrl = environment.URL_IMAGENES;
 
     loteId: number;
-
 	lote: any;
 	lastSubasta: any;
+	
+	subasta: any;	
+
 
 	viewerOpenPortada: boolean;
 	viewerOpen: boolean[];
@@ -29,6 +31,8 @@ export class VerLoteLandingComponent implements OnInit {
     constructor(
         private activatedRoute: ActivatedRoute,
 		private lotesService: LotesService,
+		private modalService: NgbModal,
+		private subastasService: SubastasService,
         private domSanitizer: DomSanitizer,
 		private router: Router
     ) {
@@ -95,5 +99,28 @@ export class VerLoteLandingComponent implements OnInit {
 
         this.router.navigate(['/subastas/en-pista', ob.id]);
     }
+	
+	/*inicio pruebas*/
+	  reAqui(): void {
+                this.subastasService.getEnPista().subscribe(response => {
+                        const data = response.body;
+                        if (data === null) {
+                              const modalRef = this.modalService.open(ConfirmacionComponent);
+                        modalRef.componentInstance.texto = 'En este momento no se encuentra un lote en pista';
+                        }else{
+                                this.router.navigate(['/lotes/page-contact-detail/']);
+                        }
+                },
+                err => {
+                        console.log(err);
+                });
+        }
+	
+	pla(): boolean{
+                return this.subasta && (this.subasta.estatus === 'VENDIDA');
+        }
+	/*fin pruebas*/
+
+
 
 }

@@ -20,13 +20,21 @@
 }
 
 #topnav {
-	background-color:black;
+	background-color:white;
 }
 
 #topnav .navigation-menu>li>a{
-	color:white;
+	color:black;
 }
 
 #navigation.active{
-	background-color: black;
+	background-color: white;
 }
+
+.btn-primary {
+        border-color: #403e31 !important;
+        background-color: #403e31 !important;
+        box-shadow: none !important;
+  }
+
+

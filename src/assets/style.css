@@ -2586,7 +2586,7 @@ p {
   margin: 0;
   padding: 0;
 }
-
+/*margin menu*/
 #topnav .navigation-menu>li {
   float: left;
   display: block;
@@ -2724,7 +2724,7 @@ p {
 #topnav.nav-sticky .logo .l-light {
   display: none;
 }
-
+/*logo modificacion*/
 .logo {
   font-weight: 700;
   font-size: 24px;
@@ -2737,7 +2737,7 @@ p {
   #topnav .navigation-menu {
     display: -webkit-box;
     display: -ms-flexbox;
-    display: flex;
+    display: flex; 
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;

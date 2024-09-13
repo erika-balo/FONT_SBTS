@@ -1,6 +1,6 @@
 export const environment = {
     production: true,
-    API_URL: 'http://54.202.160.216:3000',
-    MERCURE_URL: 'http://54.202.160.216:9000/.well-known/mercure',
+    API_URL: 'https://api.subastaugrch.com',
+    MERCURE_URL: 'https://mercure.subastaugrch.com/.well-known/mercure',
     URL_IMAGENES: 'http://54.202.160.216',
 };

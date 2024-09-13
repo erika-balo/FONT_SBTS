@@ -17,7 +17,11 @@
 .ml-md-4, .mx-md-4 {
      padding-left: -30px;
 }
-
+.pre{
+ color: red;
+font-size: 1.2rem;
+font-weight: bold;
+}
 .arbol {
     width:750px;
     height:300px;
@@ -28,7 +32,34 @@
     overflow-x: scroll;
     overflow-y: hidden;
   }
-  
+
+.actualizar {
+background-color: #4CAF50;
+color: white;
+padding: 7px 00014px;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 20px;
+border-radius: 64px;
+border: 2px solid #4CAF50;
+padding-left: 28px;
+padding-right: 28px;
+box-shadow: 5px 5px 4px #5a5a5a;
+}
+
+
+.actualizar:hover {
+background-color: #3b863e;
+border: 2px solid #3b863e;
+}
+
+
+
+.divboton {
+display: flex;
+justify-content: center;
+}  
   .arbol .arbol-nodo {
     float:left;
     width: 25%;
