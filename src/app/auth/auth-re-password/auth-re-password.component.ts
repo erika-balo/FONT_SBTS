@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 
 import { ToastService, UsersService } from 'app/services';
 
@@ -10,12 +10,12 @@ import { ToastService, UsersService } from 'app/services';
 })
 export class AuthRePasswordComponent implements OnInit {
 
-	cambioForm: FormGroup;
+	cambioForm: UntypedFormGroup;
 
 	loading: boolean;
 
 	constructor(
-        private _fb: FormBuilder,
+        private _fb: UntypedFormBuilder,
         private toastService: ToastService,
 		private usersService: UsersService
 	) {

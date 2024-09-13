@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, FormArray } from '@angular/forms';
 
 import { SubastasDetallesService } from 'app/services';
 
@@ -21,13 +21,13 @@ export class SubastasVerPujasComponent implements OnInit {
 
 	topicSubasta: string;
 
-	busquedaForm: FormGroup;
+	busquedaForm: UntypedFormGroup;
 
     sortedField: string;
     sortedType: string;
 
     constructor(
-        private _fb: FormBuilder,
+        private _fb: UntypedFormBuilder,
         private activatedRoute: ActivatedRoute,
 		private subastasDetallesService: SubastasDetallesService,
 		private chdr: ChangeDetectorRef

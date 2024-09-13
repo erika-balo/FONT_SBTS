@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, FormArray } from '@angular/forms';
 
 import { ToastService, UsersDevolucionesService } from 'app/services';
 
@@ -14,14 +14,14 @@ export class UsersDevolucionCrearComponent implements OnInit {
     id: number;
     userId: number;
 
-    devolucionForm: FormGroup;
+    devolucionForm: UntypedFormGroup;
 
     devolucion: any;
 
     constructor(
         private activatedRoute: ActivatedRoute,
         private router: Router,
-        private _fb: FormBuilder,
+        private _fb: UntypedFormBuilder,
         private usersDevolucionesService: UsersDevolucionesService,
         private toastService: ToastService
     ) {

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { UntypedFormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 
 import { PagesService, ToastService } from 'app/services';
 
@@ -24,7 +24,7 @@ export class PagesComponent implements OnInit, OnDestroy {
     private _unsubscribeAll: Subject<any>;
 
     constructor(
-        private _fb: FormBuilder,
+        private _fb: UntypedFormBuilder,
         private pagesService: PagesService,
         private store: Store<AppState>,
 		private toastService: ToastService,

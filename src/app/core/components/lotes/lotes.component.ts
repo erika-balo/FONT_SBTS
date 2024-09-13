@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, FormArray } from '@angular/forms';
 
 import { LotesService, ToastService } from 'app/services';
 
@@ -33,12 +33,12 @@ export class LotesComponent implements OnInit, OnDestroy {
     sortedField: string;
     sortedType: string;
 
-    busquedaForm: FormGroup;
+    busquedaForm: UntypedFormGroup;
 
     private _unsubscribeAll: Subject<any>;
 
     constructor(
-        private _fb: FormBuilder,
+        private _fb: UntypedFormBuilder,
         private lotesService: LotesService,
         private store: Store<AppState>,
         private domSanitizer: DomSanitizer,

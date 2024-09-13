@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, UntypedFormArray } from '@angular/forms';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 import { ToastService, LotesService, RanchosService } from 'app/services';
@@ -28,7 +28,7 @@ export class LotesCrearComponent implements OnInit, OnDestroy {
 
     id: number;
 
-    loteForm: FormGroup;
+    loteForm: UntypedFormGroup;
 
     ranchos: any[];
 
@@ -95,7 +95,7 @@ export class LotesCrearComponent implements OnInit, OnDestroy {
     constructor(
         private activatedRoute: ActivatedRoute,
         private router: Router,
-        private _fb: FormBuilder,
+        private _fb: UntypedFormBuilder,
         private lotesService: LotesService,
         private domSanitizer: DomSanitizer,
         private store: Store<AppState>,
@@ -255,11 +255,11 @@ export class LotesCrearComponent implements OnInit, OnDestroy {
     }
 
     addFoto(item: any): void {
-        const fotos = <FormArray>this.loteForm.controls['fotos'];
+        const fotos = <UntypedFormArray>this.loteForm.controls['fotos'];
         fotos.push(this.initFoto(item));
     }
 
-    initFoto(item: any): FormGroup {
+    initFoto(item: any): UntypedFormGroup {
         if (item.id) {
             return this._fb.group({
                 id: [item.id],
@@ -280,7 +280,7 @@ export class LotesCrearComponent implements OnInit, OnDestroy {
     eliminarFoto(index: number): void {
         this.files.splice(index, 1);
         
-        const fotos = <FormArray>this.loteForm.controls['fotos'];
+        const fotos = <UntypedFormArray>this.loteForm.controls['fotos'];
         fotos.removeAt(index);
     }
 

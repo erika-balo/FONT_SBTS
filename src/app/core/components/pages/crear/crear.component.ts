@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit, ElementRef, NgZone } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, FormArray } from '@angular/forms';
 import { FilesUtils } from 'app/shared/utils/files-utils';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 
@@ -23,7 +23,7 @@ export class PagesCrearComponent implements OnInit, OnDestroy {
 
     id: number;
 
-    pageForm: FormGroup;
+    pageForm: UntypedFormGroup;
 
     page: any;
 
@@ -82,7 +82,7 @@ export class PagesCrearComponent implements OnInit, OnDestroy {
     constructor(
         private activatedRoute: ActivatedRoute,
         private router: Router,
-        private _fb: FormBuilder,
+        private _fb: UntypedFormBuilder,
         private store: Store<AppState>,
         private pagesService: PagesService,
         private ngZone: NgZone,

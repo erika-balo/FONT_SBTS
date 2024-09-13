@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, FormArray } from '@angular/forms';
 
 import { ToastService, EventosService } from 'app/services';
 
@@ -15,14 +15,14 @@ export class EventosCrearComponent implements OnInit {
 
     id: number;
 
-    eventoForm: FormGroup;
+    eventoForm: UntypedFormGroup;
 
     evento: any;
 
     constructor(
         private activatedRoute: ActivatedRoute,
         private router: Router,
-        private _fb: FormBuilder,
+        private _fb: UntypedFormBuilder,
         private eventosService: EventosService,
         private toastService: ToastService
     ) {

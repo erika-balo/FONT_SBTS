@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 
 import { ToastService, UsersService } from 'app/services';
 
@@ -13,12 +13,12 @@ export class AuthRePasswordFinishComponent implements OnInit {
 
 	token: string;
 
-	cambioForm: FormGroup;
+	cambioForm: UntypedFormGroup;
 
 	loading: boolean;
 
 	constructor(
-        private _fb: FormBuilder,
+        private _fb: UntypedFormBuilder,
         private toastService: ToastService,
 		private usersService: UsersService,
 		private activatedRoute: ActivatedRoute,

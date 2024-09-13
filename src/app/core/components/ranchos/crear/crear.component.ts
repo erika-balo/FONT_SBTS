@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit, ElementRef, NgZone } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, FormArray } from '@angular/forms';
 
 import { ToastService, RanchosService, UsersService } from 'app/services';
 
@@ -27,7 +27,7 @@ export class RanchosCrearComponent implements OnInit, OnDestroy,AfterViewInit {
 
     id: number;
 
-    ranchoForm: FormGroup;
+    ranchoForm: UntypedFormGroup;
 
     rancho: any;
 
@@ -46,7 +46,7 @@ export class RanchosCrearComponent implements OnInit, OnDestroy,AfterViewInit {
     constructor(
         private activatedRoute: ActivatedRoute,
         private router: Router,
-        private _fb: FormBuilder,
+        private _fb: UntypedFormBuilder,
         private store: Store<AppState>,
         private ranchosService: RanchosService,
         private usersService: UsersService,

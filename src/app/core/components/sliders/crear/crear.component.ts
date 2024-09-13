@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit, ElementRef, NgZone } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, FormArray } from '@angular/forms';
 import { FilesUtils } from 'app/shared/utils/files-utils';
 
 import { ToastService, SlidersService } from 'app/services';
@@ -22,7 +22,7 @@ export class SlidersCrearComponent implements OnInit, OnDestroy {
 
     id: number;
 
-    sliderForm: FormGroup;
+    sliderForm: UntypedFormGroup;
 
     slider: any;
 
@@ -36,7 +36,7 @@ export class SlidersCrearComponent implements OnInit, OnDestroy {
     constructor(
         private activatedRoute: ActivatedRoute,
         private router: Router,
-        private _fb: FormBuilder,
+        private _fb: UntypedFormBuilder,
         private store: Store<AppState>,
         private slidersService: SlidersService,
         private ngZone: NgZone,

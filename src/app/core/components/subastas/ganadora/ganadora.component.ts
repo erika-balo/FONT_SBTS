@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, FormArray } from '@angular/forms';
 
 import { SubastasDetallesService } from 'app/services';
 
@@ -14,11 +14,11 @@ export class GanadoraComponent implements OnInit {
 	@Input()
 	id: number;
 
-    ganadoraForm: FormGroup;
+    ganadoraForm: UntypedFormGroup;
 
 	constructor(
 		public activeModal: NgbActiveModal,
-        private _fb: FormBuilder,
+        private _fb: UntypedFormBuilder,
 		private subastasDetallesService: SubastasDetallesService
 	) {
 	}

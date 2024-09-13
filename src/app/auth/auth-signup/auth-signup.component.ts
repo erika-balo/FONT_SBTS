@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, UntypedFormArray, UntypedFormControl } from '@angular/forms';
 
 import { ToastService, ConfigDocumentosRegistroService, UsersService, ConfigFormRegistroService, PaisesService, EstadosService } from 'app/services';
 
@@ -15,7 +15,7 @@ import { forkJoin } from 'rxjs';
 })
 export class AuthSignupComponent implements OnInit {
 
-    registroForm: FormGroup;
+    registroForm: UntypedFormGroup;
 
     documentosRegistro: any[];
     formsRegistro: any[];
@@ -32,7 +32,7 @@ export class AuthSignupComponent implements OnInit {
 	loading: boolean;
 
     constructor(
-        private _fb: FormBuilder,
+        private _fb: UntypedFormBuilder,
         private configDocumentosRegistroService: ConfigDocumentosRegistroService,
         private configFormRegistroService: ConfigFormRegistroService,
         private usersService: UsersService,
@@ -118,8 +118,8 @@ export class AuthSignupComponent implements OnInit {
 
         this.formsRegistro.forEach(form => {
             if (form.seMuestra) {
-                const info = <FormGroup>this.registroForm['controls'].info;
-                info.addControl(form.nombre, new FormControl('', this.requerido(form.nombre) ? Validators.required : null));
+                const info = <UntypedFormGroup>this.registroForm['controls'].info;
+                info.addControl(form.nombre, new UntypedFormControl('', this.requerido(form.nombre) ? Validators.required : null));
             }
         });
 	}
@@ -138,11 +138,11 @@ export class AuthSignupComponent implements OnInit {
 	}
 
     addArchivo(item: any): void {
-        const control = <FormArray>this.registroForm.controls['archivos'];
+        const control = <UntypedFormArray>this.registroForm.controls['archivos'];
         control.push(this.initArchivo(item));
     }
 
-    initArchivo(item: any): FormGroup {
+    initArchivo(item: any): UntypedFormGroup {
         return this._fb.group({
             base64: ['', Validators.required],
             contentType: ['', Validators.required],
@@ -162,7 +162,7 @@ export class AuthSignupComponent implements OnInit {
     handleFile(event: any, index: number): void {
         const file = <File>event.target.files[0];
         FilesUtils.readFileBynaryString(file).subscribe(data => {
-            const archivos = this.registroForm['controls'].archivos as FormArray;
+            const archivos = this.registroForm['controls'].archivos as UntypedFormArray;
             const control = archivos.at(index);
 
             control.get('base64').setValue(data.base64);

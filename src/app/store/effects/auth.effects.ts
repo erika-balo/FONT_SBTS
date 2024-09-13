@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Store, select } from '@ngrx/store';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { AppState } from 'app/store/app.states';
 import { AuthActionTypes, Login, UserRequested, UserLoaded } from 'app/store/actions/auth.actions';
 import { isUserLoaded } from 'app/store/selectors/auth.selector';
@@ -21,18 +21,15 @@ export class AuthEffects {
         private usersService: UsersService
     ) {
     }
-
-    @Effect({dispatch: false})
-    login$ = this.actions.pipe(
+    login$ = createEffect(() => this.actions.pipe(
         ofType<Login>(AuthActionTypes.Login),
         tap(action => {
             localStorage.setItem('access_token', action.payload.token);
             this.store.dispatch(new UserRequested());
         }),
-    );
+    ));
 
-    @Effect({dispatch: false})
-    loadUser$ = this.actions
+    loadUser$ = createEffect(() => this.actions
     .pipe(
         ofType<UserRequested>(AuthActionTypes.UserRequested),
         withLatestFrom(this.store.pipe(select(isUserLoaded))),
@@ -41,6 +38,6 @@ export class AuthEffects {
 			const _user = response.body;
             this.store.dispatch(new UserLoaded({ user: _user }));
         })
-    );
+    ));
 
 }

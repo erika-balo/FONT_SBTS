@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, FormArray } from '@angular/forms';
 
 import { SubastasDetallesService, ToastService } from 'app/services';
 
@@ -20,13 +20,13 @@ export class VerPujasComponent implements OnInit {
     page: number;
 	pageSize: number;
 
-	busquedaForm: FormGroup;
+	busquedaForm: UntypedFormGroup;
 
     sortedField: string;
     sortedType: string;
 
     constructor(
-        private _fb: FormBuilder,
+        private _fb: UntypedFormBuilder,
         private activatedRoute: ActivatedRoute,
 		private subastasDetallesService: SubastasDetallesService,
         private toastService: ToastService,
