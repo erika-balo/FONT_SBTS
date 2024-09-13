@@ -8,7 +8,6 @@ import { ToastService, UsersService, ConfigDocumentosRegistroService, ConfigForm
 
 import { forkJoin } from 'rxjs';
 import * as _ from 'lodash';
-import { dashCaseToCamelCase } from '@angular/compiler/src/util';
 
 @Component({
     selector: 'app-users-editar',
