@@ -20,8 +20,7 @@ import { NgxYoutubePlayerModule } from 'ngx-youtube-player';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { CountToModule } from 'angular-count-to';
 import { NgxMasonryModule } from 'ngx-masonry';
-import { ScrollspyDirective } from './shared/scrollspy.directive'
-
+import { ScrollspyDirective } from './shared/scrollspy.directive';
 import { MasterPageComponent } from './core/components/master-page/master-page.component';
 import { AuthLoginComponent } from './auth/auth-login/auth-login.component';
 import { AuthRePasswordComponent } from './auth/auth-re-password/auth-re-password.component';
@@ -274,6 +273,7 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
         provide: NgbDateAdapter,
         useClass: NgbDateMomentAdapter
     },
+    
     ConfigDocumentosRegistroService,
     UsersService,
     AuthService,
@@ -295,6 +295,7 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
 	PagesService,
 	BannersService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+
 })
 export class AppModule { }

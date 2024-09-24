@@ -6,16 +6,6 @@
     background-attachment: fixed;
 }
 
-.img-signup{
-   /* width: 380px;
-    padding-left: 115px;*/
-
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 158px;
-    padding-top: 15px;
-}
 
 .container {
     height: 100%;
@@ -28,4 +18,43 @@
 .bg-home {
 	height: 191vh;
 	position: relative;
+}
+
+
+
+
+.btn-primary {
+    border-color: #ab0334 !important;
+    background-color: #ab0334 !important;
+    box-shadow: 0 3px 5px 0 rgba(211, 187, 144, 0.795);
+}
+
+.btn-primary:hover {
+    border-color: #7e0025 !important;
+    background-color: #7e0025 !important;
+    box-shadow: 0 3px 5px 0 rgba(211, 187, 144, 0.795);
+}
+
+.btn-info{
+    border-color: #ab0334 !important;
+    background-color: #ab0334 !important;
+    box-shadow: 0 3px 5px 0 rgba(211, 187, 144, 0.795);
+}
+
+.btn-info:hover{
+    border-color: #7e0025 !important;
+    background-color: #7e0025 !important;
+    box-shadow: 0 3px 5px 0 rgba(211, 187, 144, 0.795);
+}
+
+.img-login{
+   /* width: 20rem;
+    padding-left: 7rem;*/
+
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 120px;
+    padding-top: 15px;
+
 }

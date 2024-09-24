@@ -1,6 +1,6 @@
 .btn-outline-success {
-	color: #403e31;
-	border-color: #403e31;
+	color: #ab0334;
+	border-color: #ab0334;
 }
 
 .btn-outline-success:hover {
@@ -10,8 +10,8 @@
 	box-shadow: 0 3px 5px 0 rgba(47, 85, 212, 0.3);*/
 
 	color: rgb(243, 243, 243);
-	border-color: #403e31;
-	background-color: #403e31;
+	border-color: #ab0334;
+	background-color: #ab0334;
 	box-shadow:white;
 }
 
@@ -20,13 +20,21 @@
 }
 
 #topnav {
-	background-color:black;
+	background-color:white;
 }
 
 #topnav .navigation-menu>li>a{
-	color:white;
+	color:black;
 }
 
 #navigation.active{
-	background-color: black;
+	background-color: white;
 }
+
+.btn-primary {
+        border-color: #ab0334 !important;
+        background-color: #ab0334 !important;
+        box-shadow: none !important;
+  }
+
+

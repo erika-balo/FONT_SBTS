@@ -78,6 +78,7 @@ export class LotesComponent implements OnInit, OnDestroy {
         if (this.isAdmin) {
             this.lotesService.findAll({ sorted: this.sortedField ? this.sortedField : 'lote.id', sortedType: this.sortedType ? this.sortedType : 'DESC' }).subscribe(response => {
                 this.lotes = response.body;
+		console.log(this.lotes);
                 this.lotesFiltered = this.lotes;
             },
             err => {

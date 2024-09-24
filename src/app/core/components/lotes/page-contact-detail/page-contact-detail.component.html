@@ -1,17 +1,80 @@
-<section class="fondo" *ngIf="lote">
-
-	<div style="text-align:center; margin-left:10%; margin-right:10%; padding-bottom: 35px; padding-top: 130px;">
-	<!--EN ESTA PARTE VA A IR LA INFORMACIÓN DEL LOTE QUE ESTÁ ACTUALMENTE EN PISTA, **ESTOS DATOS SON ACTUALIZABLES**-->
-	<!--NÚMERO Y NOMBRE DE LOTE EN PISO, ACTUALIZABLE-->
-	<label style="font-size: 34px; margin-right: 2%;" class="btn btn-estilo"><strong>{{ lote.numero }}. {{ lote.nombre }}</strong></label>
-	<!--PUJA ACTUAL, ACTUALIZABLE-->
-	<label style="font-size: 47px;padding-top: 50px;padding-bottom: 50px;" class="btn btn-estilo"><strong>{{ lastPuja ? (lastPuja.monto | currency) : '' }}</strong></label>
-	<br>
-	<!--ESTA IMÁGEN SERÍA LA PORTADA DEL LOTE!-->
-	<img [src]="lote.archivoPortada.Location" style="border: 4px solid; color: #403e31; width:190px; margin-right: 14.2em;"><img>
-	<!--FUENTE DE LA PUJA (INTERNET O PISO)-->
-	<label style="font-size:62px;"class="btn btn-estilo"><strong>{{ lastPuja ? lastPuja.tipo : '' }}</strong></label>
-	
+<div class="position-relative">
+	<div class="shape overflow-hidden text-white">
+		<svg viewBox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path d="M0 48H1437.5H2880V0H2160C1442.5 52 720 0 720 0H0V48Z" fill="currentColor"></path>
+		</svg>
 	</div>
+</div>
 
+<section class="section">
+	<div class="container">
+
+		<a *ngIf="msvendido()" class="ms-vendido" >Este lote esta: VENDIDO, espere al siguiente lote o actualice su página</a>
+
+		<div class="row">
+			<div class="col-md-5">
+				<div class="slider slider-for">
+					<iframe width="100%" height="315" [src]="url" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+				</div>
+
+			</div>
+			<div class="col-md-7 mt-4 mt-sm-0 pt-2 pt-sm-0">
+				<div class="section-title ml-md-4">
+					<ul class="list-unstyled text-warning h5 mb-0">
+					</ul>
+					<!-- IMAGENES CATALAGO Y VIDEO  prueba-->
+					
+					<!--cierre de catalogo y video-->
+					<h4 class="title ">LOTE: {{subasta.lote.numero }}</h4>
+					<section class="info-lote">
+						<div class="tipo-lote" *ngIf="isEnPista()">
+							<h2 class="lote-name base-font">TIPO DE LOTE: <span class="snap-lote-name block">{{subasta.lote.sexo }}</span></h2>
+						</div>
+						<div class="num-cameza" *ngIf="isEnPista()">
+							<h2 class="num-cabezas base-font">NO. CABEZAS: <span class="snap-num-cabezas block">{{subasta.lote.registro }} </span></h2>
+						</div>
+						<div class="pesoProm" *ngIf="isEnPista()">
+							<h2 class="peso-promedio base-font">PESO PROMEDIO: <span class="snap-peso-promedio block">{{ calcularPesoPromedio() | number:'1.2-2' }}</span></h2>
+						</div>
+						<div class="pesoTotal" *ngIf="isEnPista()">
+							<h2 class="peso-total base-font">PESO TOTAL: <span class="snap-peso-total block">{{subasta.lote.pesoDestete }}</span></h2>
+						</div>
+					</section>
+					<div class="pujaactual" *ngIf="isEnPista()">
+						<h2 class="puja-actual base-font"> PUJA ACTUAL: <span class="snap-puja-actual">{{ lastPuja ? (lastPuja.monto | currency) : (subasta.precioSalida | currency) }}</span></h2>
+					</div>
+					 <section *ngIf="user && isEnPista()" class="not-use">
+                                        <div *ngFor="let subastaDetalle of subastasDetalles">
+                                                <h4 style="font-weight: bold; color:#549f63" *ngIf="user.id === subastaDetalle.user.id && subastaDetalle.estatus== 'GANADORA'">¡TIENES LA POSTURA LIDER!</h4>
+                                        </div>
+
+                                        </section>
+
+ 					<section *ngIf="user && isEnPista()"  class="not-use">
+                                        <div *ngFor="let subastaDetalle of subastasDetalles | slice:0:1; let i=index">
+                                                <h4 style="font-weight: bold; color:#dc0a0a" *ngIf="user.id !== subastaDetalle.user.id">¡VAS FUERA, INGRESA UNA POSTURA!</h4>
+                                        </div>
+
+                                        </section>
+			
+					<!--BOTON ACTUALIZAR TEST-->
+					<section class="grid-btn">
+					<form class="btn-enviar" (ngSubmit)="onSubmit()" *ngIf="pujaForm && isEnPista() && subasta.activo" [formGroup]="pujaForm">
+							<div>
+							<button *ngIf="isEnPista()"  class="btn btn-primary puja" (click)="validarProximaMinimaOferta()">
+							Pujar: {{ proximaMinimaOferta | currency }}X kg
+							</button>
+					</div>
+					</form>
+					<div *ngIf="isEnPista()" class="divboton-">
+						<button class="actualizar-" (click)="reload()"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" stroke-linejoin="round" d="M16.583 9.667C15.81 8.097 14.043 7 11.988 7C9.388 7 7.25 8.754 7 11"/><path stroke-linecap="round" stroke-linejoin="round" d="M14.494 9.722H16.4a.6.6 0 0 0 .6-.6V7.5m-9.583 6.167C8.191 15.629 9.957 17 12.012 17c2.6 0 4.736-2.193 4.988-5"/><path stroke-linecap="round" stroke-linejoin="round" d="M9.506 13.622H7.6a.6.6 0 0 0-.6.6V16.4"/></g></svg></button>
+					</div>
+				</section>	
+					<div class="totalpagar" *ngIf="isEnPista()">
+    						<h2 class="Total-pagar"> Total Pagar: <span class="snap-total-pagar">{{ (lastPuja.monto * subasta.lote.pesoDestete) | currency }}</span></h2>
+					</div>	
+				</div>
+			</div>
+		</div>
+	</div>
 </section>

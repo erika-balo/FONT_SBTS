@@ -43,8 +43,6 @@ export class SubastasCrearComponent implements OnInit {
                 this.subasta = {};
                 this.subasta.lote = {};
                 this.subasta.evento = {};
-                this.subasta.fechaInicio = moment();
-                this.subasta.fechaFin = moment();
                 this.createForm();
 				this.loadEventos();
             }
@@ -91,10 +89,6 @@ export class SubastasCrearComponent implements OnInit {
 
     createForm(): void {
         this.subastaForm = this._fb.group({
-            fechaInicio: [this.subasta.fechaInicio, Validators.required],
-            fechaInicioTime: [{ hour: moment(this.subasta.fechaInicio).hour(), minute: moment(this.subasta.fechaInicio).minute() }, Validators.required],
-            fechaFin: [this.subasta.fechaFin, Validators.required],
-            fechaFinTime: [{ hour: moment(this.subasta.fechaFin).hour(), minute: moment(this.subasta.fechaFin).minute() }, Validators.required],
             precioSalida: [this.subasta.precioSalida, Validators.required],
             diferenciaMinimaOferta: [this.subasta.diferenciaMinimaOferta, Validators.required],
             minutosAntesCerrar: [this.subasta.minutosAntesCerrar, Validators.required],
@@ -136,9 +130,7 @@ export class SubastasCrearComponent implements OnInit {
 
     onSubmit(): void {
 		const params = this.subastaForm.value;
-		params.fechaInicio = moment(moment(params.fechaInicio).format('YYYY-MM-DD') + ' ' + params.fechaInicioTime.hour.toString().padStart(2, '0') + ':' + params.fechaInicioTime.minute.toString().padStart(2, '0'));
-		params.fechaFin = moment(moment(params.fechaFin).format('YYYY-MM-DD') + ' ' + params.fechaFinTime.hour.toString().padStart(2, '0') + ':' + params.fechaFinTime.minute.toString().padStart(2, '0'));
-        if (this.isEdit()) {
+		if (this.isEdit()) {
             this.subastasService.edit(this.id, params).subscribe(response => {
                 this.toastService.success('Subasta editada correctamente');
                 this.router.navigate(['/page/subastas']);

@@ -4,8 +4,24 @@
 			<div class="col-lg-12 text-center">
 			<div class="page-next-level">
 				<h4 class="title">LOTE {{ lote.numero }}: {{ lote.nombre }} </h4>
-				<div class="page-next">
+				<!--inio pruebas-->
+				<div class="botones-seccion">
+					<div class="boton-enPista">
+						<a  (click)="reAqui()" class="btn btn-primary" id="botones">Ir a Lote en Pista</a>
+					</div>
+					<div class="botones-siguientes">
+						<button (click)="navegarAnterior()" class="btn-lote">
+						<svg xmlns="http://www.w3.org/2000/svg" height="1.5rem" viewBox="0 0 512 512" class="icon"><style>svg{fill:#ffffff}</style><path d="M512 256A256 256 0 1 0 0 256a256 256 0 1 0 512 0zM217.4 376.9L117.5 269.8c-3.5-3.8-5.5-8.7-5.5-13.8s2-10.1 5.5-13.8l99.9-107.1c4.2-4.5 10.1-7.1 16.3-7.1c12.3 0 22.3 10 22.3 22.3l0 57.7 96 0c17.7 0 32 14.3 32 32l0 32c0 17.7-14.3 32-32 32l-96 0 0 57.7c0 12.3-10 22.3-22.3 22.3c-6.2 0-12.1-2.6-16.3-7.1z"/></svg>
+						Lote Anterior
+						</button>
+                        			<button (click)="navegarSiguiente()"  class="btn-lote">Lote Siguiente
+						<svg xmlns="http://www.w3.org/2000/svg" height="1.5rem" viewBox="0 0 512 512" class="icon"><style>svg{fill:#ffffff}</style><path d="M0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM294.6 135.1l99.9 107.1c3.5 3.8 5.5 8.7 5.5 13.8s-2 10.1-5.5 13.8L294.6 376.9c-4.2 4.5-10.1 7.1-16.3 7.1C266 384 256 374 256 361.7l0-57.7-96 0c-17.7 0-32-14.3-32-32l0-32c0-17.7 14.3-32 32-32l96 0 0-57.7c0-12.3 10-22.3 22.3-22.3c6.2 0 12.1 2.6 16.3 7.1z"/></svg>
+						</button>
+					</div>
+					
 				</div>
+                               <a *ngIf="pla()" >Da clic en el botón para ir al  siguiente lote e pista</a>
+				
 			</div>
 			</div>
 		</div>
@@ -44,8 +60,8 @@
 					</ul>
 					<!-- IMAGENES CATALAGO Y VIDEO-->
 					<div class="row mt-4 pt-2" id="imagenesch" >
-						<img (click)="openPdf()" src="assets/images/CATALOGOBAN.png" alt="" style="max-width:100%; margin-bottom:10px; margin-left:5px;" >
-						<img (click)="openVideo()" src="assets/images/VIDEOBAN.png" alt="" style="max-width:100%; margin-left:5px; margin-bottom:10px;" >
+						<img (click)="openPdf()" src="https://i.ibb.co/wNNSbfk/boton-ver-en-vivo.png" alt="" style="max-width:100%; margin-bottom:10px; margin-left:5px;" >
+						<img (click)="openVideo()" src="https://i.ibb.co/xYtKR3c/VIDEOBAN.png" alt="" style="max-width:100%; margin-left:5px; margin-bottom:10px;" >
 					</div>
 					<!--ARBOL GENEALÓGICO CONFIGURABLE-->
 					<div class="arbol" style="max-width:100%;">

@@ -20,20 +20,60 @@
 				</div>
 			</div>
 		</section>
-		<div class="position-relative">
-			<div class="shape overflow-hidden text-white">
-				<svg viewBox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<path d="M0 48H1437.5H2880V0H2160C1442.5 52 720 0 720 0H0V48Z" fill="currentColor"></path>
-				</svg>
+		<section class="actualizar">
+			<div class="card-body">
+				<form class="login-form mt-4"  *ngIf="subastaForm" [formGroup]="subastaForm" (ngSubmit)="onSubmitlote()">
+					<div class="row actualizar-grid">
+						<div class="col-md-12">
+							<div class="form-group position-relative">
+								<label>Tipo</label>
+								<select class="form-control" formControlName="sexo" placeholder="Tipo" name="sexo" required="">
+									<option value="VACAS">Vacas</option>
+									<option value="TOROS">Toros</option>
+									<option value="TORETE">Torete</option>
+									<option value="VAQUILLAS">Vaquillas</option>
+									<option value="BECERRAS">Becerrar</option>
+									<option value="BECERROS">Becerros</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="form-group position-relative">
+								<label>No. Cabezas</label>
+								<input type="text" class="form-control" formControlName="registro" placeholder="No.Cabezas" name="registro" required="">
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="form-group position-relative">
+								<label>Peso Total</label>
+								<input type="text" class="form-control" formControlName="pesoDestete" placeholder="Peso Total" name="pesoDestete" required="">
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="form-group position-relative">
+								<label>Precio de Salida <span class="text-danger">*</span></label>
+								<input type="number" class="form-control" formControlName="precioSalida" placeholder="Precio Salida" name="precioSalida" required="">
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="form-group position-relative">
+								<label>Diferencia Minima Oferta <span class="text-danger">*</span></label>
+								<input type="number" class="form-control" formControlName="diferenciaMinimaOferta" placeholder="Diferencia Minima Oferta" name="diferenciaMinimaOferta" required="">
+							</div>
+						</div>
+						
+					</div>
+					
+					<div class="col-lg-12 mt-2">
+						<button class="btn btn-primary btn-block">Aceptar</button>
+					</div>
+				</form>
 			</div>
-		</div>
+		</section>
 		<section class="section" *ngIf="subasta">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-5">
-						<h5 id="titulo" class="text-dark  mb-0"><p><b>LOTE {{ subasta.lote.numero }}: {{ subasta.lote.nombre }}</b></p></h5>
-						<span class="badge badge-warning" style="display:flex; width:200px; justify-content:center;" >{{ subasta.estatus }}</span> 
-						<img [src]="subasta.lote.archivoPortada.Location" width="200px" height="200px" style="margin-top: -1rem;">
 						<table default  style="margin-top: 15px;">
 							<head>
 								<style>
@@ -100,24 +140,20 @@
 								entonces la puja se registrará, y se actualizará automáticamente los valores en pantalla y en el sistema.
 								-->
 							<button [disabled]="pujaForm.invalid" class="btn btn-primary" type="submit">Enviar puja</button>
+
+							
 						</form>
-						<div class="mt-4 pt-2" *ngIf="isEnPista() && subasta.activo">
-							<!--botones atajo son los que ingresarán una puja del valor de la Postura Válida Más alta, más el monto del botón
-							•	Al seleccionar cualquier botón el sistema registrará el valor de la puja más alta válida más el valor del botón e 
-							inmediatamente actualizará los valores en pantalla y en sistema.-->
-							<a *ngFor="let precioFijo of subasta.subastasPreciosFijos" (click)="cantidadFija(precioFijo.cantidad)" href="javascript:void(0)" style='margin-top: 20px; width:170px; height:35px' id="boton" class="btn btn-primary">
-								+ {{ formatCantidad(precioFijo.cantidad) | currency }} 
-							</a> 
-						</div>
+
 						<br />
-						<h5 style="margin-left: 20px">Estatus: {{ subasta.estatus }}</h5>
 						<!-- Al seleccionarse el lote pasará a estatus En pista de nueva cuenta.-->
-						<button type="button" id="boton1" (click)="enPista()" class="btn btn-success">Reabrir lote</button>
-						<!--Al marcar un lote como Cerrado no podrá ingresar ninguna puja nueva, 
-						tampoco los clientes por intenet,
-						inmediatamente se reflejará el estatus en la pantalla de pujas de todos 
-						los usuarios y desaparecerá la función de pujas de los usuarios Cliente en dicho lote.-->
-						<button type="button" id="boton1" (click)="vendida()" class="btn btn-danger">Cerrar lote</button>     
+						<div class="grid-btn">
+							<button type="button" id="boton1" (click)="enPista()" class="btn btn-success">Reabrir lote</button>
+							<!--Al marcar un lote como Cerrado no podrá ingresar ninguna puja nueva, 
+							tampoco los clientes por intenet,
+							inmediatamente se reflejará el estatus en la pantalla de pujas de todos 
+							los usuarios y desaparecerá la función de pujas de los usuarios Cliente en dicho lote.-->
+							<button type="button" id="boton1" (click)="vendida()" class="btn btn-danger">Cerrar lote</button>  
+						</div>     
 					</div>
 				</div>
 			</div>

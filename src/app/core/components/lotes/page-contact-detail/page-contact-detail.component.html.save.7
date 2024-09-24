@@ -1,0 +1,90 @@
+<div class="position-relative">
+	<div class="shape overflow-hidden text-white">
+		<svg viewBox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path d="M0 48H1437.5H2880V0H2160C1442.5 52 720 0 720 0H0V48Z" fill="currentColor"></path>
+		</svg>
+	</div>
+</div>
+
+<section class="section">
+	<div class="container">
+ 		<section *ngIf="user && isEnPista()">
+			<div class="conte-lider">
+			    <div class="icon-lider">
+				  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mood-smile-beam" width="48" height="48" viewBox="0 0 24 24" stroke-width="2" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+					<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+					<path d="M12 21a9 9 0 1 1 0 -18a9 9 0 0 1 0 18z" />
+					<path d="M10 10c-.5 -1 -2.5 -1 -3 0" />
+					<path d="M17 10c-.5 -1 -2.5 -1 -3 0" />
+					<path d="M14.5 15a3.5 3.5 0 0 1 -5 0" />
+				   </svg>
+			     </div>
+                             <div class="info-lider" *ngFor="let subastaDetalle of subastasDetalles">
+                                  <h4 style="font-weight: bold; color:#549f63" *ngIf="user.id === subastaDetalle.user.id && subastaDetalle.estatus== 'GANADORA'">¡TIENES LA POSTURA LIDER!</h4>
+                             </div>
+			</div>
+                 </section>
+		<a *ngIf="msvendido()" class="ms-vendido" >Este lote esta: VENDIDO, espere al siguiente lote o actualice su página</a>
+
+		<div class="row">
+			<div class="col-md-5">
+				<div class="slider slider-for">
+					<iframe width="100%" height="315" [src]="url" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+				</div>
+
+				<div *ngIf="isEnPista()" class="row mt-4 pt-2 " style="display:grid; grid-template-columns: repeat(2, 1fr); padding: 1rem;" >
+                                                <img (click)="openAudio()" src="https://subastas.s3.us-east-2.amazonaws.com/img-varios/audio.png" alt="" style="width:100%; margin-bottom:10px; cursor: pointer;" >
+						<img (click)="openinfo()"  src="https://subastas.s3.us-east-2.amazonaws.com/img-varios/info.png" alt="" style="width:100%; margin-bottom:10px; cursor: pointer; " >			
+	
+                                        </div>
+			</div>
+			<div class="col-md-7 mt-4 mt-sm-0 pt-2 pt-sm-0">
+				<div class="section-title ml-md-4">
+					<ul class="list-unstyled text-warning h5 mb-0">
+					</ul>
+					<!-- IMAGENES CATALAGO Y VIDEO  prueba-->
+					
+					<!--cierre de catalogo y video-->
+					<section class="info-lote">
+						<div class="tipo-lote" *ngIf="isEnPista()">
+							<h2 class="lote-name base-font">TIPO DE LOTE: <span class="snap-lote-name block">{{subasta.lote.sexo }}</span></h2>
+						</div>
+						<div class="num-cameza" *ngIf="isEnPista()">
+							<h2 class="num-cabezas base-font">NO. CABEZAS: <span class="snap-num-cabezas block">{{subasta.lote.registro }} </span></h2>
+						</div>
+						<div class="pesoProm" *ngIf="isEnPista()">
+							<h2 class="peso-promedio base-font">PESO PROMEDIO: <span class="snap-peso-promedio block">{{ calcularPesoPromedio() | number:'1.2-2' }}</span></h2>
+						</div>
+						<div class="pesoTotal" *ngIf="isEnPista()">
+							<h2 class="peso-total base-font">PESO TOTAL: <span class="snap-peso-total block">{{subasta.lote.pesoDestete }}</span></h2>
+						</div>
+					</section>
+					<div class="pujaactual" *ngIf="isEnPista()">
+						<h2 class="puja-actual base-font"> PUJA ACTUAL: <span class="snap-puja-actual block">{{ lastPuja ? (lastPuja.monto | currency) : (subasta.precioSalida | currency) }}</span></h2>
+					</div>
+					
+
+					 <section *ngIf="user && isEnPista()"> <div *ngFor="let subastaDetalle of subastasDetalles">
+                                                <h4 style="font-weight: bold; color:#549f63" *ngIf="user.id === subastaDetalle.user.id && subastaDetalle.estatus== 'GANADORA'">¡TIENES LA POSTURA LIDER!</h4>
+                                        </div>
+
+                                        </section>
+
+ 					<section *ngIf="user && isEnPista()" >
+                                        <div *ngFor="let subastaDetalle of subastasDetalles | slice:0:1; let i=index">
+                                                <h4 style="font-weight: bold; color:#dc0a0a" *ngIf="user.id !== subastaDetalle.user.id">¡VAS FUERA, INGRESA UNA POSTURA!</h4>
+                                        </div>
+
+                                        </section>
+					<!--BOTON ACTUALIZAR TEST-->
+					<div *ngIf="isEnPista()" class="divboton">
+						<button class="actualizar" (click)="reload()">Actualizar Posturas</button>
+					</div>
+					<button *ngIf="isEnPista()" class="btn btn-primary" (click)="validarProximaMinimaOferta()">
+  					Puja: {{ proximaMinimaOferta | currency }}
+					</button>		
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

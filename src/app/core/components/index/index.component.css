@@ -1,3 +1,13 @@
+/*cambios nuevos*/
+.title-heading.mt-4 {
+  margin-top: 0px !important;
+}
+.py-4.border-bottom.border-top {
+  padding-top: 0px !important;
+}
+/*sin cambios*/
+
+
 .bg-half-170 {
    padding:100px 0 20px 0;
 }
@@ -63,3 +73,11 @@ td {
 margin:auto;
 }
 
+.d-flex {
+	display: flex !important;
+	flex-direction: column;
+	gap: .5rem;
+	/* justify-content: center; */
+	/* align-content: center; */
+	align-items: center;
+}

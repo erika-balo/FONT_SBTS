@@ -1,15 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
-
-import { EventosService, LotesService, SlidersService, BannersService } from 'app/services';
+import { ConfirmacionComponent } from 'app/core/components/generales/confirmacion/confirmacion.component';
+import { EventosService, LotesService, SlidersService, BannersService, SubastasService } from 'app/services';
 
 import { Store, select } from '@ngrx/store';
 import { AppState, Login, currentUser } from 'app/store';
 
 import { Subject, timer } from 'rxjs';
 import { delay, filter, take, takeUntil } from 'rxjs/operators'
-
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 
@@ -27,9 +27,8 @@ export class IndexComponent implements OnInit, OnDestroy {
     data: any;
 	lotes: any[];
 	bannerIndex: string;
-	eventos: any[];
 	eventoSeleccionado: number;
-
+	eventos: any[];
 	tipo: string;
 
     page: number;
@@ -49,26 +48,28 @@ export class IndexComponent implements OnInit, OnDestroy {
         private store: Store<AppState>,
 		private router: Router,
 		private slidersService: SlidersService,
+		private subastasService: SubastasService,
 		private bannersService: BannersService,
 		private eventosService: EventosService,
+		private modalService: NgbModal,
 		private activatedRoute: ActivatedRoute
     ) {
     }
 
     ngOnInit(): void {
         this._unsubscribeAll = new Subject();
-
+		this.eventos = [];
 		this.timers = [];
 		this.lotes = [];
         this.images = [
         ];
 
-        this.page = 0;
-        this.limit = 20;
-
+        this.page = 1;
+        this.limit = 5;
+		
 		this.loadSliders();
 		this.loadBanners();
-
+		 this.loadEventosFuture();
 		this.store.pipe(
 			takeUntil(this._unsubscribeAll),
 			select(currentUser),
@@ -78,27 +79,7 @@ export class IndexComponent implements OnInit, OnDestroy {
 		});
 
 		this.activatedRoute.queryParams.subscribe(params => {
-			this.lotes = [];
-			this.timers = [];
-			if (params.tipo) {
-				this.tipo = params.tipo;
-				switch (this.tipo) {
-					case 'past':
-						this.loadEventosPast();
-						break;
-					case 'future':
-						this.loadEventosFuture();
-						break;
-				}
-			} else {
-				if (params.eventoId) {
-					this.eventoSeleccionado = params.eventoId;
-					this.load();
-				} else {
-					this.tipo = 'current';
-					this.loadEventosFuture();
-				}
-			}
+			 this.loadEventosFuture();
 		});
 	}
 
@@ -120,6 +101,7 @@ export class IndexComponent implements OnInit, OnDestroy {
 		const now = moment().format('YYYY-MM-DD') + ' 00:00:00';
 		this.eventosService.findFuture(now).subscribe(response => {
 			this.eventos = response.body;
+			console.log(this.eventos);
 			if (this.eventos.length > 0) {
 				this.eventoSeleccionado = this.eventos[0].id;
 				this.load();
@@ -174,25 +156,15 @@ export class IndexComponent implements OnInit, OnDestroy {
 		});
 	}
 
-    load(reload: boolean = false): void {
-		if (this.eventoSeleccionado && this.page > 0) {
-			this.lotesService.allPaginate(this.eventoSeleccionado, this.page, this.limit).subscribe(response => {
+       load(reload: boolean = false): void {
+			this.eventosService.findAllPaginate( this.page, this.limit).subscribe(response => {
 				this.data = response.body;
-				if (reload) {
-					this.lotes = this.data.items;
-				} else {
-					this.lotes = this.lotes.concat(this.data.items);
-				}
-				this.timers.forEach(timer => {
-					timer.unsubscribe();
-				});
-				this.timers = [];
-				this.timerSubastas(this.lotes);
+				this.load();
 			},
 			err => {
 				console.log(err);
 			});
-		}
+	
     }
 
     checkIsInPista(item: any): boolean {
@@ -260,7 +232,22 @@ export class IndexComponent implements OnInit, OnDestroy {
         this.page = event;
         this.load();
     }
-
+/**/
+ reAqui(): void {
+                this.subastasService.getEnPista().subscribe(response => {
+                        const data = response.body;
+                        if (data === null) {
+                              const modalRef = this.modalService.open(ConfirmacionComponent);
+                        modalRef.componentInstance.texto = 'En este momento no se encuentra un lote en pista';
+                        }else{
+                                this.router.navigate(['/lotes/page-contact-detail/']);
+                        }
+                },
+                err => {
+                        console.log(err);
+                });
+        }
+/**/
     sanitizeImagen(imagen: any): any {
         return this.domSanitizer.bypassSecurityTrustResourceUrl('data:' + imagen.fotoPortadaContentType + ';base64,' + imagen.fotoPortada);
 	}

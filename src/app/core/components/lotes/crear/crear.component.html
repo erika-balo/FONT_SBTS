@@ -25,6 +25,9 @@
                                         <angular-editor formControlName="descripcion" [config]="editorConfig"></angular-editor>
                                     </div>
                                 </div>
+
+
+                                <!-- 
                                 <div class="col-md-12">
                                     <div class="form-group position-relative">
                                         <label>Informacion del Animal</label>
@@ -146,32 +149,40 @@
                                         <input type="text" class="form-control" formControlName="color" placeholder="Color" name="color" required="">
                                     </div>
                                 </div>
-                                <div class="col-md-12">
+                                -->
+
+
+				<div class="col-md-12">
                                     <div class="form-group position-relative">
-                                        <label>Sexo</label>
+                                        <label>Tipo</label>
                                         <select class="form-control" formControlName="sexo" placeholder="Sexo" name="sexo" required="">
                                             <option></option>
-                                            <option value="MACHO">Macho</option>
-                                            <option value="HEMBRA">Hembra</option>
+                                            <option value="VACAS">Vacas</option>
+                                            <option value="TOROS">Toros</option>
+                                            <option value="TORETE">Torete</option>
+                                            <option value="VAQUILLAS">Vaquillas</option>
+                                            <option value="BECERRAS">Becerrar</option>
+                                            <option value="BECERROS">Becerros</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group position-relative">
-                                        <label>Registro</label>
-                                        <input type="text" class="form-control" formControlName="registro" placeholder="Registro" name="registro" required="">
+                                        <label>No. Cabezas</label>
+                                        <input type="text" class="form-control" formControlName="registro" placeholder="No.Cabezas" name="registro" required="">
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label>Peso Promedio</label>
+                                        <input type="text" class="form-control" formControlName="pesoNacer" placeholder="Peso Promedio" name="pesoNacer" required="">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group position-relative">
-                                        <label>Peso al Nacer</label>
-                                        <input type="text" class="form-control" formControlName="pesoNacer" placeholder="Peso al Nacer" name="pesoNacer" required="">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group position-relative">
-                                        <label>Peso Destete</label>
-                                        <input type="text" class="form-control" formControlName="pesoDestete" placeholder="Peso al Destete" name="pesoDestete" required="">
+                                        <label>Peso Total</label>
+                                        <input type="text" class="form-control" formControlName="pesoDestete" placeholder="Peso Total" name="pesoDestete" required="">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -182,6 +193,8 @@
                                         </select>
                                     </div>
                                 </div>
+
+                                <!-- 
                                 <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-md-6">
@@ -210,7 +223,7 @@
 											
                                         </div>
                                     </div>
-                                </div>
+                                </div>-->
                                 <!-- <div class="col-md-12">
                                     <div class="form-group position-relative">
                                         <label>Informacion PDF</label>
@@ -218,6 +231,7 @@
                                     </div>
                                 </div> -->
                             </div>
+                             <!-- 
                             <div class="row">
                                 <div class="col-md-12">
                                     <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" 
@@ -258,6 +272,8 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            -->
+
                             <div class="col-lg-12 mb-0">
                                 <button class="btn btn-primary btn-block">Aceptar</button>
                             </div>

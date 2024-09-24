@@ -53,6 +53,7 @@
     "ngx-swiper-wrapper": "^10.0.0",
     "ngx-typed-js": "^2.0.2",
     "ngx-youtube-player": "^9.1.0",
+    "pdfmake": "^0.2.7",
     "rxjs": "~6.6.0",
     "swiper": "^6.3.3",
     "tslib": "^2.0.0",

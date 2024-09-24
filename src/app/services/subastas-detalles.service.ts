@@ -48,5 +48,15 @@ export class SubastasDetallesService {
     validar(id: number): Observable<any> {
         return this.http.put(this.resourceUrl + '/validar/' + id, {}, { observe: 'response' });
     }
+	ganadoraFinal(id: number, params: any): Observable<any> {
+        return this.http.put(this.resourceUrl + '/ganadoraFn/' + id, params, { observe: 'response' });
+	}
+
+ganadoraPdf(id: number, params: any): Observable<any> {
+        return this.http.put(this.resourceUrl + '/ganadorapd/' + id, params, { observe: 'response' });
+        }
+
+
 
 }
+

@@ -50,7 +50,7 @@ import { PagesCrearComponent } from './core/components/pages/crear/crear.compone
 import { BannersComponent } from './core/components/banners/banners.component';
 import { BannersCrearComponent } from './core/components/banners/crear/crear.component';
 import { HistorialEventosComponent } from './core/components/historial-eventos/historial-eventos.component';
-
+import { UrlSeguraComponent } from './core/components/lotes/url/urlsegura';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { RolesGuard } from './shared/guards/roles.guard';
 
@@ -66,6 +66,7 @@ const routes: Routes = [
       { path: 'subastas/en-pista/:subastaId', component: SubastasEnPistaComponent },
       { path: 'tablero', component: TableroClienteComponent },
       { path: 'enlace/:slug', component: PageComponent },
+	{ path: 'lotes/page-contact-detail', component: PageContactDetailComponent },	
       { path: 'historial-eventos', component: HistorialEventosComponent },
     ]
   },  
@@ -112,12 +113,12 @@ const routes: Routes = [
       { path: 'users-devoluciones/:userId', component: UsersDevolucionesComponent },
       { path: 'users-devoluciones/crear/:userId', component: UsersDevolucionCrearComponent },
       { path: 'users-devoluciones/editar/:userId/:id', component: UsersDevolucionCrearComponent },
-      { path: 'lotes/page-contact-detail', component: PageContactDetailComponent },
       { path: 'pujas', component: VerPujasComponent },
       { path: 'pages', component: PagesComponent },
       { path: 'pages/editar/:id', component: PagesCrearComponent },
       { path: 'banners', component: BannersComponent },
       { path: 'banners/editar/:id', component: BannersCrearComponent },
+	{ path: 'lotes/url/urlsegura', component: UrlSeguraComponent }
     ]
   },  
   {
@@ -141,6 +142,7 @@ const routes: Routes = [
   { path: 'auth-login', component: AuthLoginComponent },
   { path: 'auth-re-password', component: AuthRePasswordComponent },
   { path: 'auth-re-password-finish/:token', component: AuthRePasswordFinishComponent },
+  { path: 'lotes/page-contact-detail', component: PageContactDetailComponent },
 ];
 
 @NgModule({

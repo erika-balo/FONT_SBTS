@@ -2,6 +2,57 @@
     padding:150px 0 10px 0;
     padding-top:80px;
 }
+/*Botones Siguientes*/
+.title {
+  margin: 0 0 10px 0 !important;
+}
+.botones-siguientes {
+  margin: 10px 0;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+@media (max-width: 468px) {
+  .btn-lote{
+        padding-inline: .35rem !important;
+        }
+
+}
+.btn-lote {
+  position: relative;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+  padding-block: 0.5rem;
+  padding-inline: 1.25rem;
+  background-color: #111113;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffff;
+  gap: 10px;
+  font-weight: bold;
+  border: 3px solid #ffffff4d;
+  outline: none;
+  overflow: hidden;
+  font-size: 15px;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-lote:hover {
+  transform: scale(1.05);
+  border-color: #fff9;
+}
+
+.btn-lote:hover .icon {
+  transform: translate(4px);
+}
+
 
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
     margin-bottom: 2rem;

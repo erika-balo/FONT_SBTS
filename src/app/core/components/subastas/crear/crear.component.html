@@ -8,38 +8,6 @@
                         <form class="login-form mt-4" (ngSubmit)="onSubmit()" *ngIf="subastaForm" [formGroup]="subastaForm">
                             <div class="row">
                                 <div class="col-md-12">
-									<div class="row">
-										<div class="col-md-8">
-											<label>Fecha Inicio <span class="text-danger">*</span></label>
-											<div class="input-group mb-3">
-												<input type="text" ngbDatepicker #dInicio="ngbDatepicker" class="form-control" formControlName="fechaInicio" placeholder="Fecha Inicio" name="fechaInicio" required="">
-												<div class="input-group-append">
-													<button class="btn btn-outline-secondary calendar" (click)="dInicio.toggle()" type="button"></button>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-4">
-											<ngb-timepicker formControlName="fechaInicioTime"></ngb-timepicker>
-										</div>
-									</div>
-                                </div>
-                                <div class="col-md-12">
-									<div class="row">
-										<div class="col-md-8">
-											<label>Fecha Fin <span class="text-danger">*</span></label>
-											<div class="input-group mb-3">
-												<input type="text" ngbDatepicker #dFin="ngbDatepicker" class="form-control" formControlName="fechaFin" placeholder="Fecha Fin" name="fechaFin" required="">
-												<div class="input-group-append">
-													<button class="btn btn-outline-secondary calendar" (click)="dFin.toggle()" type="button"></button>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-4">
-											<ngb-timepicker formControlName="fechaFinTime"></ngb-timepicker>
-										</div>
-									</div>
-                                </div>
-                                <div class="col-md-12">
                                     <div class="form-group position-relative">
                                         <label>Precio de Salida <span class="text-danger">*</span></label>
                                         <input type="number" class="form-control" formControlName="precioSalida" placeholder="Precio Salida" name="precioSalida" required="">
@@ -53,21 +21,9 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group position-relative">
-                                        <label>Minutos Antes Cerrar <span class="text-danger">*</span></label>
-                                        <input type="number" class="form-control" formControlName="minutosAntesCerrar" placeholder="Minutos Antes Cerrar" name="minutosAntesCerrar" required="">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group position-relative">
-                                        <label>Tiempo Aumenta Fin <span class="text-danger">*</span></label>
-                                        <input type="number" class="form-control" formControlName="tiempoAumentaFin" placeholder="Tiempo Aumenta Fin" name="tiempoAumentaFin" required="">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group position-relative">
                                         <label>Lote <span class="text-danger">*</span></label>
                                         <select class="form-control" formControlName="lote" placeholder="Lote" name="lote" required="">
-                                            <option [value]="lote.id" *ngFor="let lote of lotes">{{ lote.numero }}</option>
+                                            <option [value]="lote.id" *ngFor="let lote of lotes">{{ lote.numero }}: {{ lote.nombre }}</option>
                                         </select>
                                     </div>
                                 </div>

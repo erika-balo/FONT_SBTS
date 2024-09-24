@@ -1,3 +1,4 @@
+
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
@@ -102,7 +103,10 @@ export class VerPujasComponent implements OnInit {
 			console.log(err);
 		});
 	}
+	/*prueba inicio ganadora*/
 
+
+	/*prueba fin ganadora*/
     onPageChange(event: any): void {
         this.page = event;
         this.load();
@@ -121,14 +125,13 @@ export class VerPujasComponent implements OnInit {
         this.sortedField = field;
         this.load();
 	}
-
-	exportCsv(event: any) {
+exportCsv(event: any) {
 		event.preventDefault();
 		this.subastasDetallesService.getDetallesTotal().subscribe(response => {
 			const detalles = response.body;
 			const data = [];
 			if (detalles.length > 0) {
-				detalles.forEach(detalle => {
+				detalles.map(detalle => {
 					const mp = {
 						'id_puja': detalle.id,
 						'numero_lote': detalle.subasta.lote.numero,

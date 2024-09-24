@@ -1,6 +1,7 @@
  <section class="bg-half-170  d-table w-100" id="ranchos">
     <div class="container">
         <a href="#" [routerLink]="['/page/lotes/crear']" class="btn btn-primary">Crear</a>
+	<input type="file"  accept=".xlsx, .xls" class="btn btn-primary"/>
         <form class="login-form mt-4" *ngIf="busquedaForm" [formGroup]="busquedaForm">
             <div class="form-group form-inline">
                 Buscar: <input class="form-control ml-2" type="text" formControlName="busqueda"/>
@@ -10,7 +11,6 @@
             <table class="table mb-0 table-center">
                 <thead class="bg-light">
                     <tr>
-                        <th scope="col"></th>
                         <th scope="col" class="pointer" (click)="sorted('lote.id')">
                             <span>
                                 <i-feather *ngIf="sortedField === 'lote.id' && sortedType === 'ASC'" name="arrow-up" class="fea icon-sm icons"></i-feather>
@@ -40,9 +40,6 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let lote of lotesFiltered | slice: (page-1) * pageSize : page * pageSize">
-                        <td>
-                            <img [src]="lote.archivoPortada && lote.archivoPortada.Location" id="expandedImg" width="120" class="img-fluid rounded" alt="">
-                        </td>
                         <td>{{ lote.id }}</td>
                         <td *ngIf="isAdmin">
                             <span (click)="inactivar(lote)" *ngIf="lote.activo" class="badge badge-success text-white pointer">Activo</span>

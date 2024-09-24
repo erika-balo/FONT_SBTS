@@ -1,14 +1,14 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
-
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store, select } from '@ngrx/store';
 import { AppState, Logout, currentUser } from 'app/store';
-
+import { ConfirmacionComponent } from 'app/core/components/generales/confirmacion/confirmacion.component';
 import { Subject } from 'rxjs';
 import { delay, filter, take, takeUntil } from 'rxjs/operators'
 
-import { LotesService, ToastService, ConfigGeneralesService } from 'app/services';
+import { LotesService, ToastService, SubastasService, ConfigGeneralesService } from 'app/services';
 
 @Component({
   selector: 'app-header',
@@ -18,7 +18,6 @@ import { LotesService, ToastService, ConfigGeneralesService } from 'app/services
 export class HeaderComponent implements OnInit {
 
 	@Input() navClass: string;
-
 	user: any;
 	linkCatalogo: string;
 	linkTutoriales: string;
@@ -31,7 +30,9 @@ export class HeaderComponent implements OnInit {
         private _fb: FormBuilder,
 		private router: Router,
 		private store: Store<AppState>,
+		private subastasService: SubastasService,
 		private toastService: ToastService,
+		private modalService: NgbModal,
 		private lotesService: LotesService,
 		private configGeneralesService: ConfigGeneralesService
 	) {
@@ -86,6 +87,7 @@ export class HeaderComponent implements OnInit {
 	  const numero = this.busquedaForm['controls'].numero.value;
 	  this.lotesService.byNumero(numero).subscribe(response => {
 		const data = response.body;
+		console.log(data);
 		if (data.id) {
 			this.router.navigate(['/lotes/ver-landing', data.id]);
 		} else {
@@ -224,4 +226,22 @@ export class HeaderComponent implements OnInit {
 		this.user = null;
         this.router.navigate(['/']);
     }
+/**/
+ loteActivo(): void {
+                this.subastasService.getEnPista().subscribe(response => {
+                        const data = response.body;
+                        if (data === null) {
+                              const modalRef = this.modalService.open(ConfirmacionComponent);
+			modalRef.componentInstance.texto = 'En este momento no se encuentra un lote en pista';
+                        }else{
+				this.router.navigate(['/lotes/page-contact-detail/']);
+			}
+                },
+                err => {
+                        console.log(err);
+                });
+        }
+/**/
+
+
 }

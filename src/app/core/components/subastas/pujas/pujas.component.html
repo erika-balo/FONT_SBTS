@@ -100,6 +100,9 @@
 						</th>
                         <th scope="col">Estatus de la subasta del Lote</th>
                         <th scope="col"></th>
+			 <th scope="col">Asignar Ganadora</th>
+			 <th scope="col">Venta en piso</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -119,6 +122,14 @@
 							<button class="btn btn-danger" (click)="invalidar(detalle)" *ngIf="detalle.estatus !== 'INVALIDA'">Invalidar</button>
 							<button class="btn btn-success" (click)="validar(detalle)" *ngIf="detalle.estatus === 'INVALIDA'">Validar</button>
 						</td>
+						<td>
+							<button class="btn btn-success" (click)="ganadoraFinal(detalle)" *ngIf="detalle.estatus === 'GANADORA'">Ganadora</button>
+							<button class="btn btn-danger"  (click)= "ganadoraFinal(detalle)"*ngIf="detalle.estatus !== 'GANADORA'">No Ganadara</button>
+						</td>
+
+						<td>
+                                                        <button class="btn btn-danger" (click)="exportCsv(detalle)">PDF</button>
+                                                </td>
                     </tr>
                 </tbody>
             </table>

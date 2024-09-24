@@ -32,9 +32,9 @@ export class SubastasEnPistaSubastadorComponent implements OnInit, OnDestroy {
 	resourceUrl = environment.URL_IMAGENES;
 
     subastaId: number;
-
+	editMode: boolean = false;
 	pujaForm: FormGroup;
-	
+	subastaForm: FormGroup;	
 	subastasEnPista: any[];
 
 	subasta: any;
@@ -81,6 +81,7 @@ export class SubastasEnPistaSubastadorComponent implements OnInit, OnDestroy {
 			this.load();
 			this.createForm();
 
+
 			const url = new URL(environment.MERCURE_URL);
 			url.searchParams.append('topic', this.topicSubasta);
 
@@ -96,6 +97,8 @@ export class SubastasEnPistaSubastadorComponent implements OnInit, OnDestroy {
 				} else if (data.accion === 'invalidar') {
 					this.load();
 				} else if (data.accion === 'validar') {
+					this.load();
+				}else if (data.accion === 'editada') {
 					this.load();
 				}
 			};
@@ -116,36 +119,13 @@ export class SubastasEnPistaSubastadorComponent implements OnInit, OnDestroy {
 	load(): void {
 		this.subastasService.findOneCompleto(this.subastaId).subscribe(response => {
 			this.subasta = response.body;
+			console.log(this.subasta);
 			this.diferenciaMinimaOferta = this.subasta.diferenciaMinimaOferta;
 			this.subastaEnPista = this.subasta.estatus === 'ABIERTO' || this.subasta.estatus === 'EN_PISTA';
+			this.createFormlote();
 			this.loadDetalles();
-			if (this.subastaEnPista) {
-                const now = moment();
-                const newHora = moment(this.subasta.fechaFin);
-                const diff = newHora.diff(now, 'seconds');
-				this.subasta.tiempo = diff;
-				const duration = moment.duration({ 'seconds': this.subasta.tiempo });
-				const days = duration.days().toString();
-				const hours = duration.hours().toString();
-				const minutes = duration.minutes().toString();
-				const seconds = duration.seconds().toString();
-				this.subasta.tiempoFormat = (days.length < 2 ? '0' + days : days) + ':' + (hours.length < 2 ? '0' + hours : hours) + ':' + (minutes.length < 2 ? '0' + minutes : minutes) + ':' + (seconds.length < 2 ? '0' + seconds : seconds);
+			this.editMode = true;
 
-                const time = timer(1000, 1000)
-                    .pipe(takeUntil(this._unsubscribeAll))
-                    .subscribe(res => {
-                        this.subasta.tiempo--;
-						const duration = moment.duration({ 'seconds': this.subasta.tiempo });
-						const days = duration.days().toString();
-						const hours = duration.hours().toString();
-						const minutes = duration.minutes().toString();
-						const seconds = duration.seconds().toString();
-						this.subasta.tiempoFormat = (days.length < 2 ? '0' + days : days) + ':' + (hours.length < 2 ? '0' + hours : hours) + ':' + (minutes.length < 2 ? '0' + minutes : minutes) + ':' + (seconds.length < 2 ? '0' + seconds : seconds);
-                        if (this.subasta.tiempo <= 0) {
-                            time.unsubscribe();
-                        }
-                    });
-			}
 		},
 		err => {
 			console.log(err);
@@ -220,7 +200,16 @@ export class SubastasEnPistaSubastadorComponent implements OnInit, OnDestroy {
             monto: [null, Validators.required],
 		});
 	}
-
+	createFormlote(): void {
+		this.subastaForm = this._fb.group({
+			precioSalida: [this.subasta.precioSalida, Validators.required],
+			sexo:[this.subasta.lote.sexo, Validators.required],
+			registro:[this.subasta.lote.registro, Validators.required],
+			pesoDestete:[this.subasta.lote.pesoDestete, Validators.required],
+			diferenciaMinimaOferta: [this.subasta.diferenciaMinimaOferta, Validators.required],
+			subastasPreciosFijos: this._fb.array([])
+		});
+	}
 	isEnPista(): boolean {
 		return this.subasta && (this.subasta.estatus === 'ABIERTO' || this.subasta.estatus === 'EN_PISTA');
 	}
@@ -295,7 +284,25 @@ export class SubastasEnPistaSubastadorComponent implements OnInit, OnDestroy {
 			});
 		}
     }
-
+	onSubmitlote(): void {
+		if (this.subastaForm.valid) {
+			const params = this.subastaForm.value;
+			this.subasta.precioSalida = params.precioSalida;
+			this.subasta.diferenciaMinimaOferta = params.diferenciaMinimaOferta;
+			this.subasta.lote.id = params.lote;
+			this.subasta.evento.id = params.evento;
+			
+			this.subastasService.edit(this.subasta.id, params).subscribe(
+					response => {
+						console.log('Subasta actualizada correctamente', response);
+						this.editMode = false;
+					},
+					error => {
+						console.error('Error al actualizar la subasta', error);
+					}
+				);
+		}
+	}
 	registrarPuja(): void {
 		const params = this.pujaForm.value;
 		params.topic = this.topicSubasta;

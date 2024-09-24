@@ -1,0 +1,135 @@
+<div class="position-relative">
+	<div class="shape overflow-hidden text-white">
+		<svg viewBox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path d="M0 48H1437.5H2880V0H2160C1442.5 52 720 0 720 0H0V48Z" fill="currentColor"></path>
+		</svg>
+	</div>
+</div>
+<section class="section">
+	<div class="container">
+		<h4 class="title ">LOTE {{lote.numero }}: {{lote.nombre }} </h4>
+
+		<div class="row">
+			<div class="col-md-5">
+				<div class="slider slider-for">
+					<a>
+						
+						<img [src]="lote.archivoPortada.Location" id="expandedImg" class="img-fluid rounded" alt="">
+					</a>
+				</div>
+
+				<div class="row mt-4 pt-2 " style="display:grid; grid-template-columns: repeat(2, 1fr); padding: 1rem;" >
+                                                <img  src="https://i.ibb.co/Gsd5bCW/info.png" alt="" style="width:100%; margin-bottom:10px; margin-left:5px;" >
+                                                <img  src="https://i.ibb.co/TB4Jqg6/video.png" alt="" style="width:100%; margin-left:5px; margin-bottom:10px;" >
+
+                                        </div>
+			</div>
+			<div class="col-md-7 mt-4 mt-sm-0 pt-2 pt-sm-0">
+				<div class="section-title ml-md-4">
+					<ul class="list-unstyled text-warning h5 mb-0">
+					</ul>
+					<!-- IMAGENES CATALAGO Y VIDEO  prueba-->
+					
+					<!--cierre de catalogo y video-->
+					<div class="pujaactual" *ngIf="isEnPista()" style="margin-bottom:20px;">
+						<h2 class> PUJA ACTUAL: {{ lastPuja ? (lastPuja.monto | currency) : (lastSubasta.precioSalida | currency) }}</h2>
+					</div>
+					<!--CAJA DE SUBASTA-->
+					<!-- <br /> -->
+
+
+					<!--<button *ngIf="isEnPista()" (click)="pujaAqui()" class="btn btn-primary btn-block">PUJA AQUI</button> -->
+
+					<!-- Prueba de boton desde ver-landing.component 28/09/2022
+					<button (click)="pujaAqui()" class="btn btn-primary btn-block">PUJA AQUI</button>
+
+					<button *ngIf="isEnPista()" (click)="pujaAqui()" class="btn btn-primary btn-block">TEST2</button> -->
+					<section *ngIf="user">
+                                        <div *ngFor="let subastaDetalle of subastasDetalles">
+                                                <h4 style="font-weight: bold; color:#549f63" *ngIf="user.id === subastaDetalle.user.id && subastaDetalle.estatus== 'GANADORA'">¡TIENES LA POSTURA LIDER!</h4>
+                                        </div>
+
+                                        </section>
+
+
+
+                                        <section *ngIf="user">
+                                        <div *ngFor="let subastaDetalle of subastasDetalles | slice:0:1; let i=index">
+                                                <h4 style="font-weight: bold; color:#dc0a0a" *ngIf="user.id !== subastaDetalle.user.id">¡VAS FUERA, INGRESA UNA POSTURA!</h4>
+                                        </div>
+
+                                        </section>
+
+					<!--BOTON ACTUALIZAR TEST-->
+					<div class="divboton">
+						<button class="actualizar" (click)="reload()">Actualizar Posturas</button>
+					</div>
+
+					<p *ngIf="isEnPista()" class="text1">Ingresa tu puja en la caja de texto o en los botones inferiores</p>
+					<form class="form-inline navbar-light my-2 my-lg-0" (ngSubmit)="onSubmit()" *ngIf="pujaForm && isEnPista()" [formGroup]="pujaForm">
+						<input class="form-control mr-sm-2" type="text" mask="separator.0" thousandSeparator="," formControlName="monto" placeholder="Escriba el monto" style='width:60%; margin-bottom: 20px;'
+						[ngClass]="{ 'is-invalid': form.monto.touched && form.monto.errors, 'is-valid': form.monto.touched && !form.monto.errors }">
+						<div *ngIf="form.monto.touched && form.monto.errors" class="invalid-feedback">
+							<div *ngIf="form.monto.errors.required">Monto es requerido</div>
+							<div *ngIf="form.monto.errors.diferenciaMinimaOferta">El monto debe ser mayor o igual a {{ proximaMinimaOferta }}</div>
+						</div>
+						<button [disabled]="pujaForm.invalid" class="btn btn-primary" type="submit" style='margin-bottom: 20px;'>Enviar puja</button>
+					</form>
+					<!--SUMATORIA DE LA PUJA ACTUAL + VALOR DE UMBRAL-->
+
+					<p *ngIf="isEnPista()" class="text1" style="font-weight:900;">Puja mínima válida: {{ proximaMinimaOferta | currency }}</p>
+
+					<!--BOTONES CONFIGURABLES PARA PUJAR AUTOMATICAMENTE-->
+					<div *ngIf="isEnPista()" class="mt-4 pt-2" style=" max-width: 100%; margin-bottom:20px;">
+						<div *ngIf="isEnPista()">
+							<a href="javascript:void(0)" *ngFor="let precioFijo of lastSubasta.subastasPreciosFijos" (click)="cantidadFija(precioFijo.cantidad)" style='height:35px; margin-left:10px; max-width: 100%;' id="boton"
+								class="btn btn-primary"> + {{ formatCantidad(precioFijo.cantidad) | currency }}</a>
+						</div>
+					</div>
+
+					
+
+					<div *ngIf="isEnPista()">
+						<h4 style="font-weight: bold; color:#856a47">Historial de pujas</h4>
+					</div>
+					<!--empieza historial pujas-->
+					<div class="datagrid" style="max-width:100%;" *ngIf="isEnPista()">
+						<table style="max-width:100%;" class="tabla1">
+							<thead>
+								<tr>
+									<th>Nombre</th> <!--NOMBRE DEL SUBASTADOR CENSURADO SÓLO APARECE EL NOMBRE DEL SUBASTADOR LOGEADO-->
+									<th>Monto Puja</th>
+									<th>Fecha y Hora</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="alt" *ngFor="let subastaDetalle of subastasDetalles">
+									<td *ngIf="user">
+										<span *ngIf="subastaDetalle.user.id === user.id">
+											{{ subastaDetalle.user.info.nombre }}
+										</span>
+										<span *ngIf="subastaDetalle.user.id !== user.id">
+											****{{ subastaDetalle.user.info.nombre.trim().substr(-2) }}
+										</span>
+									</td>
+									<td *ngIf="!user">
+										<span>
+											****{{ subastaDetalle.user.info.nombre.trim().substr(-2) }}
+										</span>
+									</td>
+									<td>
+										{{ subastaDetalle.monto | currency }}
+									</td>
+									<td> 
+										{{ subastaDetalle.creado | date: 'dd/MM/yyyy hh:mm a' }}
+									</td> <!--formato hora y fecha-->
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<!--Termina historia pujas-->		
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

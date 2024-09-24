@@ -43,6 +43,22 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group position-relative">
+                                                <label>Foto Portada</label>
+                                                <input type="file" (change)="handleFile($event, i)" class="form-control-file" id="fotoPortada">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3" *ngIf="evento.archivoPortada && !fotoPortada">
+                                            <img [src]="evento.archivoPortada.Location" class="img-fluid" />
+										</div>
+										<div class="col-md-3" *ngIf="fotoPortada">
+                                            <img [src]="sanitizeImagen(fotoPortada)" class="img-fluid" />
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-lg-12 mt-2">
                                 <button class="btn btn-primary btn-block">Aceptar</button>
@@ -54,3 +70,4 @@
         </div>
     </div>
 </section>
+

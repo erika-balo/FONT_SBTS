@@ -4,8 +4,25 @@
 			<div class="col-lg-12 text-center">
 			<div class="page-next-level">
 				<h4 class="title">LOTE {{ subasta.lote.numero }}: {{ subasta.lote.nombre }} </h4>
-				<div class="page-next">
+				<!--Inicio de botones de ir a en pista-->
+				<div class="botones-seccion">
+					<div class="boton-enPista">
+						<a  (click)="reAqui()" class="btn btn-primary" id="botones">Ir a Lote en Pista</a>
+					</div>
+					<div class="botones-siguientes">
+						<button (click)="navegarAnterior()" class="btn-lote">
+						<svg xmlns="http://www.w3.org/2000/svg" height="1.5rem" viewBox="0 0 512 512" class="icon"><style>svg{fill:#ffffff}</style><path d="M512 256A256 256 0 1 0 0 256a256 256 0 1 0 512 0zM217.4 376.9L117.5 269.8c-3.5-3.8-5.5-8.7-5.5-13.8s2-10.1 5.5-13.8l99.9-107.1c4.2-4.5 10.1-7.1 16.3-7.1c12.3 0 22.3 10 22.3 22.3l0 57.7 96 0c17.7 0 32 14.3 32 32l0 32c0 17.7-14.3 32-32 32l-96 0 0 57.7c0 12.3-10 22.3-22.3 22.3c-6.2 0-12.1-2.6-16.3-7.1z"/></svg>
+						Lote Anterior
+						</button>
+                        			<button (click)="navegarSiguiente()"  class="btn-lote">Lote Siguiente
+						<svg xmlns="http://www.w3.org/2000/svg" height="1.5rem" viewBox="0 0 512 512" class="icon"><style>svg{fill:#ffffff}</style><path d="M0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM294.6 135.1l99.9 107.1c3.5 3.8 5.5 8.7 5.5 13.8s-2 10.1-5.5 13.8L294.6 376.9c-4.2 4.5-10.1 7.1-16.3 7.1C266 384 256 374 256 361.7l0-57.7-96 0c-17.7 0-32-14.3-32-32l0-32c0-17.7 14.3-32 32-32l96 0 0-57.7c0-12.3 10-22.3 22.3-22.3c6.2 0 12.1 2.6 16.3 7.1z"/></svg>
+						</button>
+					</div>
+					
 				</div>
+                                <p id="cambiar" style="font-size:1.2rem;"><strong>Esta Subasta está: {{ subasta.estatus }}</strong></p>
+				<a class="pre" *ngIf="pla()" >Da clic en el botón para ir a la actual subasta en pista</a>
+				<!--Fin de botones de ir a en pista-->
 			</div>
 			</div>
 		</div>
@@ -18,31 +35,27 @@
 		</svg>
 	</div>
 </div>
+
+
+
+
+
+
 <section class="section">
 	<div class="container" *ngIf="subasta">
 		<div class="row">
 			<div class="col-md-5">
-				<div class="slider slider-for">
-					<a>
-						<app-image-viewer [imageURL]="subasta.lote.archivoPortada.Location" [open]="viewerOpenPortada" (close)="viewerOpenPortada = false"></app-image-viewer>
-						<img [src]="subasta.lote.archivoPortada.Location" (click)="viewerOpenPortada = true" id="expandedImg" class="img-fluid rounded" alt="">
-					</a>
-				</div>
-				<div class="slider slider-nav mt-2 d-flex">
-					<div *ngFor="let img of subasta.lote.lotesFotos;let i = index">
-						<app-image-viewer [imageURL]="img.archivoFoto.Location" [open]="viewerOpen[i]" (close)="viewerOpen[i] = false"></app-image-viewer>
-						<img [src]="img.archivoFoto.Location" (click)="viewerOpen[i] = true" class="img-fluid" alt=""
-						style="width: 150px;">
-					</div>
-				</div>
+				
+
+				 <!-- IMAGENES CATALAGO Y VIDEO-->
+                                        <div class="row mt-4 pt-2" id="imagenesch" style="display: grid; grid-template-columns: repeat(2, 1fr); padding: 1rem;">
+                                                <img (click)="openPdf()"   src="assets/images/CATALOGOBAN.png" alt="" style="width: 100%; margin-bottom: 10px; cursor: pointer;" >
+                                                <img (click)="openvideo()" src="assets/images/VIDEOBAN.png" alt="" style="width: 100%; margin-bottom: 10px; cursor: pointer;">
+
+                                        </div>
+
 				<div class="card mb-2">
 					<div class="card-body">
-					<p style="font-size:1.2rem;"><strong>Estatus: {{ subasta.lote.estatus }}</strong></p>
-					<p style="font-size:1.2rem;">
-						<strong>
-							Postura Actual: {{ lastPuja ? (lastPuja.monto | currency) : (subasta.precioSalida | currency) }}
-						</strong>
-					</p>
 					<p>Color: {{ subasta.lote.color }}</p>
 					<p>Sexo: {{ subasta.lote.sexo }}</p>
 					<p>Fecha de Nacimiento: {{ subasta.lote.fechaNacimiento | date: 'yyyy-MM-dd' }}</p>
@@ -58,11 +71,93 @@
 				<div class="section-title ml-md-4">
 					<ul class="list-unstyled text-warning h5 mb-0">
 					</ul>
-					<!-- IMAGENES CATALAGO Y VIDEO-->
-					<div class="row mt-4 pt-2" id="imagenesch" >
-						<img (click)="openPdf()" src="assets/images/CATALOGOBAN.png" alt="" style="max-width:100%; margin-bottom:10px; margin-left:5px;" >
-						<img (click)="openVideo()" src="assets/images/VIDEOBAN.png" alt="" style="max-width:100%; margin-left:5px; margin-bottom:10px;" >
+					<!--Seccion subasta inicio-->
+					<div class="pujaactual" *ngIf="isEnPista()" style="margin-bottom:20px;">
+						<h2> PUJA ACTUAL: {{ lastPuja ? (lastPuja.monto | currency) : (subasta.precioSalida | currency) }}</h2>
 					</div>
+					  <!--BOTON ACTUALIZAR TEST-->
+					<div class="divbotones">
+                                        <div class="divboton">
+                                        <button class="actualizar" (click)="reload()">Actualizar Posturas</button>
+                                        </div>
+					<!--CAJA DE SUBASTA-->
+					<div class="actualizar btn-relog" *ngIf="plu()" style="margin-bottom:20px;">
+						{{ subasta.tiempoFormat }}
+					</div>
+					</div>
+					<!-- <br /> -->
+					<!--<button *ngIf="isEnPista()" (click)="pujaAqui()" class="btn btn-primary btn-block">PUJA AQUI</button> -->
+
+					<!-- Prueba de boton desde ver-landing.component 28/09/2022
+					<button (click)="pujaAqui()" class="btn btn-primary btn-block">PUJA AQUI</button>
+
+					<button *ngIf="isEnPista()" (click)="pujaAqui()" class="btn btn-primary btn-block">TEST2</button> -->
+					<p *ngIf="isEnPista() && subasta.activo" class="text1">Ingresa tu puja en la caja de texto o en los botones inferiores</p>
+					<form class="form-inline navbar-light my-2 my-lg-0" (ngSubmit)="onSubmit()" *ngIf="pujaForm && isEnPista() && subasta.activo" [formGroup]="pujaForm">
+						<input id="enviar-monto" class="form-control mr-sm-2" type="text" mask="separator.0" thousandSeparator="," formControlName="monto" placeholder="Escriba el monto" style='width:80%; margin-bottom: 20px;'
+						[ngClass]="{ 'is-invalid': form.monto.touched && form.monto.errors, 'is-valid': form.monto.touched && !form.monto.errors }">
+						<div *ngIf="form.monto.touched && form.monto.errors" class="invalid-feedback">
+							<div *ngIf="form.monto.errors.required">Monto es requerido</div>
+							<div *ngIf="form.monto.errors.diferenciaMinimaOferta">El monto debe ser mayor o igual a {{ proximaMinimaOferta }}</div>
+						</div>
+						<button [disabled]="pujaForm.invalid" class="btn btn-primary" id="btn-enviar" type="submit" style='margin-bottom: 20px;'>Enviar puja</button>
+					</form>
+					<!--SUMATORIA DE LA PUJA ACTUAL + VALOR DE UMBRAL-->
+
+					<p *ngIf="isEnPista() && subasta.activo" class="text1" style="font-weight:900;">Puja mínima válida: {{ proximaMinimaOferta | currency }}</p>
+
+					<!--BOTONES CONFIGURABLES PARA PUJAR AUTOMATICAMENTE-->
+					<div *ngIf="isEnPista() && subasta.activo" class="mt-4 pt-2" style="margin-bottom:20px; max-width: 100%;">
+						<div *ngIf="isEnPista() && subasta.activo">
+							<a href="javascript:void(0)" *ngFor="let precioFijo of subasta.subastasPreciosFijos" (click)="cantidadFija(precioFijo.cantidad)" style='margin-top: 20px; height:35px; margin-left:10px; max-width: 100%;' id="boton"
+								class="btn btn-primary"> + {{ formatCantidad(precioFijo.cantidad) | currency }}</a>
+						</div>
+					</div>
+					<!--Seccion subasta fin-->
+
+					
+
+
+					<!--Seccion Historia pujas inicio-->
+					<div id="textohist" *ngIf="isEnPista()">
+						<h4 style="font-weight: bold; color:#856a47">Historial de pujas</h4>
+					</div>
+					<div class="datagrid" style="max-width:100%;" *ngIf="isEnPista()">
+						<table style="max-width:100%;" class="tabla1">
+							<thead>
+								<tr>
+									<th>Nombre</th> <!--NOMBRE DEL SUBASTADOR CENSURADO SÓLO APARECE EL NOMBRE DEL SUBASTADOR LOGEADO-->
+									<th>Monto Puja</th>
+									<th>Fecha y Hora</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="alt" *ngFor="let subastaDetalle of subastasDetalles">
+									<td *ngIf="user">
+										<span *ngIf="subastaDetalle.user.id === user.id">
+											{{ subastaDetalle.user.info.nombre }}
+										</span>
+										<span *ngIf="subastaDetalle.user.id !== user.id">
+											********{{ subastaDetalle.user.info.nombre.trim().substr(-2) }}
+										</span>
+									</td>
+									<td *ngIf="!user">
+										<span>
+											********{{ subastaDetalle.user.info.nombre.trim().substr(-2) }}
+										</span>
+									</td>
+									<td>
+										{{ subastaDetalle.monto | currency }}
+									</td>
+									<td> 
+										{{ subastaDetalle.creado | date: 'dd/MM/yyyy hh:mm a' }}
+									</td> <!--formato hora y fecha-->
+								</tr>
+							</tbody>
+						</table>
+					</div>
+	
+					<!--Seccion Historia pujas fin-->
 					<!--ARBOL GENEALÓGICO CONFIGURABLE-->
 					<div class="arbol" style="max-width:100%;">
 						<div class="arbol-nodo">
@@ -118,73 +213,24 @@
 							</div>
 						</div>
 					</div>
-					<div id="textohist" *ngIf="isEnPista()">
-						<h4 style="font-weight: bold; color:#856a47">Historial de pujas</h4>
-					</div>
-					<div class="datagrid" style="max-width:100%;" *ngIf="isEnPista()">
-						<table style="max-width:100%;" class="tabla1">
-							<thead>
-								<tr>
-									<th>Nombre</th> <!--NOMBRE DEL SUBASTADOR CENSURADO SÓLO APARECE EL NOMBRE DEL SUBASTADOR LOGEADO-->
-									<th>Monto Puja</th>
-									<th>Fecha y Hora</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr class="alt" *ngFor="let subastaDetalle of subastasDetalles">
-									<td *ngIf="user">
-										<span *ngIf="subastaDetalle.user.id === user.id">
-											{{ subastaDetalle.user.info.nombre }}
-										</span>
-										<span *ngIf="subastaDetalle.user.id !== user.id">
-											********{{ subastaDetalle.user.info.nombre.trim().substr(-2) }}
-										</span>
-									</td>
-									<td *ngIf="!user">
-										<span>
-											********{{ subastaDetalle.user.info.nombre.trim().substr(-2) }}
-										</span>
-									</td>
-									<td>
-										{{ subastaDetalle.monto | currency }}
-									</td>
-									<td> 
-										{{ subastaDetalle.creado | date: 'dd/MM/yyyy hh:mm a' }}
-									</td> <!--formato hora y fecha-->
-								</tr>
-							</tbody>
-						</table>
-					</div>
-					<div class="pujaactual" *ngIf="isEnPista()" style="margin-bottom:20px;">
-						<h2> PUJA ACTUAL: {{ lastPuja ? (lastPuja.monto | currency) : (subasta.precioSalida | currency) }}</h2>
-					</div>
-					<!--CAJA DE SUBASTA-->
-					<div class="cronos1 justify-content-center" *ngIf="isEnPista()" style="margin-bottom:20px;">
-						{{ subasta.tiempoFormat }}
-					</div>
-					<!-- <br /> -->
-					<!-- <button *ngIf="isEnPista()" (click)="pujaAqui()" class="btn btn-primary btn-block">PUJA AQUI</button> -->
-					<p *ngIf="isEnPista() && subasta.activo" class="text1">Ingresa tu puja en la caja de texto o en los botones inferiores</p>
-					<form class="form-inline navbar-light my-2 my-lg-0" (ngSubmit)="onSubmit()" *ngIf="pujaForm && isEnPista() && subasta.activo" [formGroup]="pujaForm">
-						<input class="form-control mr-sm-2" type="text" mask="separator.0" thousandSeparator="," formControlName="monto" placeholder="Escriba el monto" style='width:80%; margin-bottom: 20px;'
-						[ngClass]="{ 'is-invalid': form.monto.touched && form.monto.errors, 'is-valid': form.monto.touched && !form.monto.errors }">
-						<div *ngIf="form.monto.touched && form.monto.errors" class="invalid-feedback">
-							<div *ngIf="form.monto.errors.required">Monto es requerido</div>
-							<div *ngIf="form.monto.errors.diferenciaMinimaOferta">El monto debe ser mayor o igual a {{ proximaMinimaOferta }}</div>
-						</div>
-						<button [disabled]="pujaForm.invalid" class="btn btn-primary" type="submit" style='margin-bottom: 20px;'>Enviar puja</button>
-					</form>
-					<!--SUMATORIA DE LA PUJA ACTUAL + VALOR DE UMBRAL-->
+				 <div class="card mb-2 pc">
+                                        <div class="card-body">
+                                        <p>Color: {{ subasta.lote.color }}</p>
+                                        <p>Sexo: {{ subasta.lote.sexo }}</p>
+                                        <p>Fecha de Nacimiento: {{ subasta.lote.fechaNacimiento | date: 'yyyy-MM-dd' }}</p>
+                                        <p>No. de Registro: {{ subasta.lote.registro }}</p>
+                                        <p>Peso al Nacer: {{ subasta.lote.pesoNacer }}</p>
+                                        <p>Peso al Destete: {{ subasta.lote.pesoDestete }}</p>
+                                        <p>Descripción: </p>
+                                        <div [innerHTML]="subasta.lote.descripcion"></div>
+                                        </div>
+                                </div>
 
-					<p *ngIf="isEnPista() && subasta.activo" class="text1" style="font-weight:900;">Puja mínima válida: {{ proximaMinimaOferta | currency }}</p>
 
-					<!--BOTONES CONFIGURABLES PARA PUJAR AUTOMATICAMENTE-->
-					<div *ngIf="isEnPista() && subasta.activo" class="mt-4 pt-2" style="margin-bottom:20px; max-width: 100%;">
-						<div *ngIf="isEnPista() && subasta.activo">
-							<a href="javascript:void(0)" *ngFor="let precioFijo of subasta.subastasPreciosFijos" (click)="cantidadFija(precioFijo.cantidad)" style='margin-top: 20px; height:35px; margin-left:10px; max-width: 100%;' id="boton"
-								class="btn btn-primary"> + {{ formatCantidad(precioFijo.cantidad) | currency }}</a>
-						</div>
-					</div>
+
+
+
+
 				</div>
 			</div>
 		</div>

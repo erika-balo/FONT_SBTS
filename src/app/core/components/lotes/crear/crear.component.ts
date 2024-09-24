@@ -17,6 +17,8 @@ import { delay, filter, take, takeUntil } from 'rxjs/operators'
 
 import { environment } from 'app/../environments/environment';
 
+import * as XLSX from 'xlsx';
+
 @Component({
     selector: 'app-lotes-crear',
     templateUrl: './crear.component.html',
@@ -162,6 +164,7 @@ export class LotesCrearComponent implements OnInit, OnDestroy {
             });
         }
     }
+
 
     createForm(): void {
         this.loteForm = this._fb.group({
@@ -327,3 +330,4 @@ export class LotesCrearComponent implements OnInit, OnDestroy {
     }
 
 }
+
